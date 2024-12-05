@@ -28,7 +28,19 @@ O projeto Banco de Tintas possui como principal objetivo captar restos de tintas
 ![tela_adm](https://github.com/user-attachments/assets/7bcee7c8-5844-43d1-96da-5e9ad1245a09)
 
 ### Tela de Usuário:
-![tela_usuario](https://github.com/user-attachments/assets/7035f4a1-b193-4bf2-99a4-9001b6dccd2f
+![tela_usuario](https://github.com/user-attachments/assets/162e46fe-12f6-4429-9944-2c5d768c3984)
+
+
+## Desenvolvimento:
+O projeto foi desenvolvido por intermédio da faculdade de tecnologia de Jundiaí (Fatec Jundiaí) nas disciplinas de Interação Humano Computador, Linguagem de Programação de Scripts, Engenharia de Software e Banco de Dados pelos estudantes:
+
+[Kamylle Victoria Santos Bellini](https://github.com/kamyllevictoria)  
+[Kleber Victor Lemes Santos](https://github.com/KleberV10)  
+[Nicole Ukumura Charalae](https://github.com/NicoleCharalae)  
+[Sarah de Jesus Lima](https://github.com/ImNotSarah)
+
+
+
 
 ## Como Executar o Projeto
 1. **Clone o repositório:**
