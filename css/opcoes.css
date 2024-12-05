@@ -1,0 +1,183 @@
+/* Estilo de alto contraste */
+body.high-contrast{
+  background-color: black;
+}
+
+body.high-contrast div.content-wrapper {
+  background-color: black;
+}
+
+body.high-contrast .product-card{
+  background-color: #8E9BE8;
+  color: black;
+}
+
+body.high-contrast .btn_card{
+  background-color: black !important;
+  color: #8E9BE8 !important;
+}
+
+body.high-contrast a.page-link{
+  color: black;
+} 
+
+.active>.page-link, .page-link.active {
+  color: white !important;
+  background-color: black !important;
+  border-color: white !important;
+}
+
+body.high-contrast .justify-content-between,
+.col-md-3,
+.fw-bold,
+.form-check-label, h5 {
+  color: #8E9BE8;
+}
+
+body.high-contrast h2.text-center{
+  color: #8E9BE8 !important;
+}
+
+body.high-contrast #modalContainer{
+  background-color: black !important;
+}
+body.high-contrast .text_purple{
+  color: #8E9BE8 !important;
+}
+body.high-contrast .btn-purple-editar{
+  background-color: #8E9BE8;
+  color: black;
+}
+/* ------------------------------------- */
+
+
+
+.content-wrapper {
+  background-color: #8eb041;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+body{
+  background-color: #8eb041;
+}
+.product-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  text-align: center;
+}
+.product-card img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+.btn-interest {
+  background-color: #84469b;
+  color: white;
+  border: none;
+}
+
+.btn-interest:hover {
+  background-color: #cbb4d3;
+  color: black;
+}
+
+.pagination .page-link {
+  color: #84469b;
+}
+
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    color: #ffffff; /* Cor do texto */
+    background-color: #84469b;
+    border-color: #84469b;
+}
+
+/* Estava na tag style -----------------------------*/
+footer {
+  background-color: #f8f9fa;
+  padding: 40px 0;
+  width: 100%; /* Garante que o footer ocupe toda a largura */
+  margin: 0; /* Remove qualquer margem extra */
+  position: relative;
+  left: 0;
+}
+
+.btn-interest {
+  background-color: #84469b;
+  color: white;
+  border: none;
+}
+
+.btn-interest:hover {
+  background-color: #cbb4d3;
+  color: black;
+}
+
+.input-small {
+  width: 200px;
+}
+
+.pad_bottom_5 {
+  padding-bottom: 5px;
+}
+
+/*CONTAINER PARA ALTERAR TINTA*/
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn-purple-editar {
+  background-color: #84469b;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.btn-purple-editar:hover {
+  background-color: #cbb4d3;
+  color: black;
+}
+
+.container-green {
+  display: none;
+  background-color: #8eb041;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 1001;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-background {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}

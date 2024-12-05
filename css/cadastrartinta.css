@@ -1,0 +1,173 @@
+/* Estilo de alto contraste */
+body.high-contrast .main-content {
+  background-color: black;
+}
+body.high-contrast .bg_lilac {
+  background-color: #8E9BE8;
+}
+body.high-contrast .menu_text {
+  color: black;
+}
+body.high-contrast .text_green_2{
+  color: #8E9BE8;
+}
+body.high-contrast .sidebar {
+  background-color: #8E9BE8;
+}
+body.high-contrast .link_bg_adm{
+  background-color: black !important;
+  color: #8E9BE8 !important;
+}
+body.high-contrast .link_bg_adm:hover{
+  background-color: #4E4E4E !important;
+}
+body.high-contrast .btn-green{
+  background-color: black !important;
+  color: #8E9BE8 !important;
+}
+body.high-contrast .btn-green:hover{
+  background-color: #4E4E4E !important;
+}
+/* ------------------------------------------ */
+
+.position_relative_20 {
+  position: relative;
+  left: -20px;
+}
+
+.position_relative_5 {
+  position: relative;
+  left: -5px;
+}
+
+.menu_color {
+  background-color: #cbb4d3;
+}
+
+.sidebar {
+  background-color: #cbb4d3;
+  padding-top: 50px;
+  height: auto;
+}
+
+.main-content {
+  background-color: #84469b;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.card {
+  background-color: #f8f9fa;
+}
+
+.menu_text {
+  font-weight: bold;
+}
+
+.link_bg_adm {
+  background-color: white;
+  border-radius: 9px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.link_bg_adm:hover {
+  background-color: #8eb041;
+  color: white;
+}
+
+.icone_btn_apagar {
+  margin-top: -4px;
+  color: white;
+}
+.mar_right-10 {
+  margin-right: 10px;
+}
+
+.a_link_adm {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.btn-purple {
+  background-color: #84469b;
+  color: white;
+  border: none;
+}
+
+.btn-purple:hover {
+  background-color: #cbb4d3;
+  color: black;
+}
+.text_magenta:hover {
+  color: #8eb041;
+}
+.text_green_2 {
+  color: #aef01d;
+  padding-bottom: 20px;
+  padding-top: 50px;
+}
+.icone_position {
+  position: relative;
+  top: -3px;
+}
+
+.btn_width {
+  width: 150px;
+}
+
+.trash_icon_position {
+  position: relative;
+  top: -38px;
+}
+
+.edit_icon_position {
+  position: relative;
+  top: -15px;
+}
+.bg_lilac {
+  background-color: #cbb4d3;
+  height: auto;
+  padding: 20px;
+  border-radius: 9px;
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.text_black {
+  color: black;
+}
+.pad_top_bt_5 {
+  padding: 5px 0px 5px 0px;
+}
+.link_bg_adm {
+  background-color: white;
+  border-radius: 9px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.link_bg_adm:hover {
+  background-color: #8eb041;
+  color: white;
+}
+
+.margin-top-115 {
+  margin-top: 115px;
+}
+
+#img-tintas {
+  padding: 10px;
+  width: 100%;
+  height: 300px;
+  background-color: white;
+  border-radius: 5px;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Tintas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/navbarDeslog.css">
+
+    
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <div class="nao-sei d-flex justify-content-between align-items-center w-100">
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="imagens/Logo.png" alt="Logo">
+                    Banco de tintas
+                </a>
+                <!-- Botão do menu lateral -->
+                <button class="navbar-toggler" onclick="toggleMenu()">☰</button>
+            </div>
+
+
+            <!-- Conteúdo da navbar -->
+            <div class="navbar-collapse" id="navbarContent">
+
+                <div class="navbar-center mx-auto">
+                    <!-- Logo -->
+                    <a class="navbar-brand d-flex align-items-center logo-balde" href="#">
+                        <img src="imagens/Logo.png" alt="Logo">
+                        Banco de tintas
+                    </a>
+
+                    <a href="#" class="link-quero-doar">Quero doar</a>
+                    <div class="search-wrapper pesquisar1">
+                        <span class="search-icon">
+                            <i class="fa fa-search"></i>
+                        </span>
+
+                        <input class="form-control form-control-custom" type="search" placeholder="Buscar"
+                            aria-label="Buscar">
+                    </div>
+                    <a href="#" class="btn-login">Login</a>
+                    <div class="navbar-end">
+                        <a href="#" class="btn btn-cadastre">Cadastre-se</a>
+                    </div>
+                </div>
+
+                <div class="search-wrapper pesquisar2">
+                    <span class="search-icon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <input class="form-control form-control-custom" type="search" placeholder="Buscar"
+                        aria-label="Buscar">
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu lateral -->
+    <div class="side-menu" id="sideMenu">
+        <h2>Banco de Tintas</h2>
+        <br>
+        <a href="#">Quero doar</a>
+        <a href="#">Login</a>
+        <a href="#">Cadastre-se</a>
+    </div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('menuOverlay');
+            const isOpen = menu.classList.contains('open');
+
+            if (isOpen) {
+                menu.classList.remove('open');
+                overlay.classList.remove('active');
+            } else {
+                menu.classList.add('open');
+                overlay.classList.add('active');
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

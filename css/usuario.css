@@ -1,0 +1,152 @@
+/* Estilo de alto contraste */
+body.high-contrast {
+  background-color: black;
+}
+
+body.high-contrast a {
+  color: #8E9BE8;
+}
+
+body.high-contrast .pagina {
+  background-color: #8E9BE8;
+  color: black;
+}
+
+body.high-contrast .btn-purple {
+  background-color: black;
+  color: #8E9BE8;
+}
+
+body.high-contrast .form-label {
+  color: black;
+}
+
+body.high-contrast h1 {
+  color: black;
+}
+
+body.high-contrast #wishlist-tab, #orders-tab, #info-tab{
+  color: black;
+  background-color: none;
+}
+body.high-contrast .btn-danger{
+  background-color: black;
+  color: #8E9BE8;
+  border-color: black;
+}
+body.high-contrast #wishlist-tab.nav-link {
+  color: black;
+  background-color: white;
+}
+body.high-contrast #orders-tab.nav-link {
+  color: black;
+  background-color: white;
+}
+body.high-contrast #info-tab.nav-link {
+  color: black;
+  background-color: white;
+}
+body.high-contrast #orders-tab.nav-link.active {
+  background-color: black;
+  color: #8E9BE8;
+}
+body.high-contrast #wishlist-tab.nav-link.active {
+  background-color: black;
+  color: #8E9BE8;
+}
+body.high-contrast #info-tab.nav-link.active {
+  background-color: black;
+  color: #8E9BE8;
+}
+
+body.high-contrast .btn-outline-danger{
+  color: black;
+  border-color: black;
+}
+body.high-contrast div.accordion-body{
+  color: white !important;
+  background-color: black !important;
+}
+
+body.high-contrast .accordion-button{
+  color: black;
+  background-color: white;
+}
+
+/* Pagina */
+body {
+  background-color: #637046;
+}
+
+.pagina {
+  background-color: #f5f5f5;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 60%;
+  margin-top: 10rem;
+  margin-bottom: 3rem;
+}
+.dados_pessoais {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#ordersAccordion {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+#wishlist-tab.nav-link.active, #orders-tab.nav-link.active, #info-tab.nav-link.active {
+  background-color: #84469b;
+  color: white;
+}
+#wishlist-tab.nav-link, #orders-tab.nav-link, #info-tab.nav-link{
+  background-color: white;
+  color: #423746;
+}
+.accordion-item {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.mb-4 {
+  color: #423746;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.usuario {
+  width: 140px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-label {
+  color: #84469b;
+}
+
+.btn-purple {
+  background-color: #84469b;
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: #7a5bb0;
+}
+
+@media (max-width: 766px) {
+  .pagina {
+    max-width: 90%;
+  }
+}
