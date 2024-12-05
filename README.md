@@ -15,13 +15,20 @@ O projeto Banco de Tintas possui como principal objetivo captar restos de tintas
 - PHPMyAdmin  
 
 ## ScreenShots:
-## Tela principal:
 
-## Tela de Cadastro:
 
-## Tela de ADM:
 
-## Tela de Usuário:
+### Tela principal:
+![tela_index](https://github.com/user-attachments/assets/854f0373-c8f8-439f-834e-e538cfd62f8d)
+
+### Tela de Cadastro:
+![tela_cadastro](https://github.com/user-attachments/assets/a8c79472-af5a-4648-83c5-27a03e3e7935)
+
+### Tela de ADM:
+![tela_adm](https://github.com/user-attachments/assets/7bcee7c8-5844-43d1-96da-5e9ad1245a09)
+
+### Tela de Usuário:
+![tela_usuario](https://github.com/user-attachments/assets/7035f4a1-b193-4bf2-99a4-9001b6dccd2f
 
 ## Como Executar o Projeto
 1. **Clone o repositório:**
