@@ -1,7 +1,19 @@
 <?php
     session_start();
-    if(!(isset($_SESSION["mensagem-cadastrar-tinta"]))) {
-        $_SESSION["mensagem-cadastrar-tinta"] = NULL;
+    if(isset($_SESSION["mensagem-cadastrar-tinta"])) {
+        $mensagem = $_SESSION["mensagem-cadastrar-tinta"];
+
+        if($mensagem == "Tinta cadastrada.") {
+            $sucesso = true;
+        }
+        else {
+            $sucesso = false;
+        }
+
+        unset($_SESSION["mensagem-cadastrar-tinta"]);
+    }
+    else {
+        $mensagem = null;
     }
 
     if(!(isset($_SESSION["USUARIO"]))) {
@@ -44,90 +56,7 @@
 </head>
 
 <body>
-    <header> 
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container">
-                <div class="nao-sei d-flex justify-content-between align-items-center w-100">
-                    <!-- Logo -->
-                    <a class="navbar-brand d-flex align-items-center" href="index.php">
-                        <img src="./imagens/Logo.png" alt="Logo">
-                        Banco de tintas
-                    </a>
-                    <!-- Botão do menu lateral -->
-                    <button class="navbar-toggler" onclick="toggleMenu()">☰</button>
-                </div>
-
-                <!-- Conteúdo da navbar -->
-                <div class="navbar-collapse" id="navbarContent">
-                    <div class="navbar-center mx-auto">
-                        <!-- Logo -->
-                        <a class="navbar-brand d-flex align-items-center logo-balde" href="index.php">
-                            <img src="./imagens/Logo.png" alt="Logo">
-                            Banco de tintas
-                        </a>
-
-                        <a href="quero_doar.php" class="link-quero-doar">Quero doar</a>
-                        <div class="search-wrapper pesquisar1">
-                            <span class="search-icon">
-                                <i class="fa fa-search"></i>
-                            </span>
-                            <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                                <input type="hidden" name="busca" value="1">
-                                <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                            </form>
-                        </div>
-
-                        <a class="ola">Olá, Fatec!</a>
-
-                        <!-- Dropdown com foto de perfil -->
-                        <div class="navbar-end dropdown">
-                            <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <img src="./imagens/UsuarioVerde.png" alt="Foto de perfil">
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item text-start" href="catalogo.php">Administrativo</a></li>
-                                <li><a class="dropdown-item text-start" href="#">
-                                    <form action="config/usuarios_config.php" method="post">
-                                        <input type="hidden" name="logout-usuario">
-                                        <button type="submit" class="btn btn-danger">Sair</button>
-                                    </form>
-                                </a></li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="search-wrapper pesquisar2">
-                        <span class="search-icon">
-                            <i class="fa fa-search"></i>
-                        </span>
-                        <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                            <input type="hidden" name="busca" value="1">
-                            <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Menu lateral -->
-        <div class="side-menu" id="sideMenu">
-            <h2>Banco de Tintas</h2>
-            <br>
-            <a class="d-flex align-items-center" href="#">
-                <img src="./imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">
-            </a>
-            <br>
-            <a href="quero_doar.php">Quero doar</a>
-            <a href="catalogo.php">Administrativo</a>
-            <form action="config/usuarios_config.php" method="post">
-                <input type="hidden" name="logout-usuario">
-                <button type="submit" class="btn btn-danger">Sair</button>
-            </form>
-        </div>
-        <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-    </header>
+    <?php include 'navbar.php'; ?>
 
     <section class="pagina">
         <div class="container-fluid">
@@ -150,33 +79,28 @@
 
                 <div class="col-lg-10 col-12 main-content">
                     <div class="container">
-                        <?php
-                            $mensagem = $_SESSION["mensagem-cadastrar-tinta"];
-
-                            if($mensagem != NULL) {
-                                echo '<div class="row mt-2">';
-                                echo '<div class="col-12">';
-
-                                if($mensagem == "Tinta cadastrada.") {
-                                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
-                                    echo '<strong>Sucesso!</strong>';
-                                }
-                                else {
-                                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
-                                    echo '<strong>Cadastro inválido!</strong>';
-                                }
-                                echo ' '.$mensagem;
-                                echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-                                echo '</div>';
-                                echo '</div>';
-                                echo '</div>';
-
-                                $_SESSION["mensagem-cadastrar-tinta"] = NULL;
-                            }
-                        ?>
+                        <?php if($mensagem): ?>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <?php if($sucesso): ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>Sucesso!</strong>
+                                            <?= $mensagem; ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>Dados inválidos!</strong>
+                                            <?= $mensagem; ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        
                         <div class="row">
                             <div class="col-lg-12">
-
                                 <div class="row justify-content-center">
                                     <div class="col-xl-10 col-lg-12">
                                         <form action="config/tintas_config.php" method="post"

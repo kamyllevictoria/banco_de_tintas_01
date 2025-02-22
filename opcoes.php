@@ -126,143 +126,8 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container">
-                <div class="nao-sei d-flex justify-content-between align-items-center w-100">
-                    <!-- Logo -->
-                    <a class="navbar-brand d-flex align-items-center" href="index.php">
-                        <img src="imagens/Logo.png" alt="Logo">
-                        Banco de tintas
-                    </a>
-                    <!-- Botão do menu lateral -->
-                    <button class="navbar-toggler" onclick="toggleMenu()">☰</button>
-                </div>
-
-
-                <!-- Conteúdo da navbar -->
-                <div class="navbar-collapse" id="navbarContent">
-
-                    <div class="navbar-center mx-auto">
-                        <!-- Logo -->
-                        <a class="navbar-brand d-flex align-items-center logo-balde" href="index.php">
-                            <img src="imagens/Logo.png" alt="Logo">
-                            Banco de tintas
-                        </a>
-
-                        <a href="quero_doar.php" class="link-quero-doar">Quero doar</a>
-                        <div class="search-wrapper pesquisar1">
-                            <span class="search-icon">
-                                <i class="fa fa-search"></i>
-                            </span>
-                            <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                                <input type="hidden" name="busca" value="1">
-                                <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                            </form>
-                        </div>
-                        <?php
-                            if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                                echo '<a href="login.php" class="btn-login">Login</a>';
-                                echo '<div class="navbar-end">';
-                                echo '<a href="cadastro.php" class="btn btn-cadastre">Cadastre-se</a>';
-                                echo '</div>';
-                            }
-                            else {
-                                if($_SESSION["ADM"] == FALSE) {
-                                    echo '<a class="ola">Olá, '.$nome.'!</a>';
-                                }
-                                else {
-                                  echo '<a class="ola">Olá, Fatec!</a>';
-                                }
-                                echo '<div class="navbar-end dropdown">';
-                                echo '<a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">';
-                                
-                                if($foto == NULL) {
-                                    echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
-                                }
-                                else {
-                                    echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
-                                }
-                                
-                                echo '</a>';
-                                echo '<ul class="dropdown-menu dropdown-menu-end">';
-                                
-                                if($_SESSION["ADM"] == FALSE) {
-                                    echo '<li><a class="dropdown-item text-start" href="usuario.php">Minha conta</a></li>';
-                                }
-                                else {
-                                    echo '<li><a class="dropdown-item text-start" href="catalogo.php">Administrativo</a></li>';
-                                }
-
-                                
-                                echo '<li><a class="dropdown-item text-start" href="#">';
-                                echo '<form action="config/usuarios_config.php" method="post">';
-                                echo '<input type="hidden" name="logout-usuario">';
-                                echo '<button type="submit" class="btn btn-danger btn-sm">Sair</button>';
-                                echo '</form>';
-                                echo '</a></li>';
-                                echo '</ul>';
-                                echo '</div>'; 
-                            }
-                        ?>
-                    </div>
-
-                    <div class="search-wrapper pesquisar2">
-                        <span class="search-icon">
-                            <i class="fa fa-search"></i>
-                        </span>
-                        <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                            <input type="hidden" name="busca" value="1">
-                            <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-
-        <!-- Menu lateral -->
-        <div class="side-menu" id="sideMenu">
-            <h2>Banco de Tintas</h2>
-            <br>
-            <?php
-                if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                    echo '<a href="login.php">Login</a>';
-                    echo '<a href="cadastro.php">Cadastre-se</a>';
-                }
-                else {
-
-                    if($_SESSION["ADM"] == FALSE) {
-                        echo '<a class="d-flex align-items-center" href="usuario.php">';
-
-                        if($foto == NULL) {
-                            echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
-                        }
-                        else {
-                            echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
-                        }
-                        
-                        echo '<span class="ola ms-2">Olá, '.$nome.'!</span>';
-                        echo '</a>';
-                        echo '<a href="usuario.php">Minha conta</a>';
-                    }
-                    else {
-                        echo '<a href="catalogo.php">Administrativo</a>';
-                    }
-
-                    echo '<a href="quero_doar.php">Quero doar</a>';
-
-                    echo '<form action="config/usuarios_config.php" method="post">';
-                    echo '<input type="hidden" name="logout-usuario">';
-                    echo '<button type="submit" class="btn btn-danger">Sair</button>';
-                    echo '</form>';
-                }
-            ?>
-            
-        </div>
-        <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-    </header>
-
+  <?php include 'navbar.php'; ?>
+  
   <div class="container">
     <div class="content-wrapper">
       <h2 class="text-center mb-4 text_purple mt-4">Tintas disponíveis</h2>
@@ -284,250 +149,189 @@
 
         <div class="col-md-9">
           <div class="row g-4">
-            <?php
+            <?php if($tabela): ?>
+              <?php
                 $cont = 1;
                 $page = $_GET["page"];
                 $pageCont = 1;
                 $coresDisponiveis = "";
                 $coresIndisponiveis = "";
+              ?>
+              <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                <?php if(floatval($linha["volume"]) > 0): ?>
+                  <?php
+                    $pageCont++;
+                    $coresDisponiveis .= ";" . $linha["cor"];
+                    $dataValidade = explode('-', $linha["dataValidade"]);
+                  ?>
+                  <?php if($page == 1): ?>
+                    <?php if($cont >= $page && $cont <= $page + 3): ?>
+                      <div class="col-md-6 <?= $cont % 2 == 0 ? '' : 'd-flex justify-content-end' ?>">
+                        <div class="product-card p-3" style="width:80%">
+                          <img src="<?= $linha['imagem']; ?>" alt="Tinta <?= $linha['cor']; ?>" style="height:230px">
+                          <h5 class="mt-3">Tinta <?= $linha['cor']; ?></h5>
+                          <p>Quantidade disponível: <?= $linha['volume']; ?>L</p>
+                          <p>Data de validade: <?= $dataValidade[2]; ?>/<?= $dataValidade[1]; ?>/<?= $dataValidade[0]; ?></p>
+                          <?php if($_SESSION['ADM'] == FALSE && $_SESSION['USUARIO'] != FALSE): ?>
+                            <button onclick="modal('<?= $linha['identificacao']; ?>')" class="btn btn-green btn_card">Tenho Interesse</button>
+                            </div>
+                          </div>
+                          <div id="modalBackground<?= $linha['identificacao']; ?>" class="modal-background"></div>
+                          <div id="modalContainer<?= $linha['identificacao']; ?>" class="container-green">
+                            <div class="fechar-modal" onclick="fecharModal('<?= $linha['identificacao']; ?>')">
+                              <img src="imagens/fechar.png" width="50px">
+                            </div>
+                            <h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>
+                            <form action="config/pedidos_config.php" method="post">
+                              <input type="hidden" name="fazer-pedido">
+                              <input type="hidden" name="identificacao" value="<?= $linha['identificacao']; ?>">
+                              <div class="form-group pad_bottom_20">
+                                <label for="volumeLitros" class="text_purple">Volume em Litros:</label>
+                                <input name="volume<?= $linha['identificacao']; ?>" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">
+                              </div>
+                              <button class="btn btn-purple-editar" id="btnSalvar<?= $linha['identificacao']; ?>">Solicitar Tinta</button>
+                            </form>
+                          </div>
+                        <?php else: ?>
+                          </div>
+                        </div>
+                      <?php endif; ?>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                  <?php $cont++; ?>
+                <?php else: $coresIndisponiveis .= ";".$linha['cor']; ?>
+                <?php endif; ?>
+              <?php endwhile; ?>
+              <?php if($_SESSION["ADM"] == FALSE && $_SESSION["USUARIO"] != FALSE): ?>
+                <?php
+                  $coresDisponiveis = explode(";", $coresDisponiveis);
+                  $coresIndisponiveis = explode(";", $coresIndisponiveis);
 
-                  while ($linha = mysqli_fetch_array($tabela)) {
-                    if(floatval($linha["volume"]) > 0) {
-                      $pageCont++;
-                      $coresDisponiveis = $coresDisponiveis.";".$linha["cor"];
-                      $dataValidade = explode('-', $linha["dataValidade"]);
+                  $coresIndisponiveis = array_diff($coresIndisponiveis, $coresDisponiveis);
 
-                      if($page == 1) {
-                        if($cont >= $page && $cont <= $page + 3) {
-                          if($cont % 2 == 0) {
-                            echo '<div class="col-md-6">';
-                          }
-                          else {
-                            echo '<div class="col-md-6 d-flex justify-content-end">';
-                          }
-                          echo '<div class="product-card p-3" style="width:80%">';
-                          echo '<img src="'.$linha["imagem"].'" alt="Tinta verde" style="height:230px">';
-                          echo '<h5 class="mt-3">Tinta '.$linha["cor"].'</h5>';
-                          echo '<p>Quantidade disponível: '.$linha["volume"].'L</p>';
-                          echo '<p>Data de validade: '.$dataValidade[2].'/'.$dataValidade[1].'/'.$dataValidade[0].'</p>';
-                          
-                          if($_SESSION["ADM"] == FALSE && $_SESSION["USUARIO"] != FALSE) {
-                            echo '<button onclick="modal('.$linha["identificacao"].')" class="btn btn-green btn_card">Tenho Interesse</button>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '<div id="modalBackground'.$linha["identificacao"].'" class="modal-background"></div>';
-                            echo '<div id="modalContainer'.$linha["identificacao"].'" class="container-green">';
-                            echo '<div class="fechar-modal" onclick="fecharModal('.$linha["identificacao"].')"><img src="imagens/fechar.png" width="50px"></div>';
-                            echo '<h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>';
-                            echo '<form action="config/pedidos_config.php" method="post">';
-                            echo '<input type="hidden" name="fazer-pedido">';
-                            echo '<input type="hidden" name="identificacao" value="'.$linha["identificacao"].'"></input>';
-                            echo '<div class="form-group pad_bottom_20">';
-                            echo '<label for="volumeLitros" class="text_purple">Volume em Litros:</label>';
-                            echo '<input name="volume'.$linha["identificacao"].'" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">';
-                            echo '</div>';
-                            echo '<button class="btn btn-purple-editar" id="btnSalvar'.$linha["identificacao"].'">Solicitar Tinta</button>';
-                            echo '</form>';
-                            echo '</div>';
-                          }
-                          else {
-                            echo '</div>';
-                            echo '</div>';
-                          }
+                  $cont = 1;
+
+                  for($i = 1; $i < count($coresIndisponiveis); $i++) {
+
+                    $cor = $coresIndisponiveis[$i];
+
+                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+                    $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_cor('$cor')");
+                    mysqli_close($conexao);
+
+                    $clienteId = $_SESSION["USUARIO"];
+                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+                    $tabelaLista = mysqli_query($conexao, "CALL listaDesejos_carregarPor_clienteId($clienteId)");
+                    mysqli_close($conexao);
+
+                    $temLista = false;
+
+                    while($lista = mysqli_fetch_array($tabelaLista)) {
+                        if($lista["cor"] == $cor) {
+                            $temLista = true;
                         }
-                      }
-                      else if($page > 1) {
-                        if($cont >= $page + 3 && $cont <= $page + 6) {
-                          if($cont % 2 == 0) {
-                            echo '<div class="col-md-6">';
-                          }
-                          else {
-                            echo '<div class="col-md-6 d-flex justify-content-end">';
-                          }
-                          echo '<div class="product-card p-3" style="width:80%">';
-                          echo '<img src="'.$linha["imagem"].'" alt="Tinta verde" style="height:230px">';
-                          echo '<h5 class="mt-3">Tinta '.$linha["cor"].'</h5>';
-                          echo '<p>Quantidade disponível: '.$linha["volume"].'L</p>';
-                          echo '<p>Data de validade: 10/12/2024</p>';
-                          
-                          if($_SESSION["ADM"] == FALSE && $_SESSION["USUARIO"] != FALSE) {
-                            echo '<button onclick="modal('.$linha["identificacao"].')" class="btn btn-green btn_card">Tenho Interesse</button>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '<div id="modalBackground'.$linha["identificacao"].'" class="modal-background"></div>';
-                            echo '<div id="modalContainer'.$linha["identificacao"].'" class="container-green">';
-                            echo '<div class="fechar-modal" onclick="fecharModal('.$linha["identificacao"].')"><img src="imagens/fechar.png" width="50px"></div>';
-                            echo '<h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>';
-                            echo '<form action="config/pedidos_config.php" method="post">';
-                            echo '<input type="hidden" name="fazer-pedido">';
-                            echo '<input type="hidden" name="identificacao" value="'.$linha["identificacao"].'"></input>';
-                            echo '<div class="form-group pad_bottom_20">';
-                            echo '<label for="volumeLitros" class="text_purple">Volume em Litros:</label>';
-                            echo '<input name="volume'.$linha["identificacao"].'" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">';
-                            echo '</div>';
-                            echo '<button class="btn btn-purple-editar" id="btnSalvar'.$linha["identificacao"].'">Solicitar Tinta</button>';
-                            echo '</form>';
-                            echo '</div>';
-                          }
-                          else {
-                            echo '</div>';
-                            echo '</div>';
-                          }
-                        }
-                      }
-  
-                      $cont++;
                     }
-                    else {
-                      $coresIndisponiveis = $coresIndisponiveis.";".$linha["cor"];
-                    }
-                    
+
+                    $cont2 = 1;  
                   }
-
-                  if($_SESSION["ADM"] == FALSE && $_SESSION["USUARIO"] != FALSE) {
-                    $coresDisponiveis = explode(";", $coresDisponiveis);
-                    $coresIndisponiveis = explode(";", $coresIndisponiveis);
-
-                    $coresIndisponiveis = array_diff($coresIndisponiveis, $coresDisponiveis);
-
-                    $cont = 1;
-
-                    for($i = 1; $i < count($coresIndisponiveis); $i++) {
-
-                      $cor = $coresIndisponiveis[$i];
-
-                      $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                      $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_cor('$cor')");
-                      mysqli_close($conexao);
-
-                      $clienteId = $_SESSION["USUARIO"];
-                      $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                      $tabelaLista = mysqli_query($conexao, "CALL listaDesejos_carregarPor_clienteId($clienteId)");
-                      mysqli_close($conexao);
-
-                      $temLista = false;
-
-                      while($lista = mysqli_fetch_array($tabelaLista)) {
-                          if($lista["cor"] == $cor) {
-                              $temLista = true;
-                          }
-                      }
-
-                      $cont2 = 1;
-
-                      while ($linha = mysqli_fetch_array($tabela)) {
-                          if($temLista) {
-                              if($cont2 == 1) {
-                                  if($page == 1) {
-                                    if($cont >= $page && $cont <= $page + 3) {
-                                      if($cont % 2 == 0) {
-                                        echo '<div class="col-md-6">';
-                                      }
-                                      else {
-                                        echo '<div class="col-md-6 d-flex justify-content-end">';
-                                      }
-                                      echo '<div class="product-card p-3" style="width:80%">';
-                                      echo '<img src="img-bd/padrao.jpg" alt="Tinta verde" style="height:230px; filter:grayscale(100%);">';
-                                      echo '<h5 class="mt-3">Tinta '.$cor.'</h5>';
-                                      echo '<p>Indisponível</p>';
-                                      echo '<a href="usuario.php">';
-                                      echo '<button class="btn btn-secondary btn_card">';
-                                      echo '<img src="imagens/coracao.png" width="20px" style="margin-right:10px;">';
-                                      echo 'Salvo';
-                                      echo '</button>';
-                                      echo '</a>';
-                                      echo '</div>';
-                                      echo '</div>';
-                                    }
-                                  }
-                                  else if($page > 1) {
-                                    if($cont >= $page + 3 && $cont <= $page + 6) {
-                                      if($cont % 2 == 0) {
-                                        echo '<div class="col-md-6">';
-                                      }
-                                      else {
-                                        echo '<div class="col-md-6 d-flex justify-content-end">';
-                                      }
-                                      echo '<div class="product-card p-3" style="width:80%">';
-                                      echo '<img src="img-bd/padrao.jpg" alt="Tinta verde" style="height:230px; filter:grayscale(100%);">';
-                                      echo '<h5 class="mt-3">Tinta '.$cor.'</h5>';
-                                      echo '<p>Indisponível</p>';
-                                      echo '<a href="usuario.php">';
-                                      echo '<button class="btn btn-secondary btn_card">';
-                                      echo '<img src="imagens/coracao.png" width="20px" style="margin-right:10px;">';
-                                      echo 'Salvo';
-                                      echo '</button>';
-                                      echo '</a>';
-                                      echo '</div>';
-                                      echo '</div>';
-                                    }
-                                  }
-              
-                                  $cont2++;
-                              }
-                          }
-                          else {
-                              if($cont == 1) {
-                                if($page == 1) {
-                                  if($cont >= $page && $cont <= $page + 3) {
-                                    if($cont % 2 == 0) {
-                                      echo '<div class="col-md-6">';
-                                    }
-                                    else {
-                                      echo '<div class="col-md-6 d-flex justify-content-end">';
-                                    }
-                                    echo '<div class="product-card p-3" style="width:80%">';
-                                    echo '<img src="img-bd/padrao.jpg" alt="Tinta verde" style="height:230px; filter:grayscale(100%);">';
-                                    echo '<h5 class="mt-3">Tinta '.$cor.'</h5>';
-                                    echo '<p>Indisponível</p>';
-                                    echo '<form action="config/pedidos_config.php" method="post">';
-                                    echo '<input type="hidden" name="lista-desejos">';
-                                    echo '<input type="hidden" name="identificacao" value="'.$linha["identificacao"].'">';
-                                    echo '<button type="submit" class="btn btn-secondary btn_card">';
-                                    echo '<img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">';
-                                    echo 'Salvar';
-                                    echo '</button>';
-                                    echo '</form>';
-                                    echo '</div>';
-                                    echo '</div>';
-                                  }
-                                }
-                                else if($page > 1) {
-                                  if($cont >= $page + 3 && $cont <= $page + 6) {
-                                    if($cont % 2 == 0) {
-                                      echo '<div class="col-md-6">';
-                                    }
-                                    else {
-                                      echo '<div class="col-md-6 d-flex justify-content-end">';
-                                    }
-                                    echo '<div class="product-card p-3" style="width:80%">';
-                                    echo '<img src="img-bd/padrao.jpg" alt="Tinta verde" style="height:230px; filter:grayscale(100%);">';
-                                    echo '<h5 class="mt-3">Tinta '.$cor.'</h5>';
-                                    echo '<p>Indisponível</p>';
-                                    echo '<form action="config/pedidos_config.php" method="post">';
-                                    echo '<input type="hidden" name="lista-desejos">';
-                                    echo '<input type="hidden" name="identificacao" value="'.$linha["identificacao"].'">';
-                                    echo '<button type="submit" class="btn btn-secondary btn_card">';
-                                    echo '<img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">';
-                                    echo 'Salvar';
-                                    echo '</button>';
-                                    echo '</form>';
-                                    echo '</div>';
-                                    echo '</div>';
-                                  }
-                                }
-
-                                $cont2++;
-                              }
-                          }
-
-                          $cont++;
-                      }
-                  }
-                  }
-
                 ?>
-            </div>
+                <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                  <?php if($temLista && $cont2 == 1): ?>
+                    <?php if($page == 1 && $cont >= $page && $cont <= $page + 3): ?>
+                      <?php if($cont % 2 == 0): ?>
+                        <div class="col-md-6">
+                      <?php else:?>
+                        <div class="col-md-6 d-flex justify-content-end">
+                      <?php endif; ?>
+
+                      <div class="product-card p-3" style="width:80%">
+                        <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
+                        <h5 class="mt-3">Tinta <?= $cor; ?></h5>
+                        <p>Indisponível</p>
+                        <a href="usuario.php">
+                          <button class="btn btn-secondary btn_card">
+                            <img src="imagens/coracao.png" width="20px" style="margin-right:10px;">
+                            Salvo
+                          </button>
+                        </a>
+                      </div>
+                      </div>
+                    <?php elseif($page > 1 && $cont >= $page + 3 && $cont <= $page + 6): ?>
+                      <?php if($cont % 2 == 0): ?>
+                        <div class="col-md-6">
+                      <?php else: ?>
+                        <div class="col-md-6 d-flex justify-content-end">
+                      <?php endif; ?>
+
+                      <div class="product-card p-3" style="width:80%">
+                        <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
+                        <h5 class="mt-3">Tinta <?= $cor; ?></h5>
+                        <p>Indisponível</p>
+                        <a href="usuario.php">
+                          <button class="btn btn-secondary btn_card">
+                            <img src="imagens/coracao.png" width="20px" style="margin-right:10px;">
+                            Salvo
+                          </button>
+                        </a>
+                      </div>
+                      </div>
+                    <?php endif; ?>
+                    <?php $cont2++; ?>
+                  <?php else: ?>
+                    <?php if($cont == 1):?>
+                      <?php if($page == 1 && $cont >= $page && $cont <= $page + 3): ?>
+                        <?php if($cont % 2 == 0):?>
+                          <div class="col-md-6">
+                        <?php else: ?>
+                          <div class="col-md-6 d-flex justify-content-end">
+                        <?php endif; ?>
+
+                        <div class="product-card p-3" style="width:80%">
+                          <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
+                          <h5 class="mt-3">Tinta <?= $cor; ?></h5>
+                          <p>Indisponível</p>
+                          <form action="config/pedidos_config.php" method="post">
+                            <input type="hidden" name="lista-desejos">
+                            <input type="hidden" name="identificacao" value="'.$linha["identificacao"].'">';
+                            <button type="submit" class="btn btn-secondary btn_card">
+                              <img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">
+                              Salvar
+                            </button>
+                          </form>
+                        </div>
+                        </div>
+
+                      <?php elseif($page > 1 && $cont >= $page + 3 && $cont <= $page + 6): ?>
+                        <?php if($cont % 2 == 0):?>
+                          <div class="col-md-6">
+                        <?php else: ?>
+                          <div class="col-md-6 d-flex justify-content-end">
+                        <?php endif; ?>
+
+                        <div class="product-card p-3" style="width:80%">
+                          <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
+                          <h5 class="mt-3">Tinta <?= $cor; ?></h5>
+                          <p>Indisponível</p>
+                          <form action="config/pedidos_config.php" method="post">
+                            <input type="hidden" name="lista-desejos">
+                            <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
+                            <button type="submit" class="btn btn-secondary btn_card">
+                              <img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">
+                              Salvar
+                            </button>
+                          </form>
+                        </div>
+                        </div>
+
+                        <?php $cont2++; ?>
+                      <?php endif; ?>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                  <?php $cont2++; ?>
+                <?php endwhile; ?>
+              <?php endif; ?>
+            <?php endif; ?>
+          </div>
         </div>
 
         <div class="col-md-1">
@@ -542,7 +346,7 @@
 
         <nav aria-label="Page navigation" class="mt-4">
           <ul class="pagination justify-content-center">
-            <?php 
+            <?php
               $cont = 1;
               $cont2 = 2;
               $page = $_GET["page"];
@@ -552,51 +356,46 @@
               $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
               $tabela = mysqli_query($conexao, "CALL tintas_carregar()");
               mysqli_close($conexao);
-
-              if($qtde_linhas / 4 > 1) {
-                if($pageAnte == 0) {
-                  echo '<li class="page-item disabled">';
-                  echo '<a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>';
-                  echo '</li>';
-                }
-                else {
-                  echo '<li class="page-item">';
-                  echo '<a class="page-link" href="?acao='.$acao.'&valor='.$valor.'&page='.$pageAnte.'">&raquo;</a>';
-                  echo '</li>';
-                }
-                        
-                while ($linha = mysqli_fetch_array($tabela)) {
-                  if($cont2 % 4 == 0) {
-                    if($cont == $page) {
-                      echo '<li id="page'.$cont.'" class="page-item active"><a class="page-link" href="?acao='.$acao.'&valor='.$valor.'&page='.$cont.'">'.$cont.'</a></li>';
-                    }
-                    else {
-                      echo '<li id="page'.$cont.'" class="page-item"><a class="page-link" href="?acao='.$acao.'&valor='.$valor.'&page='.$cont.'">'.$cont.'</a></li>';
-                    }
-                    
-                    $cont++;
-                  }
-  
-                  $cont2++;
-                }
-  
-                if($pageProx <= $qtde_linhas / 4) {
-                  echo '<li class="page-item">';
-                  echo '<a class="page-link" href="?acao='.$acao.'&valor='.$valor.'&page='.$pageProx.'">&raquo;</a>';
-                  echo '</li>';
-                }
-                else {
-                  echo '<li class="page-item disabled">';
-                  echo '<a class="page-link" href="#">&raquo;</a>';
-                  echo '</li>';
-                }
-              }
             ?>
+            <?php if($qtde_linhas / 4 > 1): ?>
+              <?php if($pageAnte == 0): ?>
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+                </li>
+              <?php else: ?>
+                <li class="page-item">
+                  <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $pageAnte; ?>">&raquo;</a>
+                </li>
+              <?php endif; ?>
+
+              <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                <?php if($cont2 % 4 == 0): ?>
+                  <?php if($cont == $page): ?>
+                    <li id="page<?= $cont; ?>" class="page-item active">
+                      <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $cont; ?>"><?= $cont; ?></a>
+                    </li>
+                  <?php else: ?>
+                    <li id="page<?= $cont; ?>" class="page-item">
+                      <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $cont; ?>"><?= $cont; ?></a>
+                  </li>
+                  <?php endif; ?>
+                  <?php $cont++; ?>
+                <?php endif; ?>
+                <?php $cont++; ?>
+              <?php endwhile; ?>
+              <?php if($pageProx <= $qtde_linhas / 4): ?>
+                <li class="page-item">
+                  <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $pageProx; ?>">&raquo;</a>
+                </li>
+              <?php else: ?>
+                <li class="page-item disabled">
+                  <a class="page-link" href="#">&raquo;</a>
+                </li>
+              <?php endif; ?>
+            <?php endif; ?>
           </ul>
         </nav>
-
       </div>
-        
     </div>
   </div>
   <footer class="mt-5">

@@ -5,8 +5,20 @@
         header('location: catalogo.php');
     }
 
-    if(!(isset($_SESSION["cadastro-login"]))) {
-        $_SESSION["cadastro-login"] = NULL;
+    if(isset($_SESSION["cadastro-login"])) {
+        $mensagem = $_SESSION["cadastro-login"];
+
+        if($mensagem == "Dados atualizados." || $mensagem == "Foto removida.") {
+            $sucesso = true;
+        }
+        else {
+            $sucesso = false;
+        }
+
+        unset($_SESSION["cadastro-login"]);
+    }
+    else {
+        $mensagem = null;
     }
 
     if(!(isset($_SESSION["USUARIO"]))) {
@@ -81,132 +93,29 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container">
-                <div class="nao-sei d-flex justify-content-between align-items-center w-100">
-                    <!-- Logo -->
-                    <a class="navbar-brand d-flex align-items-center" href="index.php">
-                        <img src="./imagens/Logo.png" alt="Logo">
-                        Banco de tintas
-                    </a>
-                    <!-- Botão do menu lateral -->
-                    <button class="navbar-toggler" onclick="toggleMenu()">☰</button>
-                </div>
-
-                <!-- Conteúdo da navbar -->
-                <div class="navbar-collapse" id="navbarContent">
-                    <div class="navbar-center mx-auto">
-                        <!-- Logo -->
-                        <a class="navbar-brand d-flex align-items-center logo-balde" href="index.php">
-                            <img src="./imagens/Logo.png" alt="Logo">
-                            Banco de tintas
-                        </a>
-
-                        <a href="quero_doar.php" class="link-quero-doar">Quero doar</a>
-                        <div class="search-wrapper pesquisar1">
-                            <span class="search-icon">
-                                <i class="fa fa-search"></i>
-                            </span>
-                            <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                                <input type="hidden" name="busca" value="1">
-                                <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                            </form>
+    <?php include 'navbar.php'; ?>
+    
+    <div class="container my-5 pagina ">
+        <?php if($mensagem): ?>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <?php if($sucesso): ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Sucesso!</strong>
+                            <?= $mensagem; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                        <a class="ola"> Olá, <?php echo $nome?>!</a>
-
-                        <!-- Dropdown com foto de perfil -->
-                        <div class="navbar-end dropdown">
-                            <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <?php
-                                    if($foto == NULL) {
-                                        echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
-                                    }
-                                    else {
-                                        echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
-                                    }
-                                ?>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item text-start" href="usuario.php">Minha conta</a></li>
-                                <li><a class="dropdown-item text-start" href="#">
-                                    <form action="config/usuarios_config.php" method="post">
-                                        <input type="hidden" name="logout-usuario">
-                                        <button type="submit" class="btn btn-danger">Sair</button>
-                                    </form>
-                                </a></li>
-
-                            </ul>
+                    <?php else: ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Dados inválidos!</strong>
+                            <?= $mensagem; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                    </div>
-
-                    <div class="search-wrapper pesquisar2">
-                        <span class="search-icon">
-                            <i class="fa fa-search"></i>
-                        </span>
-                        <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                            <input type="hidden" name="busca" value="1">
-                            <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                        </form>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
-        </nav>
-
-        <!-- Menu lateral -->
-        <div class="side-menu" id="sideMenu">
-            <h2>Banco de Tintas</h2>
-            <br>
-            <a class="d-flex align-items-center" href="usuario.php">
-            <?php
-                if($foto == NULL) {
-                    echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
-                }
-                else {
-                    echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
-                }
-            ?>
-                <span class="ola ms-2">Olá, <?php echo $nome?>!</span>
-            </a>
-            <br>
-            <a href="quero_doar.php">Quero doar</a>
-            <a href="usuario.php">Minha conta</a>
-            <a href="#">
-            <form action="config/usuarios_config.php" method="post">
-                <input type="hidden" name="logout-usuario">
-                <button type="submit" class="btn btn-danger">Sair</button>
-            </form>
-            </a>
-        </div>
-        <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-    </header>
-
-    <div class="container my-5 pagina ">
-        <?php
-            $mensagem = $_SESSION["cadastro-login"];
-
-            if($mensagem != NULL) {
-                echo '<div class="row mt-2">';
-                echo '<div class="col-12">';
-
-                if($mensagem == "Dados atualizados." || $mensagem == "Foto removida.") {
-                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
-                    echo '<strong>Sucesso!</strong>';
-                }
-                else {
-                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
-                    echo '<strong>Dados inválidos!</strong>';
-                }
-                echo ' '.$mensagem;
-                echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-                echo '</div>';
-                echo '</div>';
-                echo '</div>';
-
-                $_SESSION["cadastro-login"] = NULL;
-            }
-        ?>
+        <?php endif; ?>
+        
         <h1 class="mb-4">Perfil do Usuário</h1>
 
         <!-- Navegação por abas -->
@@ -233,14 +142,11 @@
             <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                 <div class="dados_pessoais">
                     <div class="profile-img mx-auto mb-3">
-                        <?php
-                            if($foto == "") {
-                                echo '<span><img class="usuario" src="imagens/Usuario.png" alt="Imagem do Usuario"></span>';
-                            }
-                            else {
-                                echo '<span><img class="usuario" src="'.$foto.'" alt="Imagem do Usuario" style="border-radius: 100px;"></span>';
-                            }
-                        ?>
+                        <?php if($foto): ?>
+                            <span><img class="usuario" src="<?= $foto; ?>" alt="Imagem do Usuario" style="border-radius: 100px;"></span>
+                        <?php else: ?>
+                            <span><img class="usuario" src="imagens/Usuario.png" alt="Imagem do Usuario"></span>
+                        <?php endif; ?>
                     </div>
                     <div class="d-flex justify-content-center my-3">
                         <form action="config/usuarios_config.php" method="post">
@@ -287,117 +193,131 @@
             <!-- Aba de Meus Pedidos com Accordion -->
             <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                 <div class="d-flex justify-content-center">
-                    <div class="accordion" id="ordersAccordion">
-                        <!-- Pedido #1 -->
-                        <?php
-                        $cont = mysqli_num_rows($tabela);
+                    <?php if($tabela): ?>
+                        <div class="accordion" id="ordersAccordion">
 
-                        while ($linha = mysqli_fetch_array($tabela)) {
-                            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+                            <?php $cont = mysqli_num_rows($tabela); ?>
 
-                            $dataHora = $linha["dataHora"];
-                            $tintasIdentificacao = $linha["tintasIdentificacao"];
-                            $clienteId = $linha["clienteId"];
+                            <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                                <?php
+                                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
 
-                            $pedidoStatusTabela = mysqli_query($conexao, "CALL pedidoStatus_carregarPor_pedidosIds('$dataHora', '$tintasIdentificacao', '$clienteId')");
-                            $pedidoStatus = mysqli_fetch_array($pedidoStatusTabela);
+                                    $dataHora = $linha["dataHora"];
+                                    $tintasIdentificacao = $linha["tintasIdentificacao"];
+                                    $clienteId = $linha["clienteId"];
 
-                            $status = "Aguardando confirmação";
-                            $color = "orange";
+                                    $pedidoStatusTabela = mysqli_query($conexao, "CALL pedidoStatus_carregarPor_pedidosIds('$dataHora', '$tintasIdentificacao', '$clienteId')");
+                                    $pedidoStatus = mysqli_fetch_array($pedidoStatusTabela);
 
-                            $dataHora = ["--", "--", "--", "--", "--", "--"];
+                                    $status = "Aguardando confirmação";
+                                    $color = "orange";
 
-                            if(mysqli_num_rows($pedidoStatusTabela) > 0) {
-                                
-                                $status = $pedidoStatus["status"];
+                                    $dataHora = ["--", "--", "--", "--", "--", "--"];
 
-                                $data = str_replace(' ', ":", $pedidoStatus["dataHoraRetirada"]);
-                                $data = str_replace('-', ":", $data);
-                                $dataHora = explode(':', $data);
+                                    if(mysqli_num_rows($pedidoStatusTabela) > 0) {
+                                        
+                                        $status = $pedidoStatus["status"];
 
-                                if($status == "Aprovado" || $status == "Parcialmente aprovado") {
-                                    $color = "green";
-                                }
-                                else if($status == "Reprovado") {
-                                    $color = "red";
-                                }
-                                
-                            }
-                            mysqli_close($conexao);
+                                        $data = str_replace(' ', ":", $pedidoStatus["dataHoraRetirada"]);
+                                        $data = str_replace('-', ":", $data);
+                                        $dataHora = explode(':', $data);
 
-                            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-    
-                            $tinta = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$tintasIdentificacao')");
-                            $tinta = mysqli_fetch_array($tinta);
-                            mysqli_close($conexao);
+                                        if($status == "Aprovado" || $status == "Parcialmente aprovado") {
+                                            $color = "green";
+                                        }
+                                        else if($status == "Reprovado") {
+                                            $color = "red";
+                                        }
+                                        
+                                    }
+                                    mysqli_close($conexao);
 
-                            echo '<div class="accordion-item">';
-                            echo '<h2 class="accordion-header" id="'.$cont.'">';
-                            echo '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'.$cont.'" aria-expanded="true" aria-controls="collapse'.$cont.'">';
-                            echo 'Pedido #'.$cont.' - '.$status.'';
-                            echo '</button>';
-                            echo '</h2>';
-                            echo '<div id="collapse'.$cont.'" class="accordion-collapse collapse" aria-labelledby="'.$cont.'" data-bs-parent="#ordersAccordion">';
-                            echo '<div class="accordion-body">';
-                            echo '<p>Detalhes do pedido #'.$cont.':</p>';
-                            echo '<ul>';
-                            echo '<li>Tinta '.$tinta["cor"].'</li>';
-                            echo '<li>Quantidade: '.$linha["volume"].' litros</li>';
-                            echo '<li>Status: <span style="color: '.$color.';">'.$status.'</span></li>';
-                            echo '<li>Data de retirada: '.$dataHora[2].'/'.$dataHora[1].'/'.$dataHora[0].'</li>';
-                            echo '<li>Hora: '.$dataHora[3].':'.$dataHora[4].':'.$dataHora[5].'</li>';
+                                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+            
+                                    $tinta = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$tintasIdentificacao')");
+                                    $tinta = mysqli_fetch_array($tinta);
+                                    mysqli_close($conexao);
+                                ?>
 
-                            if($status == "Reprovado" || $status == "Parcialmente aprovado") {
-                                echo '<li>Observações: '.$pedidoStatus["observacoes"].'</li>';
-                            }
-
-                            echo '</ul>';
-                            echo '<img src="'.$tinta["imagem"].'" class="img-fluid">';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '</div>';
-
-                            $cont--;
-                        }
-                    ?>
-                    </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="<?= $cont; ?>">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?= $cont; ?>" aria-expanded="true" aria-controls="collapse<?= $cont; ?>">
+                                            Pedido #<?= $cont; ?> - <?= $status; ?>
+                                        </button>
+                                    </h2>
+                                    <div id="collapse<?= $cont; ?>" class="accordion-collapse collapse" aria-labelledby="<?= $cont; ?>" data-bs-parent="#ordersAccordion">
+                                        <div class="accordion-body">
+                                            <p>Detalhes do pedido #<?= $cont; ?>:</p>
+                                            <ul>
+                                                <li>
+                                                    Tinta <?= $tinta["cor"]; ?>
+                                                </li>
+                                                <li>
+                                                    Quantidade: <?= $tinta["volume"]; ?> litros
+                                                </li>
+                                                <li>
+                                                    Status: 
+                                                    <span style="color: <?= $color; ?>;"><?= $status; ?></span>
+                                                </li>
+                                                <li>
+                                                    Data de retirada: <?= $dataHora[2]; ?>/<?= $dataHora[1]; ?>/<?= $dataHora[0]; ?>
+                                                </li>
+                                                <li>
+                                                    Hora: <?= $dataHora[3]; ?>:<?= $dataHora[4]; ?>:<?= $dataHora[5]; ?>
+                                                </li>
+                                                <?php if($status == "Reprovado" || $status == "Parcialmente aprovado"): ?>
+                                                    <li>
+                                                        Observações: <?= $pedidoStatus["observacoes"]; ?>
+                                                    </li>
+                                                <?php endif; ?>
+                                            </ul>
+                                            <img src="<?= $tinta["imagem"]; ?>" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php $cont--; ?>    
+                            <?php endwhile; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
             <!-- Aba de Lista de Desejos -->
             <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="wishlist-tab">
-                <div class="row">
-                    <?php
-                        $clienteId = $_SESSION["USUARIO"];
-                        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                        $tabela = mysqli_query($conexao, "CALL listaDesejos_carregarPor_clienteId($clienteId)");
-                        mysqli_close($conexao);
-
-                        while($linha = mysqli_fetch_array($tabela)) {
-                            $identificacao = $linha["tintasIdentificacao"];
-                            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                            $tinta = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$identificacao')");
-                            $tinta = mysqli_fetch_array($tinta);
-                            mysqli_close($conexao);
-
-                            echo '<div class="col-md-4 mb-3">';
-                            echo '<div class="card h-100">';    
-                            echo '<img src="'.$tinta["imagem"].'" class="card-img-top" alt="Imagem do Produto A">';
-                            echo '<div class="card-body d-flex flex-column">';
-                            echo '<h5 class="card-title">Tinta '.$tinta["cor"].'</h5>';
-                            echo '<div class="mt-auto d-flex justify-content-end">';
-                            echo '<form action="config/pedidos_config.php" method="post">';
-                            echo '<input type="hidden" name="remover-lista-desejos" />';
-                            echo '<input type="hidden" name="cor" value="'.$tinta["cor"].'"/>';
-                            echo '<button type="submit" class="btn btn-outline-danger w-100 btn-sm">Remover</button>';
-                            echo '</form>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '</div>';
-                        }
-                    ?>
-                </div>
+                <?php
+                    $clienteId = $_SESSION["USUARIO"];
+                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+                    $tabela = mysqli_query($conexao, "CALL listaDesejos_carregarPor_clienteId($clienteId)");
+                    mysqli_close($conexao);
+                ?>
+                <?php if($tabela): ?>
+                    <div class="row">
+                        <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                            <?php
+                                $identificacao = $linha["tintasIdentificacao"];
+                                $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+                                $tinta = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$identificacao')");
+                                $tinta = mysqli_fetch_array($tinta);
+                                mysqli_close($conexao);    
+                            ?>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">   
+                                    <img src="<?= $tinta["imagem"]; ?>" class="card-img-top" alt="Imagem do Produto A">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title">Tinta <?= $tinta["cor"]; ?></h5>
+                                        <div class="mt-auto d-flex justify-content-end">
+                                            <form action="config/pedidos_config.php" method="post">
+                                                <input type="hidden" name="remover-lista-desejos"/>
+                                                <input type="hidden" name="cor" value="<?= $tinta["cor"]; ?>"/>
+                                                <button type="submit" class="btn btn-outline-danger w-100 btn-sm">Remover</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

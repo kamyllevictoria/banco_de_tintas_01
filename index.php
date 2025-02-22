@@ -1,7 +1,20 @@
 <?php
     session_start();
-    if(!(isset($_SESSION["mensagem-fazer-pedido"]))) {
-        $_SESSION["mensagem-fazer-pedido"] = NULL;
+
+    if(isset($_SESSION["mensagem-fazer-pedido"])) {
+        $mensagem = $_SESSION["mensagem-fazer-pedido"];
+
+        if($mensagem == "Pedido efetuado.") {
+            $sucesso = true;
+        }
+        else {
+            $sucesso = false;
+        }
+
+        unset($_SESSION["mensagem-fazer-pedido"]);
+    }
+    else {
+        $mensagem = null;
     }
 
     if(!(isset($_SESSION["USUARIO"]))) {
@@ -194,142 +207,8 @@
 </style>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container">
-                <div class="nao-sei d-flex justify-content-between align-items-center w-100">
-                    <!-- Logo -->
-                    <a class="navbar-brand d-flex align-items-center" href="index.php">
-                        <img src="imagens/Logo.png" alt="Logo">
-                        Banco de tintas
-                    </a>
-                    <!-- Botão do menu lateral -->
-                    <button class="navbar-toggler" onclick="toggleMenu()">☰</button>
-                </div>
-
-
-                <!-- Conteúdo da navbar -->
-                <div class="navbar-collapse" id="navbarContent">
-
-                    <div class="navbar-center mx-auto">
-                        <!-- Logo -->
-                        <a class="navbar-brand d-flex align-items-center logo-balde" href="index.php">
-                            <img src="imagens/Logo.png" alt="Logo">
-                            Banco de tintas
-                        </a>
-
-                        <a href="quero_doar.php" class="link-quero-doar">Quero doar</a>
-                        <div class="search-wrapper pesquisar1">
-                            <span class="search-icon">
-                                <i class="fa fa-search"></i>
-                            </span>
-                            <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                                <input type="hidden" name="busca" value="1">
-                                <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                            </form>
-                        </div>
-                        <?php
-                            if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                                echo '<a href="login.php" class="btn-login">Login</a>';
-                                echo '<div class="navbar-end">';
-                                echo '<a href="cadastro.php" class="btn btn-cadastre">Cadastre-se</a>';
-                                echo '</div>';
-                            }
-                            else {
-                                if($_SESSION["ADM"] == FALSE) {
-                                    echo '<a class="ola">Olá, '.$nome.'!</a>';
-                                }
-                                else {
-                                    echo '<a class="ola">Olá, Fatec!</a>';
-                                }
-                                echo '<div class="navbar-end dropdown">';
-                                echo '<a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">';
-                                
-                                if($foto == NULL) {
-                                    echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
-                                }
-                                else {
-                                    echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
-                                }
-                                
-                                echo '</a>';
-                                echo '<ul class="dropdown-menu dropdown-menu-end">';
-                                
-                                if($_SESSION["ADM"] == FALSE) {
-                                    echo '<li><a class="dropdown-item text-start" href="usuario.php">Minha conta</a></li>';
-                                }
-                                else {
-                                    echo '<li><a class="dropdown-item text-start" href="catalogo.php">Administrativo</a></li>';
-                                }
-
-                                echo '<li><a class="dropdown-item text-start" href="#">';
-                                echo '<form action="config/usuarios_config.php" method="post">';
-                                echo '<input type="hidden" name="logout-usuario">';
-                                echo '<button type="submit" class="btn btn-danger btn-sm">Sair</button>';
-                                echo '</form>';
-                                echo '</a></li>';
-                                echo '</ul>';
-                                echo '</div>'; 
-                            }
-                        ?>
-                    </div>
-
-                    <div class="search-wrapper pesquisar2">
-                        <span class="search-icon">
-                            <i class="fa fa-search"></i>
-                        </span>
-                        <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
-                            <input type="hidden" name="busca" value="1">
-                            <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-
-        <!-- Menu lateral -->
-        <div class="side-menu" id="sideMenu">
-            <h2>Banco de Tintas</h2>
-            <br>
-            <?php
-                if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                    echo '<a href="login.php">Login</a>';
-                    echo '<a href="cadastro.php">Cadastre-se</a>';
-                }
-                else {
-
-                    if($_SESSION["ADM"] == FALSE) {
-                        echo '<a class="d-flex align-items-center" href="usuario.php">';
-
-                        if($foto == NULL) {
-                            echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
-                        }
-                        else {
-                            echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
-                        }
-                        
-                        echo '<span class="ola ms-2">Olá, '.$nome.'!</span>';
-                        echo '</a>';
-                        echo '<a href="usuario.php">Minha conta</a>';
-                    }
-                    else {
-                        echo '<a href="catalogo.php">Administrativo</a>';
-                    }
-
-                    echo '<a href="quero_doar.php">Quero doar</a>';
-
-                    echo '<form action="config/usuarios_config.php" method="post">';
-                    echo '<input type="hidden" name="logout-usuario">';
-                    echo '<button type="submit" class="btn btn-danger">Sair</button>';
-                    echo '</form>';
-                }
-            ?>
-            
-        </div>
-        <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
-    </header>
-
+    <?php include 'navbar.php'; ?>
+    
     <div id="botao-flutuante-contraste">
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="toggleHighContrast">
@@ -339,30 +218,26 @@
     
     <section class="pagina">
         <div class="container">
-            <?php
-                $mensagem = $_SESSION["mensagem-fazer-pedido"];
-
-                if($mensagem != NULL) {
-                    echo '<div class="row mt-2">';
-                    echo '<div class="col-12">';
-
-                    if($mensagem == "Pedido efetuado.") {
-                        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
-                        echo '<strong>Sucesso!</strong>';
-                    }
-                    else {
-                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
-                        echo '<strong>Pedido inválido!</strong>';
-                    }
-                    echo ' '.$mensagem;
-                    echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</div>';
-
-                    $_SESSION["mensagem-fazer-pedido"] = NULL;
-                }
-            ?>
+            <?php if($mensagem): ?>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <?php if($sucesso): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Sucesso!</strong>
+                                <?= $mensagem; ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php else: ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Dados inválidos!</strong>
+                                <?= $mensagem; ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            
             <h2 class="title text_green padding_20">BANCO DE TINTAS</h2>
             <div class="row">
                 <div class="col-md-6">
@@ -392,57 +267,46 @@
     <section class="section_2">
         <div class="container">
             <h2 class="title text_white padding_20 text-center">TINTAS DISPONÍVEIS</h2>
-
             <div class="row justify-content-center">
-
-            <?php
-              $cont = 1;
-
-              while ($linha = mysqli_fetch_array($tabela)) {
-                if(floatval($linha["volume"]) > 0) {
-
-                    if($cont <= 4) {
-                        echo '<div class="col-sm-6 col-lg-3 col-12 mb-4 px-5 px-sm-2">';
-                        echo '<div class="card mx-auto">';
-                        echo '<img src="'.$linha["imagem"].'" class="card-img-top mx-auto d-block card_img" alt="Imagem do Card 4" style="height: 230px;">';
-                        echo '<div class="card-body">';
-                        echo '<h5 class="card-title">Tinta '.$linha["cor"].'</h5>';
-                        echo '<p class="card-text">Volume de '.$linha["volume"].'L</p>';
-                        
-                        if($_SESSION["ADM"] == FALSE && $_SESSION["USUARIO"] != FALSE) {
-                          echo '<button onclick="modal('.$linha["identificacao"].')" class="btn btn-green btn-interesse btn_card">Tenho Interesse</button>';
-                          echo '</div>';
-                          echo '</div>';
-                          echo '</div>';
-                          echo '<div id="modalBackground'.$linha["identificacao"].'" class="modal-background"></div>';
-                          echo '<div id="modalContainer'.$linha["identificacao"].'" class="container-green teste-modal">';
-                          echo '<div class="fechar-modal" onclick="fecharModal('.$linha["identificacao"].')"><img src="imagens/fechar.png" width="50px"></div>';
-                          echo '<h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>';
-                          echo '<form action="config/pedidos_config.php" method="post">';
-                          echo '<input type="hidden" name="fazer-pedido">';
-                          echo '<input type="hidden" name="identificacao" value="'.$linha["identificacao"].'"></input>';
-                          echo '<div class="form-group pad_bottom_20">';
-                          echo '<label for="volumeLitros" class="text_purple">Volume em Litros:</label>';
-                          echo '<input name="volume'.$linha["identificacao"].'" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">';
-                          echo '</div>';
-                          echo '<button class="btn btn-purple-editar" id="btnSalvar'.$linha["identificacao"].'">Solicitar Tinta</button>';
-                          echo '</form>';
-                          echo '</div>'; 
-                        }
-                        else {
-                          echo '</div>';
-                          echo '</div>';
-                          echo '</div>';
-                        }
-
-                        $cont++;
-                    }
-                }
-              }
-            ?>
-
+                <?php $cont = 1; ?>
+                <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                    <?php if(floatval($linha["volume"]) > 0 && $cont <= 4): ?>
+                        <div class="col-sm-6 col-lg-3 col-12 mb-4 px-5 px-sm-2">
+                            <div class="card mx-auto">
+                                <img src="<?= $linha["imagem"]; ?>" class="card-img-top mx-auto d-block card_img" alt="Imagem do Card 4" style="height: 230px;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Tinta <?= $linha["cor"]; ?></h5>
+                                    <p class="card-text">Volume de <?= $linha["volume"]; ?>L</p>
+                            <?php if($_SESSION["ADM"] == FALSE && $_SESSION["USUARIO"] != FALSE): ?>
+                                <button onclick="modal('<?= $linha['identificacao']; ?>')" class="btn btn-green btn-interesse btn_card">Tenho Interesse</button>
+                                </div>
+                                </div>
+                                </div>
+                                <div id="modalBackground<?= $linha["identificacao"]; ?>" class="modal-background"></div>
+                                <div id="modalContainer<?= $linha["identificacao"]; ?>" class="container-green teste-modal">
+                                    <div class="fechar-modal" onclick="fecharModal('<?= $linha['identificacao']; ?>')">
+                                        <img src="imagens/fechar.png" width="50px">
+                                    </div>
+                                    <h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>
+                                    <form action="config/pedidos_config.php" method="post">
+                                        <input type="hidden" name="fazer-pedido">
+                                        <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
+                                        <div class="form-group pad_bottom_20">
+                                            <label for="volumeLitros" class="text_purple">Volume em Litros:</label>
+                                            <input name="volume<?= $linha["identificacao"]; ?>" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">
+                                        </div>
+                                        <button class="btn btn-purple-editar" id="btnSalvar<?= $linha["identificacao"]; ?>">Solicitar Tinta</button>
+                                    </form>
+                                </div>
+                            <?php else: ?>
+                                </div>
+                                </div>
+                                </div>
+                            <?php endif; ?>
+                    <?php endif; ?>
+                    <?php $cont++; ?>
+                <?php endwhile; ?>
             </div>
-
             <div class="text-center">
                 <a href='opcoes.php?acao=todos&valor=todos&page=1' class="text_a_link text_neon_green pad_top_20" style="display: inline-block;">Ver
                     mais opções</a>

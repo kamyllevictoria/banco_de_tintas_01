@@ -3,6 +3,15 @@
     if(!(isset($_SESSION["cadastro-login"]))) {
         $_SESSION["cadastro-login"] = NULL;
     }
+
+    if(isset($_SESSION["cadastro-login"])) {
+        $mensagem = $_SESSION["cadastro-login"];
+
+        unset($_SESSION["cadastro-login"]);
+    }
+    else {
+        $mensagem = null;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -296,23 +305,17 @@
                         </div>
                         
                     </form>
-                    <?php
-                        $mensagem = $_SESSION["cadastro-login"];
-
-                        if($mensagem != NULL) {
-                            echo '<div class="row mt-2">';
-                            echo '<div class="col-12">';
-                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
-                            echo '<strong>Dados inválidos!</strong>';
-                            echo ' '.$mensagem;
-                            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '</div>';
-
-                            $_SESSION["cadastro-login"] = NULL;
-                        }
-                    ?>
+                    <?php if($mensagem): ?>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Dados inválidos!</strong>
+                                    <?= $mensagem; ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </main>
             </div>
 
