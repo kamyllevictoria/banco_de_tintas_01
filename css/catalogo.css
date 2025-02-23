@@ -7,7 +7,7 @@ body.high-contrast .card {
 }
 
 body.high-contrast .text_green_2{
-  color: black;
+  color: rgba(0, 0, 0, 0.959);
 }
 
 body.high-contrast .btn-green {
