@@ -1,47 +1,42 @@
 /* Estilo de alto contraste */
 body.high-contrast .main-content {
-  background-color: #8E9BE8;
+  background-color: #8e9be8;
 }
 body.high-contrast .card {
   background-color: black;
 }
 
-body.high-contrast .text_green_2{
+body.high-contrast .text_green_2 {
   color: rgba(0, 0, 0, 0.959);
 }
 
 body.high-contrast .btn-green {
-  background-color: #8E9BE8 !important;
+  background-color: #8e9be8 !important;
   color: black !important;
 }
 
-body.high-contrast .text_green,
-.menu_text {
-  color: #8E9BE8;
-}
-
 body.high-contrast .card-title,
-.card-text{
-  color: #CE91CE !important;
+.card-text {
+  color: #ce91ce !important;
 }
 
 body.high-contrast .sidebar {
   background-color: black;
 }
-body.high-contrast .link_bg_adm{
-  background-color: #8E9BE8 !important;
+body.high-contrast .link_bg_adm {
+  background-color: #8e9be8 !important;
   color: black !important;
 }
-body.high-contrast .link_bg_adm:hover{
-  background-color: #4E4E4E !important;
+body.high-contrast .link_bg_adm:hover {
+  background-color: #4e4e4e !important;
 }
 
-body.high-contrast .btn-green:hover{
-  background-color: #4E4E4E !important;
+body.high-contrast .btn-green:hover {
+  background-color: #4e4e4e !important;
 }
 
-body.high-contrast .btn-purple-editar{
-  background-color: #8E9BE8;
+body.high-contrast .btn-purple-editar {
+  background-color: #8e9be8;
   color: black;
 }
 
@@ -50,12 +45,33 @@ body.high-contrast .container-green {
 }
 
 /* Gerais */
-p,
+/* p,
 li {
   color: #423746;
   font-size: 14px;
+} */
+
+.text_purple {
+    color: #84469B !important;
+    font-weight: bold;
 }
-.img-fluid{
+
+.text_purple {
+    color: #84469B !important;
+    font-weight: bold;
+}
+.btn-green {
+    background-color: #8EB041 !important;
+    color: black !important;
+    border: none;
+}
+
+.text_green {
+    color: #8EB041;
+    font-weight: bold;
+}
+
+.img-fluid {
   max-width: 70%;
   max-height: 70%;
 }
@@ -75,7 +91,7 @@ li {
 
 .sidebar {
   background-color: #cbb4d3;
-  padding-top: 20px;
+  padding-top: 50px;
   height: auto;
 }
 
@@ -101,7 +117,7 @@ li {
 
 .menu_text {
   font-weight: bold;
-} 
+}
 
 .link_bg_adm {
   background-color: white;
@@ -188,7 +204,6 @@ li {
   padding: 5px 0px 5px 0px;
 }
 
-
 /* estava dentro da style ---------------------*/
 .position_relative_20 {
   position: relative;
@@ -202,12 +217,6 @@ li {
 
 .menu_color {
   background-color: #cbb4d3;
-}
-
-.sidebar {
-  background-color: #cbb4d3;
-  padding-top: 20px;
-  height: auto;
 }
 
 .main-content {

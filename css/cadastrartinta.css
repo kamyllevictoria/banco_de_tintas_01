@@ -69,6 +69,12 @@ body.high-contrast .btn-green:hover{
   background-color: #f8f9fa;
 }
 
+.btn-green {
+    background-color: #8EB041 !important;
+    color: black !important;
+    border: none;
+}
+
 .menu_text {
   font-weight: bold;
 }
