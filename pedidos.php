@@ -47,7 +47,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/main.css">
+    <!-- <link rel="stylesheet" href="./css/main.css"> -->
     <link rel="stylesheet" href="./css/pedidos.css">
     <link rel="stylesheet" href="./css/navbarLogado.css">
 
@@ -155,7 +155,7 @@
                                                     <?= $dataHora[2]; ?>/<?= $dataHora[1]; ?>/<?= $dataHora[0]; ?> 
                                                     <?= $dataHora[3]; ?>:<?= $dataHora[4]; ?>:<?= $dataHora[5]; ?>
                                                 </h4>
-                                                <p class="card-text text_purple">'
+                                                <p class="card-text text_purple">
                                                     Solicitado por: 
                                                     <span class="text_green"><?= $cliente["nome"]; ?></span>
                                                 </p>
