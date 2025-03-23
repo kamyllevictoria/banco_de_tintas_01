@@ -135,7 +135,7 @@
                         </div>
                     <?php endif; ?>
                         
-                    <h4 class="text_green_2 text-center text-lg-start">CATALOGO DE TINTAS</h4>
+                    <h4 class="text_light_green text-center text-lg-start">CATALOGO DE TINTAS</h4>
                     <div class="row cards-container">
                         <?php if($tabela): ?>
                             <?php while($linha = mysqli_fetch_array($tabela)): ?>
