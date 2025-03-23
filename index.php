@@ -60,10 +60,10 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/navbarLogado.css">
-    <link rel="stylesheet" href="./css/navbarDeslog2.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- <link rel="stylesheet" href="css/main.css"> -->
+    <link rel="stylesheet" href="css/navbarLogado.css">
+    <link rel="stylesheet" href="css/navbarDeslog2.css">
 
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
@@ -83,128 +83,6 @@
 
     <link rel="shortcut icon" href="./icones/balde_tinta.png" type="image/x-icon">
 </head>
-
-<style>
-    
-    .card_transparent{
-        background-color: transparent;
-        border: none;
-    }
-    footer{
-        background-color: #cfcece !important;
-    }
-
-    .input-small{
-        width: 200px;
-    }
-    .pad_bottom_5{
-        padding-bottom: 5px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .form-group input {
-        width: 100%;
-        padding: 10px;
-        margin: 0 auto;
-        display: block;
-        text-align: center;
-        border-radius: 5px;
-        border: none;
-    }
-
-    .btn-purple-editar {
-        background-color: #84469B;
-        color: white;
-        font-size: 18px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        width: 100%;
-    }
-    .btn-purple-editar:hover{
-        background-color: #cbb4d3;
-        color: black;
-    }
-
-    .container-green {
-        display: none;
-        background-color: #8eb041;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1001;
-        padding: 20px;
-        border-radius: 10px;
-        width: 400px; 
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    .modal-background {
-        display: none; 
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); 
-        z-index: 1000; 
-    }
-    .fechar-modal {
-        position: absolute;
-        left: 100%;
-        top: -10%;
-        padding: 10px;
-        cursor: pointer;
-    } 
-
-    .foto-perfil {
-        border-radius: 30px;
-    }
-
-    .text_neon_green:hover {
-        color: white;
-    }
-
-    #botao-flutuante-contraste {
-        position: fixed;
-        margin-left: 85%;
-        margin-top: 3%;
-        background-color: black;
-        color:white;
-        z-index: 1;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0px 0px 5px gray;
-    }
-
-    body.high-contrast .card-title,
-    body.high-contrast .card-text{
-        color: #8E9BE8;
-    }
-
-    .card-title, .card-text{
-        color: black;
-    }
-
-    @media (max-width: 764px) {
-        #botao-flutuante-contraste {
-        margin-left: 75%;
-        padding: 5px;
-        font-size: 12px;
-        }
-    }
-
-    @media (min-width: 765px) and (max-width: 1200px) {
-        #botao-flutuante-contraste {
-        margin-left: 75%;
-        padding: 5px;
-    }
-    }
-</style>
 
 <body>
     <?php include 'navbar.php'; ?>
@@ -295,7 +173,7 @@
                                             <label for="volumeLitros" class="text_purple">Volume em Litros:</label>
                                             <input name="volume<?= $linha["identificacao"]; ?>" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">
                                         </div>
-                                        <button class="btn btn-purple-editar" id="btnSalvar<?= $linha["identificacao"]; ?>">Solicitar Tinta</button>
+                                        <button class="btn btn-solicitar" id="btnSalvar<?= $linha["identificacao"]; ?>">Solicitar Tinta</button>
                                     </form>
                                 </div>
                             <?php else: ?>
