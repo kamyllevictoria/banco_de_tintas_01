@@ -106,7 +106,7 @@
                                         <form action="config/tintas_config.php" method="post"
                                             enctype="multipart/form-data">
                                             <input type="hidden" name="cadastrar-tinta">
-                                            <h4 class="text_green_2 ">CADASTRAR TINTA</h4>
+                                            <h4 class="text_light_green ">CADASTRAR TINTA</h4>
                                             <div class="row bg_lilac">
 
                                                 <div class="col-md-6">
