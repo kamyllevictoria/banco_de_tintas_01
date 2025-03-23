@@ -59,11 +59,11 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="./css/index.css">
-  <link rel="stylesheet" href="./css/main.css">
-  <link rel="stylesheet" href="./css/opcoes.css">
-  <link rel="stylesheet" href="./css/navbarLogado.css">
-  <link rel="stylesheet" href="./css/navbarDeslog2.css">
+  <!-- <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/main.css"> -->
+  <link rel="stylesheet" href="css/opcoes.css">
+  <link rel="stylesheet" href="css/navbarLogado.css">
+  <link rel="stylesheet" href="css/navbarDeslog2.css">
 
   <!-- FontAwesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
@@ -82,46 +82,6 @@
   <script src="./js/scripts.js"></script>
 
   <link rel="shortcut icon" href="./icones/balde_tinta.png" type="image/x-icon">
-
-  <style>
-    .fechar-modal {
-      position: absolute;
-      left: 100%;
-      top: -10%;
-      padding: 10px;
-      cursor: pointer;
-    }
-
-    .foto-perfil {
-        border-radius: 30px;
-    }
-
-    body.high-contrast .justify-content-between,
-    body.high-contrast .col-md-3,
-    body.high-contrast .fw-bold,
-    body.high-contrast .form-check-label {
-      color: #8E9BE8 !important;
-    }
-
-    .justify-content-between,
-    .col-md-3,
-    .fw-bold,
-    .form-check-label, h5 {
-      color: black;
-    }
-
-    body.high-contrast .active>.page-link, .page-link.active {
-      color: white !important;
-      background-color: black !important;
-      border-color: white !important;
-    }
-
-    .active>.page-link, .page-link.active {
-      color: white !important;
-      background-color: #84469b !important;
-      border-color: #84469b !important;
-    }
-  </style>
 
 </head>
 
@@ -173,7 +133,7 @@
                           <p>Quantidade disponível: <?= $linha['volume']; ?>L</p>
                           <p>Data de validade: <?= $dataValidade[2]; ?>/<?= $dataValidade[1]; ?>/<?= $dataValidade[0]; ?></p>
                           <?php if($_SESSION['ADM'] == FALSE && $_SESSION['USUARIO'] != FALSE): ?>
-                            <button onclick="modal('<?= $linha['identificacao']; ?>')" class="btn btn-green btn_card">Tenho Interesse</button>
+                            <button onclick="modal('<?= $linha['identificacao']; ?>')" class="btn btn-interest btn_card">Tenho Interesse</button>
                             </div>
                           </div>
                           <div id="modalBackground<?= $linha['identificacao']; ?>" class="modal-background"></div>
@@ -189,7 +149,7 @@
                                 <label for="volumeLitros" class="text_purple">Volume em Litros:</label>
                                 <input name="volume<?= $linha['identificacao']; ?>" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">
                               </div>
-                              <button class="btn btn-purple-editar" id="btnSalvar<?= $linha['identificacao']; ?>">Solicitar Tinta</button>
+                              <button class="btn btn-solicitar" id="btnSalvar<?= $linha['identificacao']; ?>">Solicitar Tinta</button>
                             </form>
                           </div>
                         <?php else: ?>
@@ -292,8 +252,8 @@
                           <p>Indisponível</p>
                           <form action="config/pedidos_config.php" method="post">
                             <input type="hidden" name="lista-desejos">
-                            <input type="hidden" name="identificacao" value="'.$linha["identificacao"].'">';
-                            <button type="submit" class="btn btn-secondary btn_card">
+                            <input type="hidden" name="identificacao" value="'.$linha["identificacao"].'">
+                            <button type="submit" class="btn btn-secondary btn-salvar">
                               <img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">
                               Salvar
                             </button>
