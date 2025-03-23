@@ -112,7 +112,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <h4 class="text_green_2 text-center text-lg-start">PEDIDOS A SEREM APROVADOS</h4>
+                    <h4 class="text_light_green text-center text-lg-start">PEDIDOS A SEREM APROVADOS</h4>
                     <?php if($tabela): ?>
                         <div class="row cards-container">
                             <?php $cont = 1; ?>
