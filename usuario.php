@@ -83,13 +83,10 @@
     <!-- Javascritp -->
     <script src="./js/scripts.js"></script>
 
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
+
     <title>Banco de Tintas</title>
 
-    <style>
-        .foto-perfil {
-            border-radius: 30px;
-        }
-    </style>
 </head>
 
 <body>
