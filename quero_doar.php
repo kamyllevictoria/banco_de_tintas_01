@@ -11,11 +11,11 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/navbarLogado.css">
-    <link rel="stylesheet" href="./css/navbarDeslog.css">
-    <link rel="stylesheet" href="./css/quero-doar.css">
+    <!-- <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css"> -->
+    <link rel="stylesheet" href="css/navbarLogado.css">
+    <link rel="stylesheet" href="css/navbarDeslog.css">
+    <link rel="stylesheet" href="css/quero-doar.css">
 
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
@@ -194,12 +194,12 @@
                     <p class="text_justify">Banco de tintas é uma iniciativa da FATEC Jundiaí!</p>
                     <p class="text_justify">
                         <img src="./icones/insta.png" width="50px" height="50px" alt="logo instagram"> <a
-                            class="text_a_link text_purple" href="#">@fatecjd</a>
+                            class="text_a_link text_purple" href="https://www.instagram.com/fatecjd/">@fatecjd</a>
                     </p>
 
                     <p class="text_justify">
                         <img src="./icones/insta.png" width="50px" height="50px" alt="logo instagram">
-                        <a class="text_a_link text_purple" href="#">@bancodetintasfatecjdi</a>
+                        <a class="text_a_link text_purple" href="https://www.instagram.com/bancodetintasfatecjdi/">@bancodetintasfatecjdi</a>
                     </p>
                 </div>
                 <div class="col-md-4 mb-4">
