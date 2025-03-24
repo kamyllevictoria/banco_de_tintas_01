@@ -15,10 +15,14 @@ body.high-contrast .btn-green {
   color: black !important;
 }
 
-/* body.high-contrast .text_green,
+body.high-contrast .text_green,
 .menu_text {
   color: #8E9BE8;
-} */
+  
+}
+body.high-contrast .text_purple{
+  color: white !important;
+ }
 
 body.high-contrast .card-title,
 .card-text{
