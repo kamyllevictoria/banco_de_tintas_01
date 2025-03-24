@@ -67,8 +67,7 @@
     <!-- Java Script -->
     <script src="js/scripts.js" defer></script>
 
-    <link rel="shortcut icon" href="./icones/balde_tinta.png" type="image/x-icon">
-
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
     <style>
         .fechar-modal {
             position: absolute;

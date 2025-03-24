@@ -60,13 +60,8 @@
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="./icones/balde_tinta.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 
-    <style>
-        body.high-contrast .text_purple{
-            color: white !important;
-        }
-    </style>
 </head>
 
 <body>

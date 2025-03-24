@@ -46,6 +46,8 @@
     <!-- Java Script -->
     <script src="js/scripts.js" defer></script>
 
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
+
     <title>Banco de Tintas</title>
 
     <style>

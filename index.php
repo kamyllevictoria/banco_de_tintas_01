@@ -81,7 +81,7 @@
     <!-- Javascritp -->
     <script src="./js/scripts.js"></script>
 
-    <link rel="shortcut icon" href="./icones/balde_tinta.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 </head>
 
 <body>

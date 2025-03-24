@@ -44,14 +44,16 @@
     <link rel="stylesheet" href="./css/navbarLogado.css">
     <link rel="stylesheet" href="./css/cadastrartinta.css">
 
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
     <!-- script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Javascritp -->
     <script src="./js/scripts.js"></script>
 
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 
 </head>
 
