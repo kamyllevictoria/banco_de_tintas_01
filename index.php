@@ -87,13 +87,6 @@
 <body>
     <?php include 'navbar.php'; ?>
     
-    <div id="botao-flutuante-contraste">
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="toggleHighContrast">
-            <label class="form-check-label" for="toggleHighContrast">Alto Contraste</label>
-        </div>
-    </div>
-    
     <section class="pagina">
         <div class="container">
             <?php if($mensagem): ?>

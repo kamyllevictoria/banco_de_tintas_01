@@ -1,25 +1,3 @@
-/* Estilo de alto contraste */
-body.high-contrast .row-bg-1 {
-  background-color: #8E9BE8;
-}
-body.high-contrast .row-bg-2 {
-  background-color: #8E9BE8;
-}
-body.high-contrast .row-bg-3 {
-  background-color: #8E9BE8;
-}
-body.high-contrast .row-bg-4 {
-  background-color: #8E9BE8;
-}
-
-body.high-contrast .a-links {
-  color: #000A35 !important;
-}
-body.high-contrast .text_purple {
-  color: #000A35 !important;
-}
-/* ----------------------------- */
-
 select {
   border-radius: 5px;
   height: 40px;

@@ -1,22 +1,3 @@
-/* Estilo de alto contraste */
-body.high-contrast{
-  background-color: black;
-}
-body.high-contrast .btn-primary{
-  background-color: white;
-  color: black;
-}
-body.high-contrast .cadastrar {
-  color:cyan;
-}
-body.high-contrast .btn:hover {
-  background-color: cyan;
-}
-body.high-contrast .form-check-label{
-  color: white;
-}
-
-/* Gerais */
 body,
 html {
   height: 100%;
@@ -43,7 +24,6 @@ html {
   height: 100%;
   width: 100%;
 }
-
 
 .btn-primary {
   background-color: #84469b;

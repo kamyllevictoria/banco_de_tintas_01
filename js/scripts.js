@@ -47,23 +47,3 @@ document.querySelectorAll('.accordion-button').forEach(button => {
         }
     });
 });
-// Função para ativar/desativar o alto contraste
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleHighContrast = document.getElementById('toggleHighContrast');
-
-    // Carregar o estado inicial do modo de alto contraste
-    if (localStorage.getItem('highContrast') === 'enabled') {
-        document.body.classList.add('high-contrast');
-        toggleHighContrast.checked = true;
-    }
-
-    toggleHighContrast.addEventListener('change', (event) => {
-        if (event.target.checked) {
-            document.body.classList.add('high-contrast');
-            localStorage.setItem('highContrast', 'enabled');
-        } else {
-            document.body.classList.remove('high-contrast');
-            localStorage.setItem('highContrast', 'disabled');
-        }
-    });
-});
