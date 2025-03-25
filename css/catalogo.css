@@ -196,6 +196,20 @@ body.high-contrast .container-green {
   z-index: 1000;
 }
 
+.fechar-modal {
+  position: absolute;
+  left: 100%;
+  top: -10%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.apagar-tinta-mensagem {
+  color: white;
+  text-align: center;
+  font-size: 18px;
+}
+
 @media (max-width: 1700px) {
   .col-md-4 {
     width: 50%;

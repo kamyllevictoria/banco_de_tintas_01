@@ -68,25 +68,6 @@
     <script src="js/scripts.js" defer></script>
 
     <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
-    <style>
-        .fechar-modal {
-            position: absolute;
-            left: 100%;
-            top: -10%;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .apagar-tinta-mensagem {
-            color: white;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        body.high-contrast .text_purple{
-            color: white !important;
-        }
-    </style>
 
 </head>
 
