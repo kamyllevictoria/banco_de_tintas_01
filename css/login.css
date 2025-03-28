@@ -1,21 +1,3 @@
-/* Estilo de alto contraste */
-body.high-contrast .row, .container-fluid, .fundo-login, .div-vazia{
-  background-color: black;
-}
-body.high-contrast .btn-primary{
-  background-color: #6E3A82;
-}
-body.high-contrast.cadastrar {
-  color:#6E3A82;
-}
-body.high-contrast .btn:hover {
-  background-color: #51469B;
-}
-body.high-contrast .form-check-label{
-  color: white;
-}
-
-/* Gerais */
 body,
 html {
   height: 100%;

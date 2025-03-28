@@ -32,6 +32,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/login copy.css">
     <link rel="stylesheet" href="css/navbarDeslog.css">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
     
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -46,8 +49,7 @@
     <!-- Javascritp -->
     <script src="./js/scripts.js"></script>
     
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 
     <title>Banco de Tintas</title>
 

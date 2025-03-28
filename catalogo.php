@@ -47,7 +47,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/main.css">
+    <!-- <link rel="stylesheet" href="./css/main.css"> -->
     <link rel="stylesheet" href="./css/navbarLogado.css">
     <link rel="stylesheet" href="./css/catalogo.css">
 
@@ -67,27 +67,7 @@
     <!-- Java Script -->
     <script src="js/scripts.js" defer></script>
 
-    <link rel="shortcut icon" href="./icones/balde_tinta.png" type="image/x-icon">
-
-    <style>
-        .fechar-modal {
-            position: absolute;
-            left: 100%;
-            top: -10%;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .apagar-tinta-mensagem {
-            color: white;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        body.high-contrast .text_purple{
-            color: white !important;
-        }
-    </style>
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 
 </head>
 
@@ -135,7 +115,7 @@
                         </div>
                     <?php endif; ?>
                         
-                    <h4 class="text_green_2 text-center text-lg-start">CATALOGO DE TINTAS</h4>
+                    <h4 class="text_light_green text-center text-lg-start">CATALOGO DE TINTAS</h4>
                     <div class="row cards-container">
                         <?php if($tabela): ?>
                             <?php while($linha = mysqli_fetch_array($tabela)): ?>

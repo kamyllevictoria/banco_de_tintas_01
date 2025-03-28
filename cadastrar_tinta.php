@@ -40,9 +40,12 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/main.css">
+    <!-- <link rel="stylesheet" href="./css/main.css"> -->
     <link rel="stylesheet" href="./css/navbarLogado.css">
     <link rel="stylesheet" href="./css/cadastrartinta.css">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 
     <!-- script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -50,8 +53,7 @@
     <!-- Javascritp -->
     <script src="./js/scripts.js"></script>
 
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 
 </head>
 
@@ -106,7 +108,7 @@
                                         <form action="config/tintas_config.php" method="post"
                                             enctype="multipart/form-data">
                                             <input type="hidden" name="cadastrar-tinta">
-                                            <h4 class="text_green_2 ">CADASTRAR TINTA</h4>
+                                            <h4 class="text_light_green ">CADASTRAR TINTA</h4>
                                             <div class="row bg_lilac">
 
                                                 <div class="col-md-6">

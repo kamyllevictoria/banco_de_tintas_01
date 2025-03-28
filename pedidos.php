@@ -47,7 +47,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/main.css">
+    <!-- <link rel="stylesheet" href="./css/main.css"> -->
     <link rel="stylesheet" href="./css/pedidos.css">
     <link rel="stylesheet" href="./css/navbarLogado.css">
 
@@ -60,13 +60,8 @@
     <!-- FontAwesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="./icones/balde_tinta.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 
-    <style>
-        body.high-contrast .text_purple{
-            color: white !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -112,7 +107,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <h4 class="text_green_2 text-center text-lg-start">PEDIDOS A SEREM APROVADOS</h4>
+                    <h4 class="text_light_green text-center text-lg-start">PEDIDOS A SEREM APROVADOS</h4>
                     <?php if($tabela): ?>
                         <div class="row cards-container">
                             <?php $cont = 1; ?>
@@ -155,7 +150,7 @@
                                                     <?= $dataHora[2]; ?>/<?= $dataHora[1]; ?>/<?= $dataHora[0]; ?> 
                                                     <?= $dataHora[3]; ?>:<?= $dataHora[4]; ?>:<?= $dataHora[5]; ?>
                                                 </h4>
-                                                <p class="card-text text_purple">'
+                                                <p class="card-text text_purple">
                                                     Solicitado por: 
                                                     <span class="text_green"><?= $cliente["nome"]; ?></span>
                                                 </p>

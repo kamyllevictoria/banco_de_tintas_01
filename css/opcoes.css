@@ -1,56 +1,42 @@
-/* Estilo de alto contraste */
-body.high-contrast{
-  background-color: black;
+body{
+  background-color: #8eb041;
 }
 
-body.high-contrast div.content-wrapper {
-  background-color: black;
+footer {
+  background-color: #f8f9fa;
+  padding: 40px 0; 
 }
 
-body.high-contrast .product-card{
-  background-color: #8E9BE8;
-  color: black;
+.text_justify {
+  text-align: justify;
 }
 
-body.high-contrast .btn_card{
-  background-color: black !important;
-  color: #8E9BE8 !important;
+.text_purple {
+  color: #84469b !important;
+  font-weight: bold;
 }
 
-body.high-contrast a.page-link{
-  color: black;
+.text_a_link {
+  text-decoration: none !important;
 } 
 
-.active>.page-link, .page-link.active {
-  color: white !important;
-  background-color: black !important;
-  border-color: white !important;
-}
-
-body.high-contrast .justify-content-between,
-.col-md-3,
-.fw-bold,
-.form-check-label, h5 {
-  color: #8E9BE8;
-}
-
-body.high-contrast h2.text-center{
-  color: #8E9BE8 !important;
-}
-
-body.high-contrast #modalContainer{
-  background-color: black !important;
-}
-body.high-contrast .text_purple{
-  color: #8E9BE8 !important;
-}
-body.high-contrast .btn-purple-editar{
-  background-color: #8E9BE8;
+.btn-interest {
+  background-color: #84469b;
   color: black;
+  border: none;
+  width: 100%;
 }
-/* ------------------------------------- */
 
+.btn-interest:hover{
+  background-color: #637046;
+  color: white;
+}
 
+.btn-salvar{
+  background-color: #84469b;
+  border: none;
+  width: 100%;
+}
 
 .content-wrapper {
   background-color: #8eb041;
@@ -58,9 +44,7 @@ body.high-contrast .btn-purple-editar{
   margin: 0 auto;
   position: relative;
 }
-body{
-  background-color: #8eb041;
-}
+
 .product-card {
   background-color: #fff;
   border-radius: 8px;
@@ -72,58 +56,30 @@ body{
   max-width: 100%;
   border-radius: 5px;
 }
-.btn-interest {
-  background-color: #84469b;
-  color: white;
-  border: none;
-}
-
-.btn-interest:hover {
-  background-color: #cbb4d3;
-  color: black;
-}
 
 .pagination .page-link {
   color: #84469b;
 }
 
 .active>.page-link, .page-link.active {
-    z-index: 3;
-    color: #ffffff; /* Cor do texto */
-    background-color: #84469b;
-    border-color: #84469b;
-}
-
-/* Estava na tag style -----------------------------*/
-footer {
-  background-color: #f8f9fa;
-  padding: 40px 0;
-  width: 100%; /* Garante que o footer ocupe toda a largura */
-  margin: 0; /* Remove qualquer margem extra */
-  position: relative;
-  left: 0;
-}
-
-.btn-interest {
+  z-index: 3;
+  color: #ffffff; /* Cor do texto */
   background-color: #84469b;
-  color: white;
-  border: none;
-}
-
-.btn-interest:hover {
-  background-color: #cbb4d3;
-  color: black;
+  border-color: #84469b;
+  color: white !important;
+  background-color: black !important;
+  border-color: white !important;
 }
 
 .input-small {
   width: 200px;
 }
 
-.pad_bottom_5 {
-  padding-bottom: 5px;
+.justify-content-between,
+.fw-bold,
+.form-check-label, h5 {
+  color: black;
 }
-
-/*CONTAINER PARA ALTERAR TINTA*/
 
 .form-group label {
   display: block;
@@ -138,22 +94,6 @@ footer {
   text-align: center;
   border-radius: 5px;
   border: none;
-}
-
-.btn-purple-editar {
-  background-color: #84469b;
-  color: white;
-  font-size: 18px;
-  padding: 10px 20px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  width: 100%;
-}
-
-.btn-purple-editar:hover {
-  background-color: #cbb4d3;
-  color: black;
 }
 
 .container-green {
@@ -180,4 +120,28 @@ footer {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+}
+
+.btn-solicitar {
+  background-color: #84469b;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.btn-solicitar:hover {
+  background-color: #cbb4d3;
+  color: black;
+}
+
+.fechar-modal {
+  position: absolute;
+  left: 100%;
+  top: -10%;
+  padding: 10px;
+  cursor: pointer;
 }

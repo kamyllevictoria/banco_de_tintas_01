@@ -1,77 +1,11 @@
-/* Estilo de alto contraste */
-body.high-contrast footer{
-  background-color: yellow !important;
-  color: white;
-}
-body.high-contrast footer p {
-  color: black !important;
-}
-
-body.high-contrast .text_green {
-  color: black !important;
-}
-
-body.high-contrast .section_2{
-  background-color: #8E9BE8;
-}
-
-body.high-contrast .text_white {
-  color: black !important;
-}
-
-body.high-contrast .card-title,
-.card-text{
-  color: #8E9BE8;
-}
-
-body.high-contrast .card-body{
-  background-color: black;
-  border-color: black;
-  border-radius: 0 0 9px 9px;
-}
-
-body.high-contrast .card.mx-auto {
-  border-radius: 9px;
-  border-color: black;
-}
-
-body.high-contrast .btn-interesse {
-  background-color: #8E9BE8 !important;
-  color: black !important;
-}
-
-body.high-contrast .btn-green:hover {
-  background-color: cyan !important;
-  color: black !important;
-}
-
-body.high-contrast .text_neon_green{
+p {
   color: black;
 }
-
-body.high-contrast .text_neon_green:hover{
-  color: #050F35 !important;
-}
-
-body.high-contrast .text_purple{
-  color: #8E9BE8 !important;
-}
-body.high-contrast .btn-purple-editar{
-  background-color: #8E9BE8;
-  color: black;
-}
-
-body.high-contrast .container-green {
-  background-color: black !important;
-}
-/* ----------------------------------- */
 
 .pagina{
   padding-top: 30px;
 }
-.img_logo1{
-  padding-left: -10px !important;
-}
+
 .card-body{
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.554);
@@ -82,20 +16,12 @@ body.high-contrast .container-green {
 }
 
 footer {
-  background-color: #f8f9fa; 
+  background-color: #cfcece;
   padding: 40px 0; 
 }
 
 .text_a_link{
   text-decoration: none !important;
-}
-
-.text_a_link:hover{
-  text-decoration: underline !important;
-}
-.opcoes a{
-  text-decoration: none;
-  margin-top: 20px;
 }
 
 .text_neon_green{
@@ -106,6 +32,46 @@ footer {
 .text_neon_green:hover{
   color: white;
 }
+
+.text_purple {
+  color: #84469b !important;
+  font-weight: bold;
+}
+.text_green {
+  color: #8eb041;
+  font-weight: bold;
+}
+
+.text_white {
+  color: white;
+}
+
+.btn-green {
+  background-color: #8eb041 !important;
+  color: black !important;
+  border: none;
+}
+.btn-green:hover {
+  background-color: #637046 !important;
+  color: white !important;
+  border: none;
+}
+
+.title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.img-fluid-custom {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.text_justify {
+  text-align: justify;
+}
+
 .pad_top_20{
   padding-top: 20px;
 }
@@ -123,18 +89,78 @@ footer {
   padding: 20px 0; /
 }
 
-.img_logo1{
-  padding-left: -10px !important;
-}
-.card-body{
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.554);
-  border-radius: 9px;
-}
-.btn_card{
-    width: 100%;
-}
 .card_transparent{
   background-color: transparent;
   border: none;
+}
+
+.input-small{
+  width: 200px;
+}
+.pad_bottom_5{
+  padding-bottom: 5px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn-solicitar {
+  background-color: #84469B;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+}
+.btn-solicitar:hover{
+  background-color: #cbb4d3;
+  color: black;
+}
+
+.container-green {
+  display: none;
+  background-color: #8eb041;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.modal-background {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
+}
+.fechar-modal {
+  position: absolute;
+  left: 100%;
+  top: -10%;
+  padding: 10px;
+  cursor: pointer;
+} 
+
+.card-title, .card-text{
+  color: black;
 }

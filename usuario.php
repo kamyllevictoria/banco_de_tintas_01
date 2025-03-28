@@ -83,13 +83,10 @@
     <!-- Javascritp -->
     <script src="./js/scripts.js"></script>
 
+    <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
+
     <title>Banco de Tintas</title>
 
-    <style>
-        .foto-perfil {
-            border-radius: 30px;
-        }
-    </style>
 </head>
 
 <body>
@@ -177,13 +174,6 @@
                             <label for="formInput" class="form-label">Telefone</label>
                             <input type="tel" class="form-control" id="Telefone" placeholder="(00) 00000-0000" name="telefone">
                         </div>
-
-                        <!-- aqui--------------------------- -->
-                        <div class="form-check form-switch mb-4">
-                            <input class="form-check-input" type="checkbox" id="toggleHighContrast">
-                            <label class="form-check-label" for="toggleHighContrast">Ativar Alto Contraste</label>
-                        </div>
-                        <!-- aqui--------------------------- -->
                          
                         <button type="submit" class="btn btn-purple w-100">Salvar</button>
                     </form>
