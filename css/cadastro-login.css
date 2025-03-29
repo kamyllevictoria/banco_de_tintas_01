@@ -45,6 +45,11 @@ html {
   margin: 0 auto;
 }
 
+header,
+  .navbar {
+  background-color: #ffff;
+}
+
 @media (max-width: 766px) {
   .container-fluid {
     padding-top: 130px;
