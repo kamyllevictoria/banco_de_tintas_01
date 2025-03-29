@@ -1,0 +1,55 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #8eb041;
+}
+
+.recuperar-senha{
+  overflow: hidden;
+}
+.img-col {
+  height: 100vh;
+}
+
+.img-fluid {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #84469b;
+  border: none;
+  border-radius: 9px;
+  height: 48px;
+  font-size: 24px;
+}
+
+.btn:hover {
+  background-color: darkslateblue;
+}
+
+.form-label {
+  color: #fff;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+header,
+.navbar {
+  background-color: #ffff;
+}
+
+@media (max-width: 766px) {
+  .div-img {
+    display: none;
+  }
+  .container-fluid {
+    padding-top: 130px;
+    width: 350px;
+  }
+}

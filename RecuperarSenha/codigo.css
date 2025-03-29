@@ -1,0 +1,77 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #8eb041;
+}
+
+.recuperar-senha{
+  overflow: hidden;
+}
+
+.img-col {
+  height: 100vh;
+}
+
+.img-fluid {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: #84469b;
+  border: none;
+  border-radius: 9px;
+  height: 48px;
+  font-size: 24px;
+}
+
+.btn:hover {
+  background-color: darkslateblue;
+}
+
+.btn-cancelar{
+  border-color: #84469b;
+  border-style: double;
+  background: none;
+  border-radius: 9px;
+  height: 48px;
+  font-size: 24px;
+}
+
+.esqueci-senha {
+  text-align: center;
+  padding-top: 10px;
+  color: #84469b;
+}
+
+.esqueci-senha:hover {
+  color: darkslateblue;
+}
+
+.form-label {
+  color: #fff;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+header,
+.navbar {
+  background-color: #ffff;
+}
+
+@media (max-width: 766px) {
+  .div-img {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 916px) {
+  .btn-secondary{
+    font-size: 18px
+  }
+}
