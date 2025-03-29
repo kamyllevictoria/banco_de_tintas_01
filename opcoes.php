@@ -63,7 +63,7 @@
   <link rel="stylesheet" href="css/main.css"> -->
   <link rel="stylesheet" href="css/opcoes.css">
   <link rel="stylesheet" href="css/navbarLogado.css">
-  <link rel="stylesheet" href="css/navbarDeslog2.css">
+  <link rel="stylesheet" href="css/navbarDeslog.css">
 
   <!-- FontAwesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">

@@ -6,8 +6,14 @@ html {
   background-color: #8eb041;
 }
 
-.login{
-  overflow: hidden;
+.img-col {
+  height: 100vh;
+}
+
+.img-fluid {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .btn-primary {
@@ -22,37 +28,37 @@ html {
   background-color: darkslateblue;
 }
 
-.cadastrar {
-  color: #84469b;
-  font-weight: 700;
-  padding-bottom: 10px;
-}
-
-.radio-container {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
 .form-label {
   color: #fff;
 }
+
 .container-fluid {
   padding: 0;
 }
 
-.fundo_login{
-  margin: 0 auto;
-}
-
 header,
-  .navbar {
+.navbar {
   background-color: #ffff;
 }
 
 @media (max-width: 766px) {
+  .div-img {
+    display: none;
+  }
   .container-fluid {
     padding-top: 130px;
     width: 350px;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1077px) {
+  .bt-senha {
+    height: 80px;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1077px) {
+  .bt-senha {
+    height: 80px;
   }
 }
