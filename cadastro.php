@@ -49,16 +49,6 @@
     <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 
     <title>Banco de Tintas</title>
-
-    <style>
-        body.high-contrast .navbar{
-            background-color: cyan;
-        }
-
-        .navbar{
-            background-color: white;
-        }
-    </style>
 </head>
 
 <body class="cadastro">
@@ -75,9 +65,6 @@
 
     <div class="container-fluid">
         <div class="row">
-
-            <!-- Coluna vazia -->
-            <!-- <div class="col-12 col-md-2 d-flex align-items-center div-vazia"></div> -->
 
             <!-- Coluna com formulario -->
             <div class="col-12 col-lg-4 col-sm- 12 d-flex justify-content-center fundo_login">
