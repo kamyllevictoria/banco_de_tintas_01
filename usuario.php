@@ -146,13 +146,13 @@
                         <?php endif; ?>
                     </div>
                     <div class="d-flex justify-content-center my-3">
-                        <form action="config/usuarios_config.php" method="post">
+                        <form action="php/usuarios_config.php" method="post">
                             <input type="hidden" name="remover-foto">
                             <button type="submit" class="btn btn-danger">Remover foto atual</button>
                         </form>
                     </div>
 
-                    <form action="config/usuarios_config.php" method="post" enctype="multipart/form-data">
+                    <form action="php/usuarios_config.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="alterar-usuario">
                         <div class="d-flex justify-content-center">
                             <input type="file" id="fileInput" name="foto">
@@ -296,7 +296,7 @@
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title">Tinta <?= $tinta["cor"]; ?></h5>
                                         <div class="mt-auto d-flex justify-content-end">
-                                            <form action="config/pedidos_config.php" method="post">
+                                            <form action="php/pedidos_config.php" method="post">
                                                 <input type="hidden" name="remover-lista-desejos"/>
                                                 <input type="hidden" name="cor" value="<?= $tinta["cor"]; ?>"/>
                                                 <button type="submit" class="btn btn-outline-danger w-100 btn-sm">Remover</button>

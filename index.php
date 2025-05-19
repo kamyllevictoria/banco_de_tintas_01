@@ -159,7 +159,7 @@
                                         <img src="imagens/fechar.png" width="50px">
                                     </div>
                                     <h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>
-                                    <form action="config/pedidos_config.php" method="post">
+                                    <form action="php/pedidos_config.php" method="post">
                                         <input type="hidden" name="fazer-pedido">
                                         <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
                                         <div class="form-group pad_bottom_20">

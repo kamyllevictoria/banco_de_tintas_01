@@ -74,7 +74,7 @@
 
             <div class="col-12 col-md-3 d-flex align-items-center fundo_login">
                 <main class=" w-100 m-auto form-container">
-                    <form action="config/usuarios_config.php" method="post">
+                    <form action="php/usuarios_config.php" method="post">
                         <input type="hidden" name="logar-usuario">
                         <h1 class="h3 mb-3 fw-bold text-light py-4">Login</h1>
                         <div class="form-floating">

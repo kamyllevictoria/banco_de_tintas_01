@@ -142,7 +142,7 @@
                               <img src="imagens/fechar.png" width="50px">
                             </div>
                             <h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>
-                            <form action="config/pedidos_config.php" method="post">
+                            <form action="php/pedidos_config.php" method="post">
                               <input type="hidden" name="fazer-pedido">
                               <input type="hidden" name="identificacao" value="<?= $linha['identificacao']; ?>">
                               <div class="form-group pad_bottom_20">
@@ -250,9 +250,9 @@
                           <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
                           <h5 class="mt-3">Tinta <?= $cor; ?></h5>
                           <p>Indisponível</p>
-                          <form action="config/pedidos_config.php" method="post">
+                          <form action="php/pedidos_config.php" method="post">
                             <input type="hidden" name="lista-desejos">
-                            <input type="hidden" name="identificacao" value="'.$linha["identificacao"].'">
+                            <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]?>">
                             <button type="submit" class="btn btn-secondary btn-salvar">
                               <img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">
                               Salvar
@@ -272,7 +272,7 @@
                           <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
                           <h5 class="mt-3">Tinta <?= $cor; ?></h5>
                           <p>Indisponível</p>
-                          <form action="config/pedidos_config.php" method="post">
+                          <form action="php/pedidos_config.php" method="post">
                             <input type="hidden" name="lista-desejos">
                             <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
                             <button type="submit" class="btn btn-secondary btn_card">

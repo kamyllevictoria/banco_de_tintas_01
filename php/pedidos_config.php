@@ -1,30 +1,10 @@
 <?php
+    require 'phpBD/conexaoBD.php';
+    require 'phpBD/pedidosBD.php';
+    require 'phpBD/tintasBD.php';
+    require 'phpBD/listaDesejosBD.php';
 
     if(isset($_POST["fazer-pedido"])) {
-        fazerPedido();
-
-        header("Location: ../index.php");
-    }
-
-    if(isset($_POST["aprovar-pedido"])) {
-        aprovarPedido();
-
-        header("Location: ../pedidos.php");
-    }
-
-    if(isset($_POST["lista-desejos"])) {
-        listaDesejos();
-
-        header("Location: ../opcoes.php?acao=todos&valor=todos&page=1");
-    }
-
-    if(isset($_POST["remover-lista-desejos"])) {
-        removerListaDesejos();
-
-        header("Location: ../usuario.php");
-    }
-
-    function fazerPedido() {
         session_start();
 
         if($_POST["volume".$_POST["identificacao"]] != "") {
@@ -36,33 +16,28 @@
                 $volume = $_POST["volume".$tintasIdentificacao];
             }
 
-            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-            $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$tintasIdentificacao')");
-            $linha = mysqli_fetch_array($tabela);
-            mysqli_close($conexao);
-    
+            $tabela = tintas_carregarPor_identificacao($mysqli, $tintasIdentificacao);
+            $linha = $tabela -> fetch_assoc();
+
             $clienteId = $_SESSION["USUARIO"];
-    
             date_default_timezone_set('America/Sao_Paulo');
-    
             $dataHora = date('Y-m-d H:i:s');
 
             if(floatval($volume) > floatval($linha["volume"])) {
                 $_SESSION["mensagem-fazer-pedido"] = "A quantidade solicitada é maior do que o volume disponível para esta tinta!";
             }
             else {
-                $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-    
-                mysqli_query($conexao, "CALL pedidos_adicionar('$dataHora', $volume, '$clienteId', '$tintasIdentificacao')");
-    
-                mysqli_close($conexao);
-    
+                $mysqli -> next_result();
+                pedidos_adicionar($mysqli, $dataHora, $volume, $clienteId, $tintasIdentificacao);
+                
                 $_SESSION["mensagem-fazer-pedido"] = "Pedido efetuado.";
             }
         }
+
+        header("Location: ../index.php");
     }
 
-    function aprovarPedido() {
+    if(isset($_POST["aprovar-pedido"])) {
         session_start();
 
         if(isset($_POST["identificacao"])) {
@@ -127,28 +102,23 @@
             $_SESSION["mensagem-aprovar-pedido"] = "A data e a hora de retirada devem ser posteriores à data e a hora de agora!";
         }
         else {
-            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-
-            mysqli_query($conexao, "CALL pedidoStatus_adicionar('$dataHoraRetirada', '$status', '$observacoes', '$gestorId', '$pedidosDataHora', '$dataHora', '$tintasIdentificacao', '$clienteId')");
-
-            mysqli_close($conexao);
-
+            pedidoStatus_adicionar($mysqli, $dataHoraRetirada, $status, $observacoes, $gestorId, $pedidosDataHora, $dataHora, $tintasIdentificacao, $clienteId);
+            
             $_SESSION["mensagem-aprovar-pedido"] = "Status do pedido confirmado.";
         }
 
+        header("Location: ../pedidos.php");
     }
 
-    function listaDesejos() {
+    if(isset($_POST["lista-desejos"])) {
         session_start();
 
         if(isset($_POST["identificacao"])) {
             $identificacao = $_POST["identificacao"];
         }
 
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-        $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$identificacao')");
-        $linha = mysqli_fetch_array($tabela);
-        mysqli_close($conexao);
+        $tabela = tintas_carregarPor_identificacao($mysqli, $identificacao);
+        $linha = $tabela -> fetch_assoc();
 
         $cor = $linha["cor"];
 
@@ -157,20 +127,21 @@
 
         $clienteId = $_SESSION["USUARIO"];
 
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-        mysqli_query($conexao, "CALL listaDesejos_adicionar('$data', $clienteId, '$identificacao', '$cor')");
-        mysqli_close($conexao);
+        $mysqli -> next_result();
+        listaDesejos_adicionar($mysqli, $data, $clienteId, $identificacao, $cor);
+
+        header("Location: ../opcoes.php?acao=todos&valor=todos&page=1");
     }
 
-    function removerListaDesejos() {
+    if(isset($_POST["remover-lista-desejos"])) {
         session_start();
 
         if(isset($_POST["cor"])) {
             $cor = $_POST["cor"];
         }
 
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-        mysqli_query($conexao, "CALL listaDesejos_remover('$cor')");
-        mysqli_close($conexao);
+        listaDesejos_remover($mysqli, $cor);
+
+        header("Location: ../usuario.php");
     }
 ?>
