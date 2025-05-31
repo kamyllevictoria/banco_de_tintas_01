@@ -154,7 +154,7 @@
                                                         <img src="./icones/lixo.png" class="icone_position" width="20px" height="20px" alt="icone lixeira">  
                                                         Apagar Tinta
                                                     </button>
-                                                    <form action="config/tintas_config.php" method="post">
+                                                    <form action="php/tintas_config.php" method="post">
                                                         <input type="hidden" name="apagar-tinta">
                                                         <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
                                                         
@@ -174,7 +174,7 @@
                                                         <img src="./icones/editar.png" class="icone_position" width="20px" height="20px" alt="icone editar">
                                                         Alterar
                                                     </button>
-                                                    <form action="config/tintas_config.php" method="post">
+                                                    <form action="php/tintas_config.php" method="post">
                                                         <input type="hidden" name="alterar-tinta">
                                                         <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
                                                         

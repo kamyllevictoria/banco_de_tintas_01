@@ -105,7 +105,7 @@
                             <div class="col-lg-12">
                                 <div class="row justify-content-center">
                                     <div class="col-xl-10 col-lg-12">
-                                        <form action="config/tintas_config.php" method="post"
+                                        <form action="php/tintas_config.php" method="post"
                                             enctype="multipart/form-data">
                                             <input type="hidden" name="cadastrar-tinta">
                                             <h4 class="text_light_green ">CADASTRAR TINTA</h4>

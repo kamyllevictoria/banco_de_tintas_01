@@ -166,7 +166,7 @@
                                                     Cor: 
                                                     <span class="text_green"><?= $tinta["cor"]; ?></span>
                                                 </p>
-                                                <form action="config/pedidos_config.php" method="post">
+                                                <form action="php/pedidos_config.php" method="post">
                                                     <input type="hidden" name="clienteId" value="'.$clienteId.'">
                                                     <input type="hidden" name="aprovar-pedido">
                                                     <input type="hidden" name="identificacao" value="<?= $tintasIdentificacao; ?>">

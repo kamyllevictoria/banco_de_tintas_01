@@ -49,7 +49,7 @@
         }
 
         if(isset($_POST["clienteId"])) {
-            $clienteId = $_POST["clienteId"];
+            $clienteId = intval($_POST["clienteId"]);
         }
 
         if(isset($_POST["data_retirada".$tintasIdentificacao])) {
@@ -82,7 +82,7 @@
             }
         }
 
-        $gestorId = $_SESSION["ADM"];
+        $gestorId = intval($_SESSION["ADM"]);
         $dataHoraRetirada = $data." ".$hora;
 
         date_default_timezone_set('America/Sao_Paulo');
