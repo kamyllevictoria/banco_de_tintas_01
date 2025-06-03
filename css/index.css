@@ -22,7 +22,15 @@ footer {
 
 .text_a_link{
   text-decoration: none !important;
+  color: black;
+  font-weight: 450;
 }
+
+.text_a_link:hover{
+  text-decoration: underline !important;
+  color: #84469B;
+}
+
 
 .text_neon_green{
   color: #aef01d;
@@ -34,8 +42,13 @@ footer {
 }
 
 .text_purple {
-  color: #84469b !important;
+  color: black !important;
   font-weight: bold;
+}
+
+.text_link{
+  color: black !important;
+  background-color: red;
 }
 .text_green {
   color: #8eb041;
@@ -45,6 +58,13 @@ footer {
 .text_white {
   color: white;
 }
+
+.text-principal-footer{
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+}
+
 
 .btn-green {
   background-color: #8eb041 !important;
@@ -74,6 +94,12 @@ footer {
 
 .pad_top_20{
   padding-top: 20px;
+}
+
+.text-footer{
+  list-style: none;
+  text-align: left;
+  line-height: 15px;
 }
 
 .section_2 {
@@ -163,4 +189,16 @@ footer {
 
 .card-title, .card-text{
   color: black;
+}
+
+@media (max-width: 600px){
+  footer{
+    display: none;
+  }
+}
+
+@media (max-width: 997px){
+  .text-footer{
+    font-size: 12px;
+  }
 }

@@ -243,26 +243,51 @@
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-4 mb-4">
-                    <p class="text_justify">Banco de tintas é uma iniciativa da FATEC Jundiaí!</p>
+                    <img src="./icones/fatec_logo.png" alt="Logo" class="img-fluid" width="300px" height="50px">
                     <p class="text_justify">
-                        <img src="./icones/insta.png" width="50px" height="50px" alt="logo instagram"> <a
-                            class="text_a_link text_purple" href="#">@fatecjd</a>
+                        <img src="./icones/insta.png" width="40px" height="40px" alt="logo instagram"> <a
+                            class="text_a_link" href="https://www.instagram.com/fatecjd/">@fatecjd</a>
                     </p>
 
-                    <p class="text_justify">
-                        <img src="./icones/insta.png" width="50px" height="50px" alt="logo instagram">
-                        <a class="text_a_link text_purple" href="#">@bancodetintasfatecjdi</a>
+                    <p class="text_justify ">
+                        <img src="./icones/insta.png" width="40px" height="40px" alt="logo instagram">
+                        <a class="text_a_link" href="https://www.instagram.com/bancodetintasfatecjdi/">@bancodetintasfatecjdi</a>
                     </p>
                 </div>
+
                 <div class="col-md-4 mb-4">
-                    <img src="./icones/fatec_logo.png" alt="Logo" class="img-fluid" width="300px" height="50px">
+                    <p class="text_justify text-principal-footer">Banco de tintas é uma iniciativa da FATEC Jundiaí!</p>
+                    <p class="text-footer">
+                        <a class="text_a_link"  href="./quero_doar.php">Quero doar</a>
+                    </p>
+                    <p class="text-footer">
+                        <a class="text_a_link" href="./login.php">Login</a>
+                    </p>
+                    <p class="text-footer">
+                        <a class="text_a_link" href="./cadastro.php">Cadastre-se</a>
+                    </p>
+                    <p class="text-footer">
+                        <a class="text_a_link" href="#">Dúvidas</a>
+                    </p>
+                    <p class="text-footer">
+                        <a class="text_a_link" href="#">Documentação</a>
+                    </p>
                 </div>
+                
                 <div class="col-md-4 mb-4">
-                    <p>Av. União dos Ferroviários, 1760 - Centro, Jundiaí - SP, 13201-160</p>
+                    <p class="text-principal-footer">Funcionamento</p>
+                    <p class="text-footer">Segunda a sexta das 09:00 ate as 18:00</p>
+                    <p class="text-footer">Email: f114.secretaria@fatec.sp.gov.br</p>
+                    <p class="text-footer">Telefone: (11) 4522-7549</p>
+
+
+
                 </div>
             </div>
         </div>
     </footer>
+
+    
     <script>
 
         function modal(id) {
@@ -288,5 +313,6 @@
 
     </script>
 </body>
+
 
 </html>
