@@ -4,6 +4,8 @@ p {
 
 .pagina{
   padding-top: 30px;
+  margin-top: 100px;
+
 }
 
 .card-body{
@@ -50,10 +52,12 @@ footer {
   color: black !important;
   background-color: red;
 }
+
 .text_green {
   color: #8eb041;
   font-weight: bold;
 }
+
 
 .text_white {
   color: white;
@@ -79,7 +83,7 @@ footer {
 
 .title {
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0px 40px 0px;
 }
 
 .img-fluid-custom {
@@ -194,6 +198,20 @@ footer {
 @media (max-width: 600px){
   footer{
     display: none;
+  }
+  .pagina{
+    margin-top: 130px;
+  }
+}
+
+@media (max-width: 991px){
+  .pagina{
+    margin-top: 150px;
+  }
+}
+@media (max-width: 979px){
+  .pagina{
+    margin-top: 150px;
   }
 }
 

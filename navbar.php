@@ -29,7 +29,18 @@
         $foto = NULL;
     }
 ?>
-<header>
+<style>
+    .fixed-header {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+    }
+
+</style>
+
+<header class="fixed-header">
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
             <div class="nao-sei d-flex justify-content-between align-items-center w-100">

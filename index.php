@@ -109,7 +109,7 @@
                 </div>
             <?php endif; ?>
             
-            <h2 class="title text_green padding_20">BANCO DE TINTAS</h2>
+            <h2 class="title text_green">BANCO DE TINTAS</h2>
             <div class="row">
                 <div class="col-md-6">
                     <img src="imagens/img2.avif" alt="imagem 1" class="img-fluid-custom">
