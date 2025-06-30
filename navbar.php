@@ -58,7 +58,7 @@
                         <span class="search-icon">
                             <i class="fa fa-search"></i>
                         </span>
-                        <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
+                        <form id="form-pesquisa" action="php/tintas_config.php" method="POST">
                             <input type="hidden" name="busca" value="1">
                             <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
                         </form>
@@ -99,7 +99,7 @@
 
                             
                             echo '<li><a class="dropdown-item text-start" href="#">';
-                            echo '<form action="config/usuarios_config.php" method="post">';
+                            echo '<form action="php/usuarios_config.php" method="post">';
                             echo '<input type="hidden" name="logout-usuario">';
                             echo '<button type="submit" class="btn btn-danger btn-sm">Sair</button>';
                             echo '</form>';
@@ -114,7 +114,7 @@
                     <span class="search-icon">
                         <i class="fa fa-search"></i>
                     </span>
-                    <form id="form-pesquisa" action="config/tintas_config.php" method="POST">
+                    <form id="form-pesquisa" action="php/tintas_config.php" method="POST">
                         <input type="hidden" name="busca" value="1">
                         <input id="Pesquisa" class="form-control form-control-custom" type="search" placeholder="Buscar" aria-label="Buscar" name="pesquisa">
                     </form>
@@ -155,7 +155,7 @@
 
                 echo '<a href="quero_doar.php">Quero doar</a>';
 
-                echo '<form action="config/usuarios_config.php" method="post">';
+                echo '<form action="php/usuarios_config.php" method="post">';
                 echo '<input type="hidden" name="logout-usuario">';
                 echo '<button type="submit" class="btn btn-danger">Sair</button>';
                 echo '</form>';

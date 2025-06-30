@@ -70,7 +70,7 @@
             <div class="col-12 col-lg-4 col-sm- 12 d-flex justify-content-center fundo_login">
                 <main class="form-container p-xl-5 p-lg-4 p-md-5 mt-md-5 mb-5 mb-md-0">
                     <div id="container-formulario">
-                        <form action="config/usuarios_config.php" method="post">
+                        <form action="php/usuarios_config.php" method="post">
                             <input type="hidden" name="cadastrar-usuario">
                             <h1 class="h3 fw-bold text-light py-4">Cadastro</h1>
 

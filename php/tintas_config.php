@@ -1,101 +1,31 @@
 <?php
+    require 'phpBD/conexaoBD.php';
+    require 'phpBD/tintasBD.php';
+    require 'phpBD/pedidosBD.php';
+    require 'phpBD/utilitarios.php';
+
     if(isset($_POST["cadastrar-tinta"])) {
-        cadastrarTinta();
-
-        header("Location: ../cadastrar_tinta.php");
-    }
-
-    if(isset($_POST["apagar-tinta"])) {
-        apagarTinta();
-    }
-
-    if(isset($_POST["alterar-tinta"])) {
-        alterarTinta();
-        
-        header("Location: ../catalogo.php");
-    }
-
-    if(isset($_POST["busca"])) {
-        buscar();
-        
-        
-    }
-
-    function buscar() {
-        $valor = $_POST["pesquisa"];
-
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-        $tabelaCor = mysqli_query($conexao, "CALL tintas_carregarPor_cor('$valor')");
-        mysqli_close($conexao);
-
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-        $tabelaMarca = mysqli_query($conexao, "CALL tintas_carregarPor_marca('$valor')");
-        mysqli_close($conexao);
-
-
-        if(mysqli_num_rows($tabelaCor) > 0) {
-            header("Location: ../opcoes.php?acao=cor&valor=".$valor."&page=1");
-        }
-        else if(mysqli_num_rows($tabelaMarca) > 0) {
-            header("Location: ../opcoes.php?acao=marca&valor=".$valor."&page=1");
-        }
-        else {
-            header("Location: ../opcoes.php?acao=todos&valor=todos&page=1");
-        }
-    }
-
-    function cadastrarTinta() {
         session_start();
 
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-        $caminho = "";
-
-        if(isset($_POST["identificacao"])) {
-            $identificacao = $_POST["identificacao"];
-        }
-
-        if(isset($_POST["cor"])) {
-            $cor = $_POST["cor"];
-        }
-    
-        if(isset($_POST["marca"])) {
-            $marca = $_POST["marca"];
-        }
-    
-        if(isset($_POST["dataVencimento"])) {
-            $dataVencimento = $_POST["dataVencimento"];
-        }
-    
-        if(isset($_POST["dataRecebimento"])) {
-            $dataRecebimento = $_POST["dataRecebimento"];
-        }
-    
-        if(isset($_POST["volume"])) {
-            $volume = $_POST["volume"]; 
-        }
+        $identificacao = $_POST["identificacao"];
+        $cor = $_POST["cor"];
+        $marca = $_POST["marca"];
+        $dataVencimento = $_POST["dataVencimento"];
+        $dataRecebimento = $_POST["dataRecebimento"];
+        $volume = $_POST["volume"];
 
         if(isset($_FILES['imagem'])) {
             $imagem = $_FILES['imagem'];
 
-            $pasta = "../img-bd/";
-            $nomeImagem = $imagem['name'];
-            $novoNome = uniqid();
-            $extensao = strtolower(pathinfo($nomeImagem, PATHINFO_EXTENSION));
-
-            move_uploaded_file($imagem['tmp_name'], $pasta . $novoNome . "." . $extensao);
-
-            $caminho = "img-bd/" . $novoNome . "." . $extensao;
+            $caminho = gravarImagem($imagem);
         }
 
-        $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$identificacao')");
-        $qtd_linhas = mysqli_num_rows($tabela);
-        mysqli_close($conexao);
+        $tabela = tintas_carregarPor_identificacao($mysqli, $identificacao);
 
         date_default_timezone_set('America/Sao_Paulo');
-    
         $dataAgora = date('Y-m-d');
 
-        if($qtd_linhas > 0) {
+        if($tabela -> num_rows > 0) {
             $_SESSION["mensagem-cadastrar-tinta"] = "Esta identificação já está em uso. Informe uma identificação nova!";
         }
         else if(strtotime($dataVencimento) < strtotime($dataAgora)) {
@@ -105,71 +35,58 @@
             $_SESSION["mensagem-cadastrar-tinta"] = "A data de recebimento não pode estar no futuro. Informe a data de hoje ou anterior a ela!";
         }
         else {
-            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-            mysqli_query($conexao, "CALL tintas_adicionar('$identificacao', '$dataVencimento', '$marca', '$caminho', $volume, '$cor', '$dataRecebimento')");
-            mysqli_close($conexao);
+            $mysqli -> next_result();
+            tintas_adicionar($mysqli, $identificacao, $dataVencimento, $marca, $caminho, $volume, $cor, $dataRecebimento);
 
             $_SESSION["mensagem-cadastrar-tinta"] = "Tinta cadastrada.";
         }
+
+        header("Location: ../cadastrar_tinta.php");
     }
- 
-    function apagarTinta() {
+
+    if(isset($_POST["apagar-tinta"])) {
         session_start();
 
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+        $identificacao = $_POST["identificacao"];
 
-        if(isset($_POST["identificacao"])) {
-            $identificacao = $_POST["identificacao"];
-        }
+        $pedidos = pedidos_carregarPor_tintasIdentificacao($mysqli, $identificacao);
 
-        $pedidos = mysqli_query($conexao, "CALL pedidos_carregarPor_tintasIdentificacao('$identificacao')");
-
-        if(mysqli_num_rows($pedidos) > 0) {
+        if($pedidos -> num_rows > 0) {
             $_SESSION["mensagem-alterar-tinta"] = "Não foi possível deletar esta tinta. Existem pedidos para ela!";
-            header("Location: ../catalogo.php");
         }
         else {
-            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-            $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$identificacao')");
-            $linha = mysqli_fetch_array($tabela);
+            $mysqli -> next_result();
+            $tabela = tintas_carregarPor_identificacao($mysqli, $identificacao);
+            $linha = $tabela -> fetch_assoc();
     
-            unlink("../".$linha["imagem"]);
+            removerImagem($linha["imagem"]);
     
-            mysqli_close($conexao);
-    
-            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-    
-            mysqli_query($conexao, "CALL tintas_remover('$identificacao')");
-    
-            mysqli_close($conexao);
-
-            header("Location: ../catalogo.php");
+            $mysqli -> next_result();
+            tintas_remover($mysqli, $identificacao);
         }
+
+        header("Location: ../catalogo.php");
     }
 
-    function alterarTinta() {
+    if(isset($_POST["alterar-tinta"])) {
         session_start();
 
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
+        $identificacao = $_POST["identificacao"];
 
-        if(isset($_POST["identificacao"])) {
-            $identificacao = $_POST["identificacao"];
-        }
-
-        $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$identificacao')");
+        $tabela = tintas_carregarPor_identificacao($mysqli, $identificacao);
 
         $dataVencimento1;
         $marca1;
         $imagem;
-        $cor1;
+        $cor;
         $dataRecebimento1;
         $volume1;
 
-        while ($linha = mysqli_fetch_array($tabela)) {
+        while ($linha = $tabela -> fetch_assoc()) {
             $dataVencimento1 = $linha['dataValidade'];
             $marca1 = $linha['marca'];
             $imagem = $linha['imagem'];
-            $cor1 = $linha['cor'];
+            $cor = $linha['cor'];
             $dataRecebimento1 = $linha['dataRecebimento'];
             $volume1 = $linha['volume'];
         }
@@ -206,10 +123,6 @@
             }
         }
 
-        $cor = $cor1;
-
-        mysqli_close($conexao);
-
         date_default_timezone_set('America/Sao_Paulo');
     
         $dataAgora = date('Y-m-d');
@@ -221,13 +134,31 @@
             $_SESSION["mensagem-alterar-tinta"] = "A data de recebimento não pode estar no futuro. Informe a data de hoje ou anterior a ela!";
         }
         else {
-            $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-
-            mysqli_query($conexao, "CALL tintas_atualizar('$identificacao', '$dataVencimento', '$marca', '$imagem', $volume, '$cor', '$dataRecebimento')");
-
-            mysqli_close($conexao);
+            $mysqli -> next_result();
+            tintas_atualizar($mysqli, $identificacao, $dataVencimento, $marca, $imagem, $volume, $cor, $dataRecebimento);
 
             $_SESSION["mensagem-alterar-tinta"] = "Tinta alterada.";
+        }
+        
+        header("Location: ../catalogo.php");
+    }
+
+    if(isset($_POST["busca"])) {
+        $valor = $_POST["pesquisa"];
+
+        $tabelaCor = tintas_carregarPor_cor($mysqli, $cor);
+        $mysqli -> next_result();
+
+        $tabelaMarca = tintas_carregarPor_marca($mysqli, $marca);
+
+        if($tabelaCor -> num_rows > 0) {
+            header("Location: ../opcoes.php?acao=cor&valor=".$valor."&page=1");
+        }
+        else if($tabelaMarca -> num_rows > 0) {
+            header("Location: ../opcoes.php?acao=marca&valor=".$valor."&page=1");
+        }
+        else {
+            header("Location: ../opcoes.php?acao=todos&valor=todos&page=1");
         }
     }
 ?>
