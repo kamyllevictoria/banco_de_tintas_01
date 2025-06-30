@@ -17,6 +17,8 @@
         $senha = $_POST["senha"];
         $foto = NULL;
 
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
         switch($direcionamento) {
             case "1":   
                 $direcionamento = "Fatec";
@@ -81,7 +83,7 @@
                                         header("Location: ../cadastro.php");
                                     }
                                     else {
-                                        clientes_adicionar($mysqli, $email, $foto, $telefone, $senha, $empresa, $direcionamento);
+                                        clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $empresa, $direcionamento);
                                         $mysqli -> next_result();
 
                                         $tabela = clientes_carregarPor_email($mysql, $email);
@@ -120,7 +122,7 @@
                                     header("Location: ../cadastro.php");
                                 }
                                 else {
-                                    clientes_adicionar($mysqli, $email, $foto, $telefone, $senha, $Nome, $direcionamento);
+                                    clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $Nome, $direcionamento);
                                     $mysqli -> next_result();
                                     
                                     $tabela = clientes_carregarPor_email($mysqli, $email);
@@ -160,8 +162,8 @@
                 $qtd_linhas = $tabela -> num_rows;
     
                 if($qtd_linhas > 0){
-    
-                    if($linha["senha"] == $senha){
+
+                    if(password_verify($senha, $linha["senhaHash"])){
     
                         $_SESSION["USUARIO"] = FALSE;
                         $_SESSION["ADM"] = $linha["id"];
@@ -179,9 +181,7 @@
             }
             else{
     
-                $Email = $linha2["email"];
-                $Senha = $linha2["senha"];
-                if($Senha == $senha){
+                if(password_verify($senha, $linha2["senhaHash"])){
     
                     $_SESSION["USUARIO"] = $linha2["id"];
                     $_SESSION["ADM"] = FALSE;
@@ -238,7 +238,7 @@
             $linha = $tabela -> fetch_assoc();
             $mysqli -> next_result();
 
-            $senha = $linha["senha"];
+            $senhaHash = $linha["senhaHash"];
             $direcionamento = $linha["direcionamento"];
 
             if($nome == NULL) {
@@ -260,7 +260,7 @@
                 removerImagem($linha["foto"]);
             }
 
-            clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senha, $nome, $direcionamento);
+            clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senhaHash, $nome, $direcionamento);
             $mysqli -> next_result();
 
             $_SESSION["cadastro-login"] = "Dados atualizados.";
@@ -284,11 +284,11 @@
             $foto = "";
             $email = $linha["email"];
             $telefone = $linha["telefone"];
-            $senha = $linha["senha"];
+            $senhaHash = $linha["senhaHash"];
             $nome = $linha["nome"];
             $direcionamento = $linha["direcionamento"];
     
-            clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senha, $nome, $direcionamento);
+            clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senhaHash, $nome, $direcionamento);
             $mysqli -> next_result();
     
             $_SESSION["cadastro-login"] = "Foto removida.";

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/05/2025 às 00:13
+-- Tempo de geração: 30/06/2025 às 23:33
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -25,9 +25,9 @@ DELIMITER $$
 --
 -- Procedimentos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_adicionar` (IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senha` VARCHAR(8), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20))   INSERT INTO clientes (email, foto, telefone, senha, nome, direcionamento) VALUES (v_email, v_foto, v_telefone, v_senha, v_nome, v_direcionamento)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_adicionar` (IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senhaHash` VARCHAR(255), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20))   INSERT INTO clientes (email, foto, telefone, senhaHash, nome, direcionamento) VALUES (v_email, v_foto, v_telefone, v_senhaHash, v_nome, v_direcionamento)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_atualizar` (IN `v_id` INT, IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senha` VARCHAR(8), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20))   UPDATE clientes SET email = v_email, foto = v_foto, telefone = v_telefone, senha = v_senha, nome = v_nome, direcionamento = v_direcionamento WHERE id = v_id$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_atualizar` (IN `v_id` INT, IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senhaHash` VARCHAR(255), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20))   UPDATE clientes SET email = v_email, foto = v_foto, telefone = v_telefone, senhaHash = v_senhaHash, nome = v_nome, direcionamento = v_direcionamento WHERE id = v_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_email` (IN `v_email` VARCHAR(80))   SELECT * FROM clientes WHERE email = v_email$$
 
@@ -35,9 +35,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_id` (IN `v_id`
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_remover` (IN `v_id` INT)   DELETE FROM clientes WHERE id = v_id$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_adicionar` (IN `v_email` VARCHAR(80), IN `v_senha` VARCHAR(8))   INSERT INTO gestor (email, senha) VALUES (v_email, v_senha)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_adicionar` (IN `v_email` VARCHAR(80), IN `v_senhaHash` VARCHAR(255))   INSERT INTO gestor (email, senhaHash) VALUES (v_email, v_senhaHash)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_atualizar` (IN `v_id` INT, IN `v_email` VARCHAR(80), IN `v_senha` VARCHAR(8))   UPDATE gestor SET email = v_email, senha = v_senha WHERE id = v_id$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_atualizar` (IN `v_id` INT, IN `v_email` VARCHAR(80), IN `v_senhaHash` VARCHAR(255))   UPDATE gestor SET email = v_email, senhaHash = v_senhaHash WHERE id = v_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_carregarPor_email` (IN `v_email` VARCHAR(80))   SELECT * FROM gestor WHERE email = v_email$$
 
@@ -91,6 +91,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasJuridicas_carregarPor_cnpj` 
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasJuridicas_remover` (IN `v_clienteId` INT)   DELETE FROM pessoasjuridicas WHERE clienteId = v_clienteId$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `relacao_pedidos_estoque_por_cor` (IN `v_cor` VARCHAR(15))   BEGIN 
+SELECT T.cor, T.volume AS volumeEstoque, SUM(P.volume) AS volumePedidos FROM tintas T INNER JOIN pedidos P
+ON T.identificacao = P.tintasIdentificacao
+WHERE T.cor = v_cor;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tintas_adicionar` (IN `v_identificacao` VARCHAR(10), IN `v_dataValidade` DATE, IN `v_marca` VARCHAR(20), IN `v_imagem` VARCHAR(100), IN `v_volume` FLOAT, IN `v_cor` VARCHAR(15), IN `v_dataRecebimento` DATE)   insert into tintas (identificacao, dataValidade, marca, imagem, volume, cor, dataRecebimento) VALUES (v_identificacao, v_dataValidade, v_marca, v_imagem, v_volume, v_cor, v_dataRecebimento)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tintas_atualizar` (IN `v_identificacao` VARCHAR(10), IN `v_dataValidade` DATE, IN `v_marca` VARCHAR(20), IN `v_imagem` VARCHAR(100), IN `v_volume` FLOAT, IN `v_cor` VARCHAR(15), IN `v_dataRecebimento` DATE)   UPDATE tintas SET dataValidade = v_dataValidade, marca = v_marca, imagem = v_imagem, volume = v_volume, cor = v_cor, dataRecebimento = v_dataRecebimento WHERE identificacao = v_identificacao$$
@@ -122,7 +128,7 @@ CREATE TABLE `clientes` (
   `email` varchar(80) NOT NULL,
   `foto` varchar(100) DEFAULT NULL,
   `telefone` char(11) NOT NULL,
-  `senha` varchar(8) NOT NULL,
+  `senhaHash` varchar(255) NOT NULL,
   `nome` varchar(70) NOT NULL,
   `direcionamento` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -131,17 +137,8 @@ CREATE TABLE `clientes` (
 -- Despejando dados para a tabela `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senha`, `nome`, `direcionamento`) VALUES
-(20, 'nicole@gmail.com', '', '11949456114', '061204', 'Nicole Okumura Charale', 'Fatec'),
-(21, 'kleber@gmail.com', '', '11949023006', '123456', 'Kleber Victor Lemes Santos', 'Fatec'),
-(22, 'kamylle@gmail.com', '', '12312345678', '123456', 'Kamylle Victória Santos Bellini', 'Instagram'),
-(23, 'sarah@gmail.com', '', '43212345675', '123456', 'Sarah de Jesus Lima', 'Linkedin'),
-(24, 'joao@gmail.com', '', '24712312368', '123456', 'João dos Santos', 'Pesquisa Google'),
-(25, 'saci_tintas@saci.com.br', '', '86796231234', '123456', 'Saci Tintas', 'Pesquisa Google'),
-(26, 'tintas_aquarela@aquarela.com.br', '', '78682345191', '123456', 'Tintas Aquarela', 'Instagram'),
-(27, 'amarelinhas_tintas@amarelinhas.com.br', '', '12367843256', '123456', 'Amarelinhas Tintas', 'Pesquisa Google'),
-(28, 'arcoIris_tintas@tintasarco.com.br', '', '11111112345', '123456', 'Arco Íris de Tintas', 'Linkedin'),
-(29, 'maravilhosas_tintas@maravilhosas.com.br', '', '11232456789', '123456', 'Maravilhosas Tintas', 'Fatec');
+INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senhaHash`, `nome`, `direcionamento`) VALUES
+(31, 'nicole@gmail.com', '', '11949023006', '$2y$10$9BZU/4dydG2Qw5nTJRhg5e.YCuGTZS.PCWW0qojHvdLP0Oi2HrleO', 'Nicole Okumura Charale', 'Fatec');
 
 -- --------------------------------------------------------
 
@@ -152,15 +149,15 @@ INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senha`, `nome`, `dir
 CREATE TABLE `gestor` (
   `id` int(11) NOT NULL,
   `email` varchar(80) NOT NULL,
-  `senha` varchar(8) NOT NULL
+  `senhaHash` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `gestor`
 --
 
-INSERT INTO `gestor` (`id`, `email`, `senha`) VALUES
-(4, 'adm@fatec.com', '123456');
+INSERT INTO `gestor` (`id`, `email`, `senhaHash`) VALUES
+(4, 'adm@fatec.com', '$2y$10$OMefV2Gle3bSX1W.AH2XOuFOIlnx9vgWmDl4LcaOU4RwI/e0lxuCa');
 
 -- --------------------------------------------------------
 
@@ -175,22 +172,6 @@ CREATE TABLE `listadesejos` (
   `cor` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `listadesejos`
---
-
-INSERT INTO `listadesejos` (`data`, `clienteId`, `tintasIdentificacao`, `cor`) VALUES
-('2025-03-20', 23, '6', 'Roxo'),
-('2025-03-21', 22, '6', 'Roxo'),
-('2025-03-21', 27, '10', 'Preto'),
-('2025-03-21', 28, '10', 'Preto'),
-('2025-03-23', 26, '6', 'Roxo'),
-('2025-03-23', 29, '6', 'Roxo'),
-('2025-03-24', 20, '10', 'Preto'),
-('2025-03-24', 21, '10', 'Preto'),
-('2025-03-24', 24, '6', 'Roxo'),
-('2025-03-24', 25, '10', 'Preto');
-
 -- --------------------------------------------------------
 
 --
@@ -203,22 +184,6 @@ CREATE TABLE `pedidos` (
   `clienteId` int(11) NOT NULL,
   `tintasIdentificacao` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `pedidos`
---
-
-INSERT INTO `pedidos` (`dataHora`, `volume`, `clienteId`, `tintasIdentificacao`) VALUES
-('2025-03-24 20:58:43', 2, 20, '1'),
-('2025-03-24 20:59:26', 10, 22, '2'),
-('2025-03-24 20:59:44', 24, 21, '3'),
-('2025-03-24 21:00:05', 5.4, 23, '4'),
-('2025-03-24 21:00:38', 3.7, 24, '7'),
-('2025-03-24 21:01:29', 4, 25, '7'),
-('2025-03-24 21:02:05', 50, 26, '1'),
-('2025-03-24 21:02:26', 4, 27, '9'),
-('2025-03-24 21:03:02', 5.3, 29, '2'),
-('2025-03-24 21:03:34', 20, 28, '3');
 
 -- --------------------------------------------------------
 
@@ -237,22 +202,6 @@ CREATE TABLE `pedidostatus` (
   `dataHoraRetirada` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `pedidostatus`
---
-
-INSERT INTO `pedidostatus` (`dataHora`, `status`, `observacoes`, `gestorId`, `pedidosDataHora`, `tintasIdentificacao`, `clienteId`, `dataHoraRetirada`) VALUES
-('2025-03-24 21:22:32', 'Aprovado', '', 4, '2025-03-24 20:58:43', '1', 20, '2025-03-25 08:10:00'),
-('2025-03-24 21:25:37', 'Parcialmente aprovado', 'Só podemos oferecer metade da quantidade requerida.', 4, '2025-03-24 20:59:26', '2', 22, '2025-03-26 11:30:00'),
-('2025-03-24 21:29:12', 'Reprovado', 'Esta quantidade excede a litragem adequada.', 4, '2025-03-24 20:59:44', '3', 21, '0000-00-00 00:00:00'),
-('2025-03-24 22:25:57', 'Aprovado', '', 4, '2025-03-24 21:00:05', '4', 23, '2025-03-27 20:20:00'),
-('2025-03-24 22:26:28', 'Parcialmente aprovado', 'Podemos doar apenas 1 litro desta tinta no momento.', 4, '2025-03-24 21:00:38', '7', 24, '2025-03-26 19:20:00'),
-('2025-03-24 22:27:08', 'Aprovado', '', 4, '2025-03-24 21:01:29', '7', 25, '2025-03-26 08:10:00'),
-('2025-03-24 22:27:47', 'Reprovado', 'Esta quantidade excede a que temos permissão para doar.', 4, '2025-03-24 21:02:05', '1', 26, '0000-00-00 00:00:00'),
-('2025-03-24 22:28:01', 'Aprovado', '', 4, '2025-03-24 21:02:26', '9', 27, '2025-03-28 04:00:00'),
-('2025-03-24 22:28:27', 'Aprovado', '', 4, '2025-03-24 21:03:02', '2', 29, '2025-03-29 18:20:00'),
-('2025-03-24 22:28:52', 'Parcialmente aprovado', 'Podemos oferecer apenas 10 litros desta tinta.', 4, '2025-03-24 21:03:34', '3', 28, '2025-03-25 14:50:00');
-
 -- --------------------------------------------------------
 
 --
@@ -269,11 +218,7 @@ CREATE TABLE `pessoasfisicas` (
 --
 
 INSERT INTO `pessoasfisicas` (`cpf`, `clienteId`) VALUES
-('11122233345', 24),
-('12345678909', 21),
-('32145678987', 23),
-('50652528821', 20),
-('98765432123', 22);
+('50652528821', 31);
 
 -- --------------------------------------------------------
 
@@ -286,16 +231,16 @@ CREATE TABLE `pessoasjuridicas` (
   `clienteId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `pessoasjuridicas`
---
+-- --------------------------------------------------------
 
-INSERT INTO `pessoasjuridicas` (`cnpj`, `clienteId`) VALUES
-('10002345676543', 29),
-('12345678909876', 25),
-('56765678987643', 27),
-('65734590091234', 28),
-('78682345197123', 26);
+--
+-- Estrutura stand-in para view `quantidade_pedidos_por_status`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `quantidade_pedidos_por_status` (
+`QtdPedido` bigint(21)
+,`status` varchar(21)
+);
 
 -- --------------------------------------------------------
 
@@ -319,7 +264,6 @@ CREATE TABLE `tintas` (
 
 INSERT INTO `tintas` (`identificacao`, `dataValidade`, `marca`, `imagem`, `volume`, `cor`, `dataRecebimento`) VALUES
 ('1', '2025-04-26', 'Saci', 'img-bd/67e1efab9f5e6.webp', 50, 'Vermelho', '2025-03-24'),
-('10', '2025-03-29', 'Coral', 'img-bd/67e1f0f9d4100.avif', 0, 'Preto', '2025-03-24'),
 ('2', '2025-05-23', 'Coral', 'img-bd/67e1efc7b3447.jfif', 35, 'Laranja', '2025-03-24'),
 ('3', '2025-05-23', 'Saci', 'img-bd/67e1eff4c9152.jpg', 67, 'Amarelo', '2025-03-24'),
 ('4', '2025-03-29', 'Coral', 'img-bd/67e1f01538fe5.webp', 25.5, 'Verde', '2025-03-06'),
@@ -328,6 +272,15 @@ INSERT INTO `tintas` (`identificacao`, `dataValidade`, `marca`, `imagem`, `volum
 ('7', '2025-04-05', 'Coral', 'img-bd/67e1f083344ed.webp', 32.7, 'Rosa', '2025-03-05'),
 ('8', '2025-04-05', 'Saci', 'img-bd/67e1f0c083fc7.webp', 30, 'Vermelho', '2025-02-23'),
 ('9', '2025-05-30', 'Coral', 'img-bd/67e1f0e3ae63a.webp', 10.8, 'Azul', '2025-03-24');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `quantidade_pedidos_por_status`
+--
+DROP TABLE IF EXISTS `quantidade_pedidos_por_status`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `quantidade_pedidos_por_status`  AS SELECT count(`p`.`dataHora`) AS `QtdPedido`, `s`.`status` AS `status` FROM (`pedidos` `p` join `pedidostatus` `s` on(`s`.`pedidosDataHora` = `p`.`dataHora`)) GROUP BY `s`.`status` ;
 
 --
 -- Índices para tabelas despejadas
@@ -399,7 +352,7 @@ ALTER TABLE `tintas`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de tabela `gestor`

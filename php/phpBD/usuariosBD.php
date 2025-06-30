@@ -6,12 +6,12 @@
         return $dados;
     }
 
-    function clientes_adicionar($mysqli, $email, $foto, $telefone, $senha, $nome, $direcionamento) {
-        $mysqli -> query("CALL clientes_adicionar('$email', '$foto', '$telefone', '$senha', '$nome', '$direcionamento')");
+    function clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $nome, $direcionamento) {
+        $mysqli -> query("CALL clientes_adicionar('$email', '$foto', '$telefone', '$senhaHash', '$nome', '$direcionamento')");
     }
 
-    function clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senha, $nome, $direcionamento) {
-        $mysqli -> query("CALL clientes_atualizar($id, '$email', '$foto', '$telefone', '$senha', '$nome', '$direcionamento')");
+    function clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senhaHash, $nome, $direcionamento) {
+        $mysqli -> query("CALL clientes_atualizar($id, '$email', '$foto', '$telefone', '$senhaHash', '$nome', '$direcionamento')");
     }
 
     function clientes_carregarPor_id($mysqli, $id) {
