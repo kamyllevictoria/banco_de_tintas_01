@@ -156,7 +156,7 @@
     
             if($qtd_linhas <= 0){
                 $tabela = gestor_carregarPor_email($mysqli, $email);
-                $linha = $tabela -> fecth_assoc();
+                $linha = $tabela -> fetch_assoc();
                 $qtd_linhas = $tabela -> num_rows;
     
                 if($qtd_linhas > 0){
@@ -210,16 +210,17 @@
 
     if(isset($_POST["alterar-usuario"])) {
         session_start();
-
-        $caminho = "";
+        
         $nome = $_POST["nome"];
         $email = $_POST["email"];
         $telefone = $_POST["telefone"];
+        $imagem = $_FILES['foto'];
 
-        if(isset($_FILES['foto'])) {
-            $imagem = $_FILES['foto'];
-
-            $caminho = gravarImagem($imagem);
+        if($imagem['name'] != "") {
+            $foto = gravarImagem($imagem);
+        }
+        else {
+           $foto = "";
         }
 
         $id = $_SESSION["USUARIO"];
@@ -274,7 +275,7 @@
         $id = $_SESSION["USUARIO"];
 
         $tabela = clientes_carregarPor_id($mysqli, $id);
-        $linha = $mysqli -> fecth_assoc();
+        $linha = $tabela -> fetch_assoc();
         $mysqli -> next_result();
 
         if($linha["foto"] != NULL) {

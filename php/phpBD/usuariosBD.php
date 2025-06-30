@@ -27,7 +27,7 @@
     }
 
     function pessoasJuridicas_adicionar($mysqli, $cnpj, $clienteId) {
-        $mysqli -> query("CALL pessoasJuridicas_adicionar('$cnpj', $clienteId)")
+        $mysqli -> query("CALL pessoasJuridicas_adicionar('$cnpj', $clienteId)");
     }
 
     function pessoasJuridicas_carregarPor_cnpj($mysqli, $cnpj) {
@@ -37,7 +37,7 @@
     }
 
     function pessoasFisicas_adicionar($mysqli, $cpf, $clienteId) {
-        $mysqli -> query("CALL pessoasFisicas_adicionar('$cpf', '$clienteId')")
+        $mysqli -> query("CALL pessoasFisicas_adicionar('$cpf', $clienteId)");
     }
 
     function pessoasFisicas_carregarPor_cpf($mysqli, $cpf) {
