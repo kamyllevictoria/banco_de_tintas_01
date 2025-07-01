@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30/06/2025 às 23:33
+-- Tempo de geração: 01/07/2025 às 23:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -25,9 +25,13 @@ DELIMITER $$
 --
 -- Procedimentos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_adicionar` (IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senhaHash` VARCHAR(255), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20))   INSERT INTO clientes (email, foto, telefone, senhaHash, nome, direcionamento) VALUES (v_email, v_foto, v_telefone, v_senhaHash, v_nome, v_direcionamento)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_adicionar` (IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senhaHash` VARCHAR(255), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20), IN `v_tipoPessoaId` INT, IN `v_cpf` CHAR(11), IN `v_cnpj` CHAR(14))   INSERT INTO clientes (email, foto, telefone, senhaHash, nome, direcionamento, tipoPessoaId, cpf, cnpj) VALUES (v_email, v_foto, v_telefone, v_senhaHash, v_nome, v_direcionamento, v_tipoPessoaId, v_cpf, v_cnpj)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_atualizar` (IN `v_id` INT, IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senhaHash` VARCHAR(255), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20))   UPDATE clientes SET email = v_email, foto = v_foto, telefone = v_telefone, senhaHash = v_senhaHash, nome = v_nome, direcionamento = v_direcionamento WHERE id = v_id$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_cnpj` (IN `V_cnpj` CHAR(14))   SELECT * FROM cliente WHERE cnpj = v_cnpj$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_cpf` (IN `v_cpf` CHAR(11))   SELECT * FROM clientes WHERE cpf = V_cpf$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_email` (IN `v_email` VARCHAR(80))   SELECT * FROM clientes WHERE email = v_email$$
 
@@ -71,26 +75,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `pedidos_carregarPor_tintasIdentific
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `pedidos_remover` (IN `v_dataHora` DATETIME, IN `v_clienteId` INT, IN `v_tintasIdentificacao` INT)   DELETE FROM pedidos WHERE dataHora = v_dataHora AND clienteId = v_clienteId AND v_tintasIdentificacao = v_tintasIdentificacao$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasFisicas_adicionar` (IN `v_cpf` CHAR(11), IN `v_clienteId` INT)   INSERT INTO pessoasfisicas (cpf, clienteId) VALUES (v_cpf, v_clienteId)$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasFisicas_atualizar` (IN `v_cpf` CHAR(11), IN `v_clienteId` INT)   UPDATE pessoasfisicas SET cpf = v_cpf WHERE clienteId = v_clienteId$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasFisicas_carregarPor_clienteId` (IN `v_clienteId` INT)   SELECT * FROM pessoasfisicas WHERE clienteId = v_clienteId$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasFisicas_carregarPor_cpf` (IN `v_cpf` CHAR(11))   SELECT * FROM pessoasfisicas WHERE cpf = v_cpf$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasFisicas_remover` (IN `v_clienteId` INT)   DELETE FROM pessoasfisicas WHERE clienteId = v_clienteId$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasJuridicas_adicionar` (IN `v_cnpj` CHAR(14), IN `v_clienteId` INT)   INSERT INTO pessoasjuridicas (cnpj, clienteId) VALUES (v_cnpj, v_clienteId)$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasJuridicas_atualizar` (IN `v_cnpj` CHAR(14), IN `v_clienteId` INT)   UPDATE pessoasjuridicas SET cnpj = v_cnpj WHERE clienteId = v_clienteId$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasJuridicas_carregarPor_clienteId` (IN `v_clienteId` INT)   SELECT * FROM pessoasjuridicas WHERE clienteId = v_clienteId$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasJuridicas_carregarPor_cnpj` (IN `v_cnpj` CHAR(14))   SELECT * FROM pessoasjuridicas WHERE cnpj = v_cnpj$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pessoasJuridicas_remover` (IN `v_clienteId` INT)   DELETE FROM pessoasjuridicas WHERE clienteId = v_clienteId$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `relacao_pedidos_estoque_por_cor` (IN `v_cor` VARCHAR(15))   BEGIN 
 SELECT T.cor, T.volume AS volumeEstoque, SUM(P.volume) AS volumePedidos FROM tintas T INNER JOIN pedidos P
 ON T.identificacao = P.tintasIdentificacao
@@ -130,15 +114,18 @@ CREATE TABLE `clientes` (
   `telefone` char(11) NOT NULL,
   `senhaHash` varchar(255) NOT NULL,
   `nome` varchar(70) NOT NULL,
-  `direcionamento` varchar(20) NOT NULL
+  `direcionamento` varchar(20) NOT NULL,
+  `tipoPessoaId` int(11) NOT NULL,
+  `cpf` char(11) DEFAULT NULL,
+  `cnpj` char(14) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senhaHash`, `nome`, `direcionamento`) VALUES
-(31, 'nicole@gmail.com', '', '11949023006', '$2y$10$9BZU/4dydG2Qw5nTJRhg5e.YCuGTZS.PCWW0qojHvdLP0Oi2HrleO', 'Nicole Okumura Charale', 'Fatec');
+INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senhaHash`, `nome`, `direcionamento`, `tipoPessoaId`, `cpf`, `cnpj`) VALUES
+(33, 'nicole@gmail.com', '', '11937233283', '$2y$10$Su3iCGrE3Lw07/5UZq1s5O5tcaGSJKsTEiG2p4.cHtrKum6suYPBG', 'Nicole Okumura Charale', 'Fatec', 1, '50652528821', '');
 
 -- --------------------------------------------------------
 
@@ -205,35 +192,6 @@ CREATE TABLE `pedidostatus` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pessoasfisicas`
---
-
-CREATE TABLE `pessoasfisicas` (
-  `cpf` char(11) NOT NULL,
-  `clienteId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `pessoasfisicas`
---
-
-INSERT INTO `pessoasfisicas` (`cpf`, `clienteId`) VALUES
-('50652528821', 31);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `pessoasjuridicas`
---
-
-CREATE TABLE `pessoasjuridicas` (
-  `cnpj` char(14) NOT NULL,
-  `clienteId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estrutura stand-in para view `quantidade_pedidos_por_status`
 -- (Veja abaixo para a visão atual)
 --
@@ -276,6 +234,25 @@ INSERT INTO `tintas` (`identificacao`, `dataValidade`, `marca`, `imagem`, `volum
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `tipospessoa`
+--
+
+CREATE TABLE `tipospessoa` (
+  `id` int(11) NOT NULL,
+  `tipo` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `tipospessoa`
+--
+
+INSERT INTO `tipospessoa` (`id`, `tipo`) VALUES
+(1, 'pessoa física'),
+(2, 'pessoa jurídica');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para view `quantidade_pedidos_por_status`
 --
 DROP TABLE IF EXISTS `quantidade_pedidos_por_status`;
@@ -290,7 +267,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Índices de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`,`email`);
+  ADD PRIMARY KEY (`id`,`email`),
+  ADD KEY `tipoPessoaId` (`tipoPessoaId`);
 
 --
 -- Índices de tabela `gestor`
@@ -325,24 +303,16 @@ ALTER TABLE `pedidostatus`
   ADD KEY `clienteId` (`clienteId`);
 
 --
--- Índices de tabela `pessoasfisicas`
---
-ALTER TABLE `pessoasfisicas`
-  ADD PRIMARY KEY (`cpf`,`clienteId`),
-  ADD KEY `clienteId` (`clienteId`);
-
---
--- Índices de tabela `pessoasjuridicas`
---
-ALTER TABLE `pessoasjuridicas`
-  ADD PRIMARY KEY (`cnpj`,`clienteId`),
-  ADD KEY `clienteId` (`clienteId`);
-
---
 -- Índices de tabela `tintas`
 --
 ALTER TABLE `tintas`
   ADD PRIMARY KEY (`identificacao`);
+
+--
+-- Índices de tabela `tipospessoa`
+--
+ALTER TABLE `tipospessoa`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -352,7 +322,7 @@ ALTER TABLE `tintas`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `gestor`
@@ -361,8 +331,20 @@ ALTER TABLE `gestor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `tipospessoa`
+--
+ALTER TABLE `tipospessoa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `clientes`
+--
+ALTER TABLE `clientes`
+  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`tipoPessoaId`) REFERENCES `tipospessoa` (`id`);
 
 --
 -- Restrições para tabelas `listadesejos`
@@ -386,18 +368,6 @@ ALTER TABLE `pedidostatus`
   ADD CONSTRAINT `pedidostatus_ibfk_2` FOREIGN KEY (`gestorId`) REFERENCES `gestor` (`id`),
   ADD CONSTRAINT `pedidostatus_ibfk_3` FOREIGN KEY (`tintasIdentificacao`) REFERENCES `pedidos` (`tintasIdentificacao`),
   ADD CONSTRAINT `pedidostatus_ibfk_4` FOREIGN KEY (`clienteId`) REFERENCES `pedidos` (`clienteId`);
-
---
--- Restrições para tabelas `pessoasfisicas`
---
-ALTER TABLE `pessoasfisicas`
-  ADD CONSTRAINT `pessoasfisicas_ibfk_1` FOREIGN KEY (`clienteId`) REFERENCES `clientes` (`id`);
-
---
--- Restrições para tabelas `pessoasjuridicas`
---
-ALTER TABLE `pessoasjuridicas`
-  ADD CONSTRAINT `pessoasjuridicas_ibfk_1` FOREIGN KEY (`clienteId`) REFERENCES `clientes` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -63,7 +63,7 @@
                             header("Location: ../cadastro.php");
                         }
                         else{
-                            $tabela = pessoasJuridicas_carregarPor_cnpj($mysqli, $cnpj);
+                            $tabela = clientes_carregarPor_cnpj($mysqli, $cnpj);
                             $qtd_linhas = $tabela -> num_rows;
                             $mysqli -> next_result();
             
@@ -83,16 +83,9 @@
                                         header("Location: ../cadastro.php");
                                     }
                                     else {
-                                        clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $empresa, $direcionamento);
-                                        $mysqli -> next_result();
+                                        $tipoPessoa = 2;
 
-                                        $tabela = clientes_carregarPor_email($mysql, $email);
-                                        $linha = $tabela -> fetch_assoc();
-                                        $mysqli -> next_result();
-
-                                        $clienteId = $linha["id"];
-                        
-                                        pessoasJuridicas_adicionar($mysqli, $cnpj, $clienteId);
+                                        clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $empresa, $direcionamento, $tipoPessoa, $cpf, $cnpj);
                                         $mysqli -> next_result();
 
                                         header("Location: ../login.php");
@@ -102,7 +95,7 @@
                         }
                     }
                     else{
-                        $tabela = pessoasFisicas_carregarPor_cpf($mysqli, $cpf);
+                        $tabela = clientes_carregarPor_cpf($mysqli, $cpf);
                         $qtd_linhas = $tabela -> num_rows;
                         $mysqli -> next_result();
             
@@ -122,18 +115,11 @@
                                     header("Location: ../cadastro.php");
                                 }
                                 else {
-                                    clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $Nome, $direcionamento);
-                                    $mysqli -> next_result();
-                                    
-                                    $tabela = clientes_carregarPor_email($mysqli, $email);
-                                    $linha = $tabela -> fetch_assoc();
-                                    $mysqli -> next_result();
+                                    $tipoPessoa = 1;
 
-                                    $clienteId = $linha["id"];
-                                    
-                                    pessoasFisicas_adicionar($mysqli, $cpf, $clienteId);
+                                    clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $Nome, $direcionamento, $tipoPessoa, $cpf, $cnpj);
                                     $mysqli -> next_result();
-                
+                                    
                                     header("Location: ../login.php");
                                 }
                             }
