@@ -30,12 +30,17 @@
     }
     
     if($_SESSION["USUARIO"] != NULL && $_SESSION["USUARIO"] != FALSE) {
+        include 'php/phpBD/conexaoBD.php';
+        include 'php/phpBD/usuariosBD.php';
+        include 'php/phpBD/tintasBD.php';
+        include 'php/phpBD/pedidosBD.php';
+        include 'php/phpBD/listaDesejosBD.php';
+
         $clienteId = $_SESSION["USUARIO"];
 
-        $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-        $usuario = mysqli_query($conexao, "CALL clientes_carregarPor_id($clienteId)");
-        $usuario = mysqli_fetch_array($usuario);
-        mysqli_close($conexao);
+        $usuario = clientes_carregarPor_id($mysqli, $clienteId);
+        $usuario = $usuario -> fetch_assoc();
+        $mysqli -> next_result();
 
         $nome = explode(" ", $usuario["nome"]);
         $nome = $nome[0];
@@ -43,9 +48,8 @@
         $foto = $usuario["foto"];
     }
 
-    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-    $tabela = mysqli_query($conexao, "CALL pedidos_carregarPor_clienteId($clienteId)");
-    mysqli_close($conexao);
+    $tabela = pedidos_carregarPor_clienteId($mysqli, $clienteId);
+    $mysqli -> next_result();
 ?>
 
 <!DOCTYPE html>
@@ -186,25 +190,24 @@
                     <?php if($tabela): ?>
                         <div class="accordion" id="ordersAccordion">
 
-                            <?php $cont = mysqli_num_rows($tabela); ?>
+                            <?php $cont = $tabela -> num_rows; ?>
 
-                            <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                            <?php while($linha = $tabela -> fetch_assoc()): ?>
                                 <?php
-                                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-
                                     $dataHora = $linha["dataHora"];
                                     $tintasIdentificacao = $linha["tintasIdentificacao"];
                                     $clienteId = $linha["clienteId"];
 
-                                    $pedidoStatusTabela = mysqli_query($conexao, "CALL pedidoStatus_carregarPor_pedidosIds('$dataHora', '$tintasIdentificacao', '$clienteId')");
-                                    $pedidoStatus = mysqli_fetch_array($pedidoStatusTabela);
+                                    $pedidoStatusTabela = pedidoStatus_carregarPor_pedidosIds($mysqli, $dataHora, $tintasIdentificacao, $clienteId);
+                                    $pedidoStatus = $pedidoStatusTabela -> fetch_assoc();
+                                    $mysqli -> next_result();
 
                                     $status = "Aguardando confirmação";
                                     $color = "orange";
 
                                     $dataHora = ["--", "--", "--", "--", "--", "--"];
 
-                                    if(mysqli_num_rows($pedidoStatusTabela) > 0) {
+                                    if($pedidoStatusTabela -> num_rows > 0) {
                                         
                                         $status = $pedidoStatus["status"];
 
@@ -218,15 +221,11 @@
                                         else if($status == "Reprovado") {
                                             $color = "red";
                                         }
-                                        
                                     }
-                                    mysqli_close($conexao);
 
-                                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-            
-                                    $tinta = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$tintasIdentificacao')");
-                                    $tinta = mysqli_fetch_array($tinta);
-                                    mysqli_close($conexao);
+                                    $tinta = tintas_carregarPor_identificacao($mysqli, $tintasIdentificacao);
+                                    $tinta = $tinta -> fetch_assoc();
+                                    $mysqli -> next_result();
                                 ?>
 
                                 <div class="accordion-item">
@@ -276,19 +275,18 @@
             <div class="tab-pane fade" id="wishlist" role="tabpanel" aria-labelledby="wishlist-tab">
                 <?php
                     $clienteId = $_SESSION["USUARIO"];
-                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                    $tabela = mysqli_query($conexao, "CALL listaDesejos_carregarPor_clienteId($clienteId)");
-                    mysqli_close($conexao);
+                    $tabela = listaDesejos_carregarPor_clienteId($mysqli, $clienteId);
+                    $mysqli -> next_result();
                 ?>
                 <?php if($tabela): ?>
                     <div class="row">
-                        <?php while($linha = mysqli_fetch_array($tabela)): ?>
+                        <?php while($linha = $tabela -> fetch_assoc()): ?>
                             <?php
                                 $identificacao = $linha["tintasIdentificacao"];
-                                $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                                $tinta = mysqli_query($conexao, "CALL tintas_carregarPor_identificacao('$identificacao')");
-                                $tinta = mysqli_fetch_array($tinta);
-                                mysqli_close($conexao);    
+
+                                $tinta = tintas_carregarPor_identificacao($mysqli, $identificacao);
+                                $tinta = $tinta -> fetch_assoc();
+                                $mysqli -> next_result();
                             ?>
                             <div class="col-md-4 mb-3">
                                 <div class="card h-100">   
