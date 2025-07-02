@@ -65,9 +65,9 @@
                     </div>
                     <?php
                         if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                            echo '<a href="login.php" class="btn-login">Login</a>';
+                            echo '<a href="login-cadastro.php" class="btn-login">Login</a>';
                             echo '<div class="navbar-end">';
-                            echo '<a href="cadastro.php" class="btn btn-cadastre">Cadastre-se</a>';
+                            echo '<a href="login-cadastro.php" class="btn btn-cadastre">Cadastre-se</a>';
                             echo '</div>';
                         }
                         else {
@@ -130,8 +130,8 @@
         <br>
         <?php
             if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                echo '<a href="login.php">Login</a>';
-                echo '<a href="cadastro.php">Cadastre-se</a>';
+                echo '<a href="login-cadastro.php">Login</a>';
+                echo '<a href="cadastro-cadastro.php">Cadastre-se</a>';
             }
             else {
 
