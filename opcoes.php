@@ -45,6 +45,9 @@
 
     $qtde_linhas = $tabela -> num_rows;
     $mysqli -> next_result();
+
+    $marcas = tintas_carregar_marcas($mysqli);
+    $mysqli -> next_result();
 ?>
 
 <!DOCTYPE html>
@@ -98,20 +101,22 @@
             <h5>Filtrar</h5>
             <div class="mb-3">
               <p class="fw-bold">Marcas</p>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="marcaSaci">
-                <label class="form-check-label" for="marcaSaci">Saci</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="marcaDorti">
-                <label class="form-check-label" for="marcaDorti">Dorti</label>
-              </div>
+              <?php while($marca = $marcas -> fetch_assoc()): ?>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="marca<?= $marca["marca"]; ?>">
+                  <label class="form-check-label" for="marca<?= $marca["marca"]; ?>"><?= $marca["marca"]; ?></label>
+                </div>
+              <?php endwhile; ?>
             </div>
           </div>
 
           <div class="col-md-9">
             <div class="row g-4">
               <?php while($linha = $tabela -> fetch_assoc()): ?>
+                <?php
+                  $dataValidade = explode('-', $linha["dataValidade"]);
+                ?>
+
                 <div class="col-md-6 d-flex justify-content-center">
                   <div class="product-card p-3" style="width:80%">
                     <img src="<?= $linha['imagem']; ?>" alt="Tinta <?= $linha['cor']; ?>" style="height:230px">
@@ -156,6 +161,7 @@
                 <option value="3">Data de validade</option>
               </select>
             </div>
+            <button type="submit" class="btn btn-solicitar w-auto">Aplicar</button>
           </div>
 
           <nav aria-label="Page navigation" class="mt-4">

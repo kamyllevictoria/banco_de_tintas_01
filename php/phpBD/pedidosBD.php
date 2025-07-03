@@ -20,7 +20,7 @@
     }
 
     function pedidoStatus_carregarPor_pedidosIds($mysqli, $dataHora, $tintasIdentificacao, $clienteId) {
-        $dados = $mysqli -> query("CALL pedidoStatus_carregarPor_pedidosIds($mysqli, '$dataHora', '$tintasIdentificacao', $clienteId)");
+        $dados = $mysqli -> query("CALL pedidoStatus_carregarPor_pedidosIds('$dataHora', '$tintasIdentificacao', $clienteId)");
 
         return $dados;
     }

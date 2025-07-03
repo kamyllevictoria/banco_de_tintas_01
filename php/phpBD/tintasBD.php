@@ -17,6 +17,12 @@
         return $dados;
     }
 
+    function tintas_carregar_marcas($mysqli) {
+        $dados = $mysqli -> query("CALL tintas_carregar_marcas()");
+
+        return $dados;
+    }
+
     function tintas_carregarPor_identificacao($mysqli, $identificacao) {
         $dados = $mysqli -> query("CALL tintas_carregarPor_identificacao('$identificacao')");
 
