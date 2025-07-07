@@ -1,0 +1,63 @@
+body {
+  background-color: #f1f2f3;
+}
+h2 {
+  padding-bottom: 20px;
+  padding-left: 5px;
+}
+
+.container-list-group {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  height: 100vh;
+  padding-top: 100px;
+}
+.list-group {
+  width: 700px;
+}
+.list-group-item {
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+}
+.list-group-item:hover {
+  color: #84469b;
+}
+.list-group-item h6:hover {
+  font-weight: bold;
+}
+.icon-wrapper {
+  width: 48px; /* já define o espaço reservado pro ícone */
+  text-align: center;
+  padding-right: 8px; /* espaço entre o ícone e o texto */
+  color: #8eb041;
+}
+.icon-wrapper:hover {
+  color: #84469b;
+}
+/* flex-direction: column; */
+
+footer {
+  background-color: #cfcece;
+  padding: 40px 0;
+}
+
+.text_a_link {
+  text-decoration: none !important;
+}
+
+.text_purple {
+  color: #84469b !important;
+  font-weight: bold;
+}
+
+.text_justify {
+  text-align: justify;
+}
+
+@media (max-width: 806px) {
+  .list-group {
+    width: 400px;
+  }
+}

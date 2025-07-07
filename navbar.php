@@ -34,8 +34,8 @@
         <div class="container">
             <div class="nao-sei d-flex justify-content-between align-items-center w-100">
                 <!-- Logo -->
-                <a class="navbar-brand d-flex align-items-center" href="index.php">
-                    <img src="imagens/Logo.png" alt="Logo">
+                <a class="navbar-brand d-flex align-items-center" href="./index.php">
+                    <img src="./imagens/Logo.png" alt="Logo">
                     Banco de tintas
                 </a>
                 <!-- Botão do menu lateral -->
@@ -48,12 +48,12 @@
 
                 <div class="navbar-center mx-auto">
                     <!-- Logo -->
-                    <a class="navbar-brand d-flex align-items-center logo-balde" href="index.php">
-                        <img src="imagens/Logo.png" alt="Logo">
+                    <a class="navbar-brand d-flex align-items-center logo-balde" href="./index.php">
+                        <img src="./imagens/Logo.png" alt="Logo">
                         Banco de tintas
                     </a>
 
-                    <a href="quero_doar.php" class="link-quero-doar">Quero doar</a>
+                    <a href="./ajuda.php" class="link-quero-doar">Ajuda</a>
                     <div class="search-wrapper pesquisar1">
                         <span class="search-icon">
                             <i class="fa fa-search"></i>
@@ -65,9 +65,9 @@
                     </div>
                     <?php
                         if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                            echo '<a href="login-cadastro.php" class="btn-login">Login</a>';
+                            echo '<a href="./login-cadastro.php" class="btn-login">Login</a>';
                             echo '<div class="navbar-end">';
-                            echo '<a href="login-cadastro.php" class="btn btn-cadastre">Cadastre-se</a>';
+                            echo '<a href="./login-cadastro.php" class="btn btn-cadastre">Cadastre-se</a>';
                             echo '</div>';
                         }
                         else {
@@ -81,7 +81,7 @@
                             echo '<a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">';
                             
                             if($foto == NULL) {
-                                echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
+                                echo '<img src="./imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
                             }
                             else {
                                 echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
@@ -91,10 +91,10 @@
                             echo '<ul class="dropdown-menu dropdown-menu-end">';
                             
                             if($_SESSION["ADM"] == FALSE) {
-                                echo '<li><a class="dropdown-item text-start" href="usuario.php">Minha conta</a></li>';
+                                echo '<li><a class="dropdown-item text-start" href="./usuario.php">Minha conta</a></li>';
                             }
                             else {
-                                echo '<li><a class="dropdown-item text-start" href="catalogo.php">Administrativo</a></li>';
+                                echo '<li><a class="dropdown-item text-start" href="./catalogo.php">Administrativo</a></li>';
                             }
 
                             
@@ -130,16 +130,16 @@
         <br>
         <?php
             if($_SESSION["USUARIO"] == FALSE && $_SESSION["ADM"] == FALSE) {
-                echo '<a href="login-cadastro.php">Login</a>';
-                echo '<a href="cadastro-cadastro.php">Cadastre-se</a>';
+                echo '<a href="./login-cadastro.php">Login</a>';
+                echo '<a href="./login-cadastro.php">Cadastre-se</a>';
             }
             else {
 
                 if($_SESSION["ADM"] == FALSE) {
-                    echo '<a class="d-flex align-items-center" href="usuario.php">';
+                    echo '<a class="d-flex align-items-center" href="./usuario.php">';
 
                     if($foto == NULL) {
-                        echo '<img src="imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
+                        echo '<img src="./imagens/UsuarioVerde.png" alt="Foto de perfil" class="foto-perfil">';
                     }
                     else {
                         echo '<img src="'.$foto.'" alt="Foto de perfil" class="foto-perfil">';
@@ -147,13 +147,13 @@
                     
                     echo '<span class="ola ms-2">Olá, '.$nome.'!</span>';
                     echo '</a>';
-                    echo '<a href="usuario.php">Minha conta</a>';
+                    echo '<a href="./usuario.php">Minha conta</a>';
                 }
                 else {
-                    echo '<a href="catalogo.php">Administrativo</a>';
+                    echo '<a href="./catalogo.php">Administrativo</a>';
                 }
 
-                echo '<a href="quero_doar.php">Quero doar</a>';
+                echo '<a href="./ajuda.php">Ajuda</a>';
 
                 echo '<form action="config/usuarios_config.php" method="post">';
                 echo '<input type="hidden" name="logout-usuario">';
