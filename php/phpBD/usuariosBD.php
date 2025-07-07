@@ -37,25 +37,4 @@
 
         return $dados;
     }
-
-    function pessoasJuridicas_adicionar($mysqli, $cnpj, $clienteId) {
-        $mysqli -> query("CALL pessoasJuridicas_adicionar('$cnpj', $clienteId)");
-    }
-
-    function pessoasJuridicas_carregarPor_cnpj($mysqli, $cnpj) {
-        $dados = $mysqli -> query("CALL pessoasJuridicas_carregarPor_cnpj('$cnpj')");
-
-        return $dados;
-    }
-
-    function pessoasFisicas_adicionar($mysqli, $cpf, $clienteId) {
-        $mysqli -> query("CALL pessoasFisicas_adicionar('$cpf', $clienteId)");
-    }
-
-    function pessoasFisicas_carregarPor_cpf($mysqli, $cpf) {
-        $dados = $mysqli -> query("CALL pessoasFisicas_carregarPor_cpf('$cpf')");
-
-        return $dados;
-    }
-
 ?>

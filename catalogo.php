@@ -186,19 +186,19 @@
                                                             <h4 class="text_purple pad_bottom_20">Alterar Tinta</h4>
                                                             <div class="form-group">
                                                                 <label for="marcaTinta" class="text_purple">Marca:</label>
-                                                                <input type="text" class="form-control input-small" placeholder="Marca" name="marca<?= $linha["identificacao"]; ?>">
+                                                                <input type="text" class="form-control input-small" placeholder="Marca" name="marca<?= $linha["identificacao"]; ?>" value="<?= $linha["marca"]; ?>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="dataVencimento" class="text_purple">Data de Vencimento:</label>
-                                                                <input type="date" class="form-control input-small" placeholder="12/05/2024" name="dataVencimento<?= $linha["identificacao"]; ?>">
+                                                                <input type="date" class="form-control input-small" placeholder="12/05/2024" name="dataVencimento<?= $linha["identificacao"]; ?>" value="<?= $linha["dataValidade"]; ?>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="quantidadeLatas" class="text_purple">Data de recebimento</label>
-                                                                <input type="date" class="form-control input-small" placeholder="12/05/2024" name="dataRecebimento<?= $linha["identificacao"]; ?>">
+                                                                <input type="date" class="form-control input-small" placeholder="12/05/2024" name="dataRecebimento<?= $linha["identificacao"]; ?>" value="<?= $linha["dataRecebimento"]; ?>">
                                                             </div>
                                                             <div class="form-group pad_bottom_20">
                                                                 <label for="volumeLitros" class="text_purple">Volume em Litros:</label>
-                                                                <input name="volume<?= $linha["identificacao"]; ?>" type="number" step=".01" class="form-control input-small" placeholder="Volume em litros">
+                                                                <input name="volume<?= $linha["identificacao"]; ?>" type="number" step=".01" class="form-control input-small" placeholder="Volume em litros" value="<?= $linha["volume"]; ?>">
                                                             </div>
                                                             <button class="btn btn-purple-editar" id="btnSalvar<?= $linha["identificacao"]; ?>">Salvar</button>
                                                         </div>

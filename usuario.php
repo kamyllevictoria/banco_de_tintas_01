@@ -161,22 +161,27 @@
                         <div class="d-flex justify-content-center">
                             <input type="file" id="fileInput" name="foto">
                         </div>
-                        
+
+                        <?php
+                            $usuario = clientes_carregarPor_id($mysqli, $clienteId);
+                            $usuario = $usuario -> fetch_assoc();
+                        ?>
+
                         <!-- Nome -->
                         <div class="mb-3">
                             <label for="formInput" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="Nome" name="nome">
+                            <input type="text" class="form-control" id="Nome" name="nome" value="<?= $usuario['nome']?>">
                         </div>
 
                         <!-- e-mail -->
                         <div class="mb-3">
                             <label for="formInput" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="Email" placeholder="seu-email@gmail.com" name="email">
+                            <input type="email" class="form-control" id="Email" placeholder="seu-email@gmail.com" name="email" value="<?= $usuario['email']?>">
                         </div>
                         <!-- Telefone -->
                         <div class="mb-3">
                             <label for="formInput" class="form-label">Telefone</label>
-                            <input type="tel" class="form-control" id="Telefone" placeholder="(00) 00000-0000" name="telefone">
+                            <input type="tel" class="form-control" id="Telefone" placeholder="(00) 00000-0000" name="telefone" value="<?= $usuario['telefone']?>">
                         </div>
                          
                         <button type="submit" class="btn btn-purple w-100">Salvar</button>
