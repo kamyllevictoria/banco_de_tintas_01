@@ -47,7 +47,6 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
-    <!-- <link rel="stylesheet" href="./css/main.css"> -->
     <link rel="stylesheet" href="./css/navbarLogado.css">
     <link rel="stylesheet" href="./css/catalogo.css">
 
@@ -74,7 +73,7 @@
 <body>
     <?php include 'navbar.php'; ?>
     
-    <section class="pagina">
+    <section class="page">
         <div class="container-fluid"> 
             <div class="row">
                 <div class="col-lg-2 pb-3 col-12 sidebar">
@@ -86,12 +85,13 @@
                         <li class="nav-item pad_top_20">
                             <a class="nav-link text-dark link_bg_adm" href="cadastrar_tinta.php">Cadastrar tinta</a>
                         </li>
-
                         <li class="nav-item pad_top_20">
                             <a class="nav-link text-dark link_bg_adm" href="catalogo.php">Catálogo</a>
                         </li>
+                        <li class="nav-item pad_top_20">
+                            <a class="nav-link text-dark link_bg_adm active" href="lixeira.php">Lixeira</a>
+                        </li>
                     </ul>
-
                 </div>
 
                 <div class="col-lg-10 col-12 main-content">
@@ -160,12 +160,12 @@
                                                         
                                                         <div id="modalBackgroundApagar<?= $linha["identificacao"]; ?>" class="modal-background"></div>
                                                         <div id="modalContainerApagar<?= $linha["identificacao"]; ?>" class="container-green">
-                                                            <div class="fechar-modal" onclick="fecharModalApagar('<?= $linha['identificacao']; ?>')">
+                                                            <div class="close-modal" onclick="fecharModalApagar('<?= $linha['identificacao']; ?>')">
                                                                 <img src="imagens/fechar.png" width="50px">
                                                             </div>
                                                             <h4 class="text_purple pad_bottom_20">Apagar Tinta</h4>
-                                                            <p class="apagar-tinta-mensagem">Deseja mesmo apagar esta tinta permanentemente?</p>
-                                                            <button class="btn btn-purple-editar" id="btnApagar<?= $linha["identificacao"]; ?>">Apagar</button>
+                                                            <p class="delete-ink-message">Deseja mesmo apagar esta tinta permanentemente?</p>
+                                                            <button class="btn btn-purple-edit" id="btnApagar<?= $linha["identificacao"]; ?>">Apagar</button>
                                                         </div>
                                                     
                                                     </form>
@@ -180,7 +180,7 @@
                                                         
                                                         <div id="modalBackground<?= $linha["identificacao"]; ?>" class="modal-background"></div>
                                                         <div id="modalContainer<?= $linha["identificacao"]; ?>" class="container-green">
-                                                            <div class="fechar-modal" onclick="fecharModal('<?= $linha['identificacao']; ?>')">
+                                                            <div class="close-modal" onclick="fecharModal('<?= $linha['identificacao']; ?>')">
                                                                 <img src="imagens/fechar.png" width="50px">
                                                             </div>
                                                             <h4 class="text_purple pad_bottom_20">Alterar Tinta</h4>
@@ -200,7 +200,7 @@
                                                                 <label for="volumeLitros" class="text_purple">Volume em Litros:</label>
                                                                 <input name="volume<?= $linha["identificacao"]; ?>" type="number" step=".01" class="form-control input-small" placeholder="Volume em litros">
                                                             </div>
-                                                            <button class="btn btn-purple-editar" id="btnSalvar<?= $linha["identificacao"]; ?>">Salvar</button>
+                                                            <button class="btn btn-purple-edit" id="btnSalvar<?= $linha["identificacao"]; ?>">Salvar</button>
                                                         </div>
                                                     
                                                     </form>

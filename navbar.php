@@ -29,6 +29,7 @@
         $foto = NULL;
     }
 ?>
+
 <style>
     .fixed-header {
         position: fixed !important;
