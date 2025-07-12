@@ -282,4 +282,6 @@
 
         header("Location: ../usuario.php");
     }
+
+    //TODO: KLEBER - fazer if(isset($_POST["alterar-senha"])) {
 ?>
