@@ -29,14 +29,8 @@
         return $dados;
     }
 
-    function tintas_carregarPor_cor($mysqli, $cor) {
-        $dados = $mysqli -> query("CALL tintas_carregarPor_cor('$cor')");
-
-        return $dados;
-    }
-
-    function tintas_carregarPor_marca($mysqli, $marca) {
-        $dados = $mysqli -> query("CALL tintas_carregarPor_marca('$marca')");
+    function tintas_carregarPor_corLike($mysqli, $cor) {
+        $dados = $mysqli -> query("CALL tintas_carregarPor_corLike('$cor')");
 
         return $dados;
     }
