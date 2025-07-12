@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 01/07/2025 às 23:18
+-- Tempo de geração: 12-Jul-2025 às 02:21
 -- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,6 +89,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `tintas_carregar` ()   SELECT * FROM
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tintas_carregarPor_cor` (IN `v_cor` VARCHAR(15))   SELECT * FROM tintas WHERE cor = v_cor$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tintas_carregarPor_corLike` (IN `v_cor` VARCHAR(15))   SELECT * FROM tintas WHERE cor LIKE CONCAT("%",v_cor,"%")$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tintas_carregarPor_dataRecebimento` (IN `v_dataRecebimento` DATE)   SELECT * FROM tintas WHERE dataRecebimento = v_dataRecebimento$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `tintas_carregarPor_dataValidade` (IN `v_dataValidade` DATE)   SELECT * FROM tintas WHERE dataValidade = v_dataValidade$$
@@ -104,7 +106,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `clientes`
+-- Estrutura da tabela `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -121,7 +123,7 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `clientes`
+-- Extraindo dados da tabela `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senhaHash`, `nome`, `direcionamento`, `tipoPessoaId`, `cpf`, `cnpj`) VALUES
@@ -130,7 +132,7 @@ INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senhaHash`, `nome`, 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `gestor`
+-- Estrutura da tabela `gestor`
 --
 
 CREATE TABLE `gestor` (
@@ -140,7 +142,7 @@ CREATE TABLE `gestor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `gestor`
+-- Extraindo dados da tabela `gestor`
 --
 
 INSERT INTO `gestor` (`id`, `email`, `senhaHash`) VALUES
@@ -149,7 +151,7 @@ INSERT INTO `gestor` (`id`, `email`, `senhaHash`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `listadesejos`
+-- Estrutura da tabela `listadesejos`
 --
 
 CREATE TABLE `listadesejos` (
@@ -162,7 +164,7 @@ CREATE TABLE `listadesejos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pedidos`
+-- Estrutura da tabela `pedidos`
 --
 
 CREATE TABLE `pedidos` (
@@ -175,7 +177,7 @@ CREATE TABLE `pedidos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pedidostatus`
+-- Estrutura da tabela `pedidostatus`
 --
 
 CREATE TABLE `pedidostatus` (
@@ -192,8 +194,8 @@ CREATE TABLE `pedidostatus` (
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para view `quantidade_pedidos_por_status`
--- (Veja abaixo para a visão atual)
+-- Estrutura stand-in para vista `quantidade_pedidos_por_status`
+-- (Veja abaixo para a view atual)
 --
 CREATE TABLE `quantidade_pedidos_por_status` (
 `QtdPedido` bigint(21)
@@ -203,7 +205,7 @@ CREATE TABLE `quantidade_pedidos_por_status` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tintas`
+-- Estrutura da tabela `tintas`
 --
 
 CREATE TABLE `tintas` (
@@ -217,7 +219,7 @@ CREATE TABLE `tintas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tintas`
+-- Extraindo dados da tabela `tintas`
 --
 
 INSERT INTO `tintas` (`identificacao`, `dataValidade`, `marca`, `imagem`, `volume`, `cor`, `dataRecebimento`) VALUES
@@ -234,7 +236,7 @@ INSERT INTO `tintas` (`identificacao`, `dataValidade`, `marca`, `imagem`, `volum
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tipospessoa`
+-- Estrutura da tabela `tipospessoa`
 --
 
 CREATE TABLE `tipospessoa` (
@@ -243,7 +245,7 @@ CREATE TABLE `tipospessoa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tipospessoa`
+-- Extraindo dados da tabela `tipospessoa`
 --
 
 INSERT INTO `tipospessoa` (`id`, `tipo`) VALUES
@@ -253,7 +255,7 @@ INSERT INTO `tipospessoa` (`id`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para view `quantidade_pedidos_por_status`
+-- Estrutura para vista `quantidade_pedidos_por_status`
 --
 DROP TABLE IF EXISTS `quantidade_pedidos_por_status`;
 
@@ -264,20 +266,20 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
--- Índices de tabela `clientes`
+-- Índices para tabela `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`,`email`),
   ADD KEY `tipoPessoaId` (`tipoPessoaId`);
 
 --
--- Índices de tabela `gestor`
+-- Índices para tabela `gestor`
 --
 ALTER TABLE `gestor`
   ADD PRIMARY KEY (`id`,`email`);
 
 --
--- Índices de tabela `listadesejos`
+-- Índices para tabela `listadesejos`
 --
 ALTER TABLE `listadesejos`
   ADD PRIMARY KEY (`data`,`clienteId`,`tintasIdentificacao`),
@@ -285,7 +287,7 @@ ALTER TABLE `listadesejos`
   ADD KEY `tintasIdentificacao` (`tintasIdentificacao`);
 
 --
--- Índices de tabela `pedidos`
+-- Índices para tabela `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`dataHora`,`clienteId`,`tintasIdentificacao`),
@@ -293,7 +295,7 @@ ALTER TABLE `pedidos`
   ADD KEY `tintasIdentificacao` (`tintasIdentificacao`);
 
 --
--- Índices de tabela `pedidostatus`
+-- Índices para tabela `pedidostatus`
 --
 ALTER TABLE `pedidostatus`
   ADD PRIMARY KEY (`dataHora`,`gestorId`,`pedidosDataHora`,`tintasIdentificacao`,`clienteId`) USING BTREE,
@@ -303,19 +305,19 @@ ALTER TABLE `pedidostatus`
   ADD KEY `clienteId` (`clienteId`);
 
 --
--- Índices de tabela `tintas`
+-- Índices para tabela `tintas`
 --
 ALTER TABLE `tintas`
   ADD PRIMARY KEY (`identificacao`);
 
 --
--- Índices de tabela `tipospessoa`
+-- Índices para tabela `tipospessoa`
 --
 ALTER TABLE `tipospessoa`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
@@ -337,31 +339,31 @@ ALTER TABLE `tipospessoa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `clientes`
+-- Limitadores para a tabela `clientes`
 --
 ALTER TABLE `clientes`
   ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`tipoPessoaId`) REFERENCES `tipospessoa` (`id`);
 
 --
--- Restrições para tabelas `listadesejos`
+-- Limitadores para a tabela `listadesejos`
 --
 ALTER TABLE `listadesejos`
   ADD CONSTRAINT `listadesejos_ibfk_1` FOREIGN KEY (`clienteId`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `listadesejos_ibfk_2` FOREIGN KEY (`tintasIdentificacao`) REFERENCES `tintas` (`identificacao`);
 
 --
--- Restrições para tabelas `pedidos`
+-- Limitadores para a tabela `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`clienteId`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`tintasIdentificacao`) REFERENCES `tintas` (`identificacao`);
 
 --
--- Restrições para tabelas `pedidostatus`
+-- Limitadores para a tabela `pedidostatus`
 --
 ALTER TABLE `pedidostatus`
   ADD CONSTRAINT `pedidostatus_ibfk_1` FOREIGN KEY (`pedidosDataHora`) REFERENCES `pedidos` (`dataHora`),
