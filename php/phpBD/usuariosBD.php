@@ -6,8 +6,8 @@
         return $dados;
     }
 
-    function clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $Nome, $direcionamento, $tipoPessoa, $cpf, $cnpj) {
-        $mysqli -> query("CALL clientes_adicionar('$email', '$foto', '$telefone', '$senhaHash', '$Nome', '$direcionamento', $tipoPessoa, '$cpf', '$cnpj')");
+    function clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $Nome, $direcionamento, $tipoPessoa, $cpf, $cnpj, $ativo) {
+        $mysqli -> query("CALL clientes_adicionar('$email', '$foto', '$telefone', '$senhaHash', '$Nome', '$direcionamento', $tipoPessoa, '$cpf', '$cnpj', $ativo)");
     }
 
     function clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senhaHash, $nome, $direcionamento) {
@@ -37,4 +37,9 @@
 
         return $dados;
     }
+
+    function clientes_atualizar_ativo($mysqli, $id, $ativo) {
+        $mysqli -> query("CALL clientes_atualizar_ativo($id, $ativo)");
+    }
+    
 ?>

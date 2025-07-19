@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12-Jul-2025 às 02:21
+-- Tempo de geração: 19/07/2025 às 00:03
 -- Versão do servidor: 10.4.32-MariaDB
--- versão do PHP: 8.2.12
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,6 +29,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_adicionar` (IN `v_email` V
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_atualizar` (IN `v_id` INT, IN `v_email` VARCHAR(80), IN `v_foto` VARCHAR(100), IN `v_telefone` CHAR(11), IN `v_senhaHash` VARCHAR(255), IN `v_nome` VARCHAR(70), IN `v_direcionamento` VARCHAR(20))   UPDATE clientes SET email = v_email, foto = v_foto, telefone = v_telefone, senhaHash = v_senhaHash, nome = v_nome, direcionamento = v_direcionamento WHERE id = v_id$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_atualizar_ativo` (IN `v_id` INT, IN `v_ativo` BOOLEAN)   UPDATE clientes SET ativo = v_ativo WHERE id = v_id$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_cnpj` (IN `V_cnpj` CHAR(14))   SELECT * FROM cliente WHERE cnpj = v_cnpj$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_cpf` (IN `v_cpf` CHAR(11))   SELECT * FROM clientes WHERE cpf = V_cpf$$
@@ -37,15 +39,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_email` (IN `v_
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_carregarPor_id` (IN `v_id` INT)   SELECT * FROM clientes WHERE id = v_id$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `clientes_remover` (IN `v_id` INT)   DELETE FROM clientes WHERE id = v_id$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_adicionar` (IN `v_email` VARCHAR(80), IN `v_senhaHash` VARCHAR(255))   INSERT INTO gestor (email, senhaHash) VALUES (v_email, v_senhaHash)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_atualizar` (IN `v_id` INT, IN `v_email` VARCHAR(80), IN `v_senhaHash` VARCHAR(255))   UPDATE gestor SET email = v_email, senhaHash = v_senhaHash WHERE id = v_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_carregarPor_email` (IN `v_email` VARCHAR(80))   SELECT * FROM gestor WHERE email = v_email$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `gestor_remover` (IN `v_id` INT)   DELETE FROM gestor WHERE id = v_id$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `listaDesejos_adicionar` (IN `v_data` DATE, IN `v_clienteId` INT, IN `v_tintasIdentificacao` VARCHAR(10), IN `v_cor` VARCHAR(15))   INSERT INTO listadesejos (data, clienteId, tintasIdentificacao, cor) VALUES (v_data, v_clienteId, v_tintasIdentificacao, v_cor)$$
 
@@ -106,7 +104,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `clientes`
+-- Estrutura para tabela `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -119,20 +117,21 @@ CREATE TABLE `clientes` (
   `direcionamento` varchar(20) NOT NULL,
   `tipoPessoaId` int(11) NOT NULL,
   `cpf` char(11) DEFAULT NULL,
-  `cnpj` char(14) DEFAULT NULL
+  `cnpj` char(14) DEFAULT NULL,
+  `ativo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `clientes`
+-- Despejando dados para a tabela `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senhaHash`, `nome`, `direcionamento`, `tipoPessoaId`, `cpf`, `cnpj`) VALUES
-(33, 'nicole@gmail.com', '', '11937233283', '$2y$10$Su3iCGrE3Lw07/5UZq1s5O5tcaGSJKsTEiG2p4.cHtrKum6suYPBG', 'Nicole Okumura Charale', 'Fatec', 1, '50652528821', '');
+INSERT INTO `clientes` (`id`, `email`, `foto`, `telefone`, `senhaHash`, `nome`, `direcionamento`, `tipoPessoaId`, `cpf`, `cnpj`, `ativo`) VALUES
+(33, 'nicole@gmail.com', '', '11937233283', '$2y$10$Su3iCGrE3Lw07/5UZq1s5O5tcaGSJKsTEiG2p4.cHtrKum6suYPBG', 'Nicole Okumura Charale', 'Fatec', 1, '50652528821', '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `gestor`
+-- Estrutura para tabela `gestor`
 --
 
 CREATE TABLE `gestor` (
@@ -142,7 +141,7 @@ CREATE TABLE `gestor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `gestor`
+-- Despejando dados para a tabela `gestor`
 --
 
 INSERT INTO `gestor` (`id`, `email`, `senhaHash`) VALUES
@@ -151,7 +150,7 @@ INSERT INTO `gestor` (`id`, `email`, `senhaHash`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `listadesejos`
+-- Estrutura para tabela `listadesejos`
 --
 
 CREATE TABLE `listadesejos` (
@@ -164,7 +163,7 @@ CREATE TABLE `listadesejos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pedidos`
+-- Estrutura para tabela `pedidos`
 --
 
 CREATE TABLE `pedidos` (
@@ -177,7 +176,7 @@ CREATE TABLE `pedidos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pedidostatus`
+-- Estrutura para tabela `pedidostatus`
 --
 
 CREATE TABLE `pedidostatus` (
@@ -194,8 +193,8 @@ CREATE TABLE `pedidostatus` (
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `quantidade_pedidos_por_status`
--- (Veja abaixo para a view atual)
+-- Estrutura stand-in para view `quantidade_pedidos_por_status`
+-- (Veja abaixo para a visão atual)
 --
 CREATE TABLE `quantidade_pedidos_por_status` (
 `QtdPedido` bigint(21)
@@ -205,7 +204,7 @@ CREATE TABLE `quantidade_pedidos_por_status` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tintas`
+-- Estrutura para tabela `tintas`
 --
 
 CREATE TABLE `tintas` (
@@ -219,7 +218,7 @@ CREATE TABLE `tintas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tintas`
+-- Despejando dados para a tabela `tintas`
 --
 
 INSERT INTO `tintas` (`identificacao`, `dataValidade`, `marca`, `imagem`, `volume`, `cor`, `dataRecebimento`) VALUES
@@ -236,7 +235,7 @@ INSERT INTO `tintas` (`identificacao`, `dataValidade`, `marca`, `imagem`, `volum
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `tipospessoa`
+-- Estrutura para tabela `tipospessoa`
 --
 
 CREATE TABLE `tipospessoa` (
@@ -245,7 +244,7 @@ CREATE TABLE `tipospessoa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `tipospessoa`
+-- Despejando dados para a tabela `tipospessoa`
 --
 
 INSERT INTO `tipospessoa` (`id`, `tipo`) VALUES
@@ -255,7 +254,7 @@ INSERT INTO `tipospessoa` (`id`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `quantidade_pedidos_por_status`
+-- Estrutura para view `quantidade_pedidos_por_status`
 --
 DROP TABLE IF EXISTS `quantidade_pedidos_por_status`;
 
@@ -266,20 +265,20 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
--- Índices para tabela `clientes`
+-- Índices de tabela `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`,`email`),
   ADD KEY `tipoPessoaId` (`tipoPessoaId`);
 
 --
--- Índices para tabela `gestor`
+-- Índices de tabela `gestor`
 --
 ALTER TABLE `gestor`
   ADD PRIMARY KEY (`id`,`email`);
 
 --
--- Índices para tabela `listadesejos`
+-- Índices de tabela `listadesejos`
 --
 ALTER TABLE `listadesejos`
   ADD PRIMARY KEY (`data`,`clienteId`,`tintasIdentificacao`),
@@ -287,7 +286,7 @@ ALTER TABLE `listadesejos`
   ADD KEY `tintasIdentificacao` (`tintasIdentificacao`);
 
 --
--- Índices para tabela `pedidos`
+-- Índices de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`dataHora`,`clienteId`,`tintasIdentificacao`),
@@ -295,7 +294,7 @@ ALTER TABLE `pedidos`
   ADD KEY `tintasIdentificacao` (`tintasIdentificacao`);
 
 --
--- Índices para tabela `pedidostatus`
+-- Índices de tabela `pedidostatus`
 --
 ALTER TABLE `pedidostatus`
   ADD PRIMARY KEY (`dataHora`,`gestorId`,`pedidosDataHora`,`tintasIdentificacao`,`clienteId`) USING BTREE,
@@ -305,19 +304,19 @@ ALTER TABLE `pedidostatus`
   ADD KEY `clienteId` (`clienteId`);
 
 --
--- Índices para tabela `tintas`
+-- Índices de tabela `tintas`
 --
 ALTER TABLE `tintas`
   ADD PRIMARY KEY (`identificacao`);
 
 --
--- Índices para tabela `tipospessoa`
+-- Índices de tabela `tipospessoa`
 --
 ALTER TABLE `tipospessoa`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -339,31 +338,31 @@ ALTER TABLE `tipospessoa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `clientes`
+-- Restrições para tabelas `clientes`
 --
 ALTER TABLE `clientes`
   ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`tipoPessoaId`) REFERENCES `tipospessoa` (`id`);
 
 --
--- Limitadores para a tabela `listadesejos`
+-- Restrições para tabelas `listadesejos`
 --
 ALTER TABLE `listadesejos`
   ADD CONSTRAINT `listadesejos_ibfk_1` FOREIGN KEY (`clienteId`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `listadesejos_ibfk_2` FOREIGN KEY (`tintasIdentificacao`) REFERENCES `tintas` (`identificacao`);
 
 --
--- Limitadores para a tabela `pedidos`
+-- Restrições para tabelas `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`clienteId`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`tintasIdentificacao`) REFERENCES `tintas` (`identificacao`);
 
 --
--- Limitadores para a tabela `pedidostatus`
+-- Restrições para tabelas `pedidostatus`
 --
 ALTER TABLE `pedidostatus`
   ADD CONSTRAINT `pedidostatus_ibfk_1` FOREIGN KEY (`pedidosDataHora`) REFERENCES `pedidos` (`dataHora`),
