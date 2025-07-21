@@ -16,7 +16,7 @@
         $direcionamento = $_POST["direcionamento"];
         $senha = $_POST["senha"];
         $foto = NULL;
-        
+
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
         switch($direcionamento) {
@@ -85,7 +85,7 @@
                                     else {
                                         $tipoPessoa = 2;
 
-                                        clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $empresa, $direcionamento, $tipoPessoa, $cpf, $cnpj);
+                                        clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $empresa, $direcionamento, $tipoPessoa, $cpf, $cnpj, $ativo);
                                         $mysqli -> next_result();
 
                                         header("Location: ../login.php");
@@ -117,7 +117,7 @@
                                 else {
                                     $tipoPessoa = 1;
 
-                                    clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $Nome, $direcionamento, $tipoPessoa, $cpf, $cnpj);
+                                    clientes_adicionar($mysqli, $email, $foto, $telefone, $senhaHash, $Nome, $direcionamento, $tipoPessoa, $cpf, $cnpj, $ativo);
                                     $mysqli -> next_result();
                                     
                                     header("Location: ../login.php");
@@ -150,7 +150,7 @@
                 if($qtd_linhas > 0){
 
                     if(password_verify($senha, $linha["senhaHash"])){
-    
+
                         $_SESSION["USUARIO"] = FALSE;
                         $_SESSION["ADM"] = $linha["id"];
                         header("Location: ../catalogo.php");
@@ -169,9 +169,16 @@
     
                 if(password_verify($senha, $linha2["senhaHash"])){
     
-                    $_SESSION["USUARIO"] = $linha2["id"];
-                    $_SESSION["ADM"] = FALSE;
-                    header("Location: ../index.php");
+                    if($linha2["ativo"] == 1){
+                        $_SESSION["USUARIO"] = $linha2["id"];
+                        $_SESSION["ADM"] = FALSE;
+                        header("Location: ../index.php");
+                    }
+                    else{
+                        $_SESSION["cadastro-login"] = "Usuário inativo!";
+                        header("Location: ../login.php");
+                        //TO-DO: implementar a modal de confirmação
+                    }
                 }
                 else{
                     $_SESSION["cadastro-login"] = "E-mail ou senha incorretos!";
@@ -287,5 +294,5 @@
         
     }
 
-    //TODO: KLEBER - fazer if(isset($_POST["alterar-senha"])) {
+    //TO-DO: KLEBER - fazer if(isset($_POST["alterar-senha"])) {
 ?>
