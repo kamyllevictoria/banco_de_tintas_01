@@ -43,7 +43,7 @@
         <div>
             <h2>Como podemos te ajudar?</h2>
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a href="documentacao.php#doar" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="icon-wrapper">
                             <i class="fa-2x fa-solid fa-fill"></i>
@@ -56,7 +56,7 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </a>
 
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a href="documentacao.php#pedido" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="icon-wrapper">
                             <i class="fa-2x fa-solid fa-receipt"></i>
@@ -69,7 +69,7 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </a>
 
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a href="documentacao.php#agendamento" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="icon-wrapper">
                             <i class="fa-2x fa-regular fa-calendar-days"></i>
@@ -82,7 +82,7 @@
                     <i class="fa-solid fa-chevron-right"></i>
                 </a>
 
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a href="documentacao.php#lista" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="icon-wrapper">
                             <i class="fa-2x fa-solid fa-heart"></i>
@@ -94,7 +94,7 @@
                     </div>
                     <i class="fa-solid fa-chevron-right"></i>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a href="documentacao.php#contato" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="icon-wrapper">
                             <i class="fa-2x fa-solid fa-phone"></i>

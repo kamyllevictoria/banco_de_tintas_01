@@ -1,0 +1,32 @@
+.content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 3rem;
+}
+.documentation {
+  width: 60%;
+}
+.text {
+  text-align: justify;
+}
+
+
+footer {
+  background-color: #cfcece;
+  padding: 40px 0;
+}
+
+.text_a_link {
+  text-decoration: none;
+}
+
+.text_purple {
+  color: #84469b;
+  font-weight: bold;
+}
+
+.text_justify {
+  text-align: justify;
+}
