@@ -1,75 +1,34 @@
 function toggleMenu() {
-    const menu = document.getElementById('sideMenu');
-    const overlay = document.getElementById('menuOverlay');
-    const isOpen = menu.classList.contains('open');
+const menu = document.getElementById('sideMenu');
+const overlay = document.getElementById('menuOverlay');
+const isOpen = menu.classList.contains('open');
 
-    if (isOpen) {
-        menu.classList.remove('open');
-        overlay.classList.remove('active');
-    } else {
-        menu.classList.add('open');
-        overlay.classList.add('active');
+if (isOpen) {
+    menu.classList.remove('open');
+    overlay.classList.remove('active');
+} else {
+    menu.classList.add('open');
+    overlay.classList.add('active');
     }
 }
-// Animação da tela Login/Cadastro
 
-var btnSignin = document.querySelector("#signin");
-var btnSignup = document.querySelector("#signup");
-
-var body = document.querySelector("body");
-
-btnSignin.addEventListener("click", function(){
-    body.className = "sign-in-js";
-});
-
-btnSignup.addEventListener("click", function(){
-    body.className = "sign-up-js";
-});
-
-btnSignup.addEventListener("click", function(){
-    body.className = "sign-up-js"
-})
-
-const btnCadastrar = document.querySelector("#signin");
-
-//Gambiarra ------------------------------------------------
-btnCadastrar.addEventListener('click', () => {
-    // Esconde o botão
-    btnCadastrar.classList.add('oculto');
-
-    // Espera 3 segundos (3000ms) e mostra de novo
-    setTimeout(() => {
-        btnCadastrar.classList.remove('oculto');
-    }, 3500);
-});
-
-const btnEntrar= document.querySelector("#signup");
-
-    btnEntrar.addEventListener('click', () => {
-    // Esconde o botão
-    btnEntrar.classList.add('oculto');
-
-    // Espera 3 segundos (3000ms) e mostra de novo
-    setTimeout(() => {
-        btnEntrar.classList.remove('oculto');
-    }, 3500);
-});
 //------------------------------------------------------------
 function cpfOuCnpj() {
-    const pessoaFisica = document.querySelector('input[name="tipoPessoa"][value="fisica"]').checked;
-    const campoCPF = document.getElementById("campoCPF");
-    const campoCNPJ = document.getElementById("campoCNPJ");
-    const nomeEmpresa = document.getElementById("nomeEmpresa");
+    const pessoaFisica = document.querySelector('input[name="tipoPessoa"]:checked').value === "fisica";
 
-    if (pessoaFisica) {
-        campoCPF.style.display = "block";
-        campoCNPJ.style.display = "none";
-        nomeEmpresa.style.display = "none";
-    } else {
-        campoCPF.style.display = "none";
-        campoCNPJ.style.display = "block";
-        nomeEmpresa.style.display = "block";
-    }
+    // Formulário Desktop
+    document.getElementById("campoCPF").style.display = pessoaFisica ? "block" : "none";
+    document.getElementById("campoCNPJ").style.display = pessoaFisica ? "none" : "block";
+    document.getElementById("nomeEmpresa").style.display = pessoaFisica ? "none" : "block";
+
+}
+function cpfOuCnpjMobile() {
+    const pessoaFisicaMobile = document.querySelector('input[name="tipoPessoaMobile"]:checked').value === "fisicaMobile";
+
+    // Formulário Mobile
+    document.getElementById("campoCPF_mobile").style.display = pessoaFisicaMobile ? "block" : "none";
+    document.getElementById("campoCNPJ_mobile").style.display = pessoaFisicaMobile ? "none" : "block";
+    document.getElementById("nomeEmpresa_mobile").style.display = pessoaFisicaMobile ? "none" : "block";
 }
 
 document.getElementById('Telefone').addEventListener('input', function (e) {

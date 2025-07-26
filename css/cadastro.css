@@ -30,12 +30,15 @@ body {
   background-color: #84469b;
   width: 40%;
   height: 100%;
-  border-bottom-right-radius: 15px;
-  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
 
-  right: 0;
+  left: 0;
 }
 
+.first-content .second-column {
+  z-index: 11;
+}
 .title {
   font-size: 28px;
   font-weight: bold;
@@ -94,7 +97,7 @@ body {
 .first-column {
   text-align: center;
   width: 40%;
-  z-index: 0;
+  z-index: 10;
 }
 .second-column {
   width: 60%;
@@ -136,6 +139,7 @@ form {
   display: flex;
   flex-direction: column;
 }
+
 .input-text {
   height: 40px;
   width: 100%;
@@ -160,29 +164,37 @@ form {
 }
 
 /* -=-=-=-=-=-=-=-=-==-=-==-=-=-=-=-=-=-=-= */
-
 .first-content {
   display: flex;
-  position: absolute;
 }
-.first-content .first-column {
-  order: 2;
-}
-.first-content .second-column {
-  order: 1;
-  margin: 15px 0;
-}
-.form-sign-in {
+.scroll-box {
   width: 400px;
+  height: 300px;
+  overflow: auto;
   padding: 10px;
 }
-.password {
-  color: #84469b;
+select {
+  margin: 8px;
   font-size: 14px;
-  text-align: center;
+  height: 40px;
+  border: none;
+  color: #7f8c8d;
+  background-color: #ecf0f1;
 }
+
 /* mobile --------------------------------------------------- */
-.no-account {
+.form-mobile{
+  display: none;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+}
+.title-second {
+  margin-top: 30px;
+}
+
+.existing-account {
   display: none;
   margin-top: 15px;
   text-align: center;
@@ -190,13 +202,13 @@ form {
   color: #7f8c8d;
 }
 
-.signup-link {
+.signin-link {
   color: #84469b;
   font-size: 14px;
 }
 
 @media screen and (max-width: 1040px) {
-  .container{
+  .container {
     background-color: #84469b;
   }
   .content {
@@ -218,7 +230,14 @@ form {
     padding: 20px;
   }
 
-  .no-account {
+  .scroll-box {
+    display: none;
+  }
+  
+  .form-mobile {
+    display: block;
+  }
+  .existing-account{
     display: block;
   }
 }
