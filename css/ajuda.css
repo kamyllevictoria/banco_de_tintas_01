@@ -9,7 +9,6 @@ h2 {
 .container-list-group {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   height: 100vh;
   padding-top: 100px;
 }
@@ -28,15 +27,14 @@ h2 {
   font-weight: bold;
 }
 .icon-wrapper {
-  width: 48px; /* já define o espaço reservado pro ícone */
+  width: 48px;
   text-align: center;
-  padding-right: 8px; /* espaço entre o ícone e o texto */
+  padding-right: 8px;
   color: #8eb041;
 }
 .icon-wrapper:hover {
   color: #84469b;
 }
-/* flex-direction: column; */
 
 footer {
   background-color: #cfcece;
