@@ -29,10 +29,34 @@ $mail->isHTML(true); // Definir formato do email para HTML
     - recuperar senha
     - tinta wishlist
 */
-$mail->Subject = 'Recuperacao de Senhha';
-$mail->Body    = "<h1>Recupere sua senha! :)</h1>
-                  <p>Agora vai hehehe.</p>
-                  <p>A gente arrasou!!! VAI TIME * O *</p>";
+
+
+$mail->Subject = 'Banco de Tintas - Esqueceu sua senha?'; //assunto
+$mail->Body = '
+    <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
+        <div style="background-color: #84469b; border-radius: 0px 0px 10px 10px; padding: 20px; text-align: center;">
+            <h1 style="color: white;">
+                Banco de Tintas
+            </h1>
+        </div>
+
+        <div style="padding: 20px; text-align: center;">
+            <img src="https://cdn-icons-png.flaticon.com/512/181/181534.png" alt="Cadeado" style="max-width: 100px;">
+
+            <h2 style="color: #8eb041; margin-top: 20px;">Esqueceu sua senha?</h2>
+            <p style="font-size: 16px;">Não se preocupe! É hora de recuperar seu login.</p>
+            <p style="font-size: 16px;">Clique no botão abaixo para <strong style="color: #8eb041;">criar uma nova senha.</strong></p>
+
+            <h3><a href="https://seudominio.com/redefinir-senha?token=SEU_TOKEN" 
+               style="display: inline-block; padding: 10px 20px; background-color: #8eb041; color: white; text-decoration: none; border-radius: 5px; margin-top: 15px;">
+               Recriar senha
+            </a><h3>
+        </div>
+
+        <div style="background-color: #84469b; border-radius: 10px 10px 0px 0px; padding: 10px; text-align: center; color: white;">
+            <h2 style="margin: 0;">Obrigado!</h2>
+        </div>
+    </div>';
 
 // Tentar enviar o email
 if (!$mail->send()) {
