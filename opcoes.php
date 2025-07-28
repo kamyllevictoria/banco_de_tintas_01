@@ -88,276 +88,165 @@
 <body>
   <?php include 'navbar.php'; ?>
   
-  <div class="container">
-    <div class="content-wrapper">
-      <h2 class="text-center mb-4 text_purple mt-4">Tintas disponíveis</h2>
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-1">
-          <h5>Filtrar</h5>
-          <div class="mb-3">
-            <p class="fw-bold">Marcas</p>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="marcaSaci">
-              <label class="form-check-label" for="marcaSaci">Saci</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="marcaDorti">
-              <label class="form-check-label" for="marcaDorti">Dorti</label>
+  <div class="container-fluid p-4">
+    <div class="row mb-2 justify-content-center"">
+      <!-- Filtros -->
+      <div class="col-md-2 filter-box">
+        <h5>Filtrar</h5>
+        <p class="text-secondary">Marcas</p>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="saci" />
+          <label class="form-check-label" for="saci">Saci</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="coral" />
+          <label class="form-check-label" for="coral">Coral</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="suvinil" />
+          <label class="form-check-label" for="suvinil">Suvinil</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="coralar" />
+          <label class="form-check-label" for="coralar">Coralar</label>
+        </div>
+        <p class="text-secondary">Cores</p>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="vermelho" />
+          <label class="form-check-label" for="vermelho">Vermelho</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="verde" />
+          <label class="form-check-label" for="verde">Verde</label>
+        </div>
+        <button type="button" class="btn-aplicar">Aplicar</button>
+      </div>
+
+      <!-- Titulo, resultado, ordenar por, cards, paginação -->
+      <div class="options col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <!-- Titulo -->
+            <h3 class="title fw-bold">Tintas disponíveis</h3>
+
+            <!-- Resultado (Some no mobile)-->
+            <span class="result">Foram encontrados 18 resultados para sua pesquisa</span>
+
+            <!-- Ordenar do mobile-->
+            <div class="selects-mobile d-flex align-items-center">
+              <select class="select-mobile form-select">
+                <option selected>Ordenar</option>
+                <option value="1">Nome</option>
+                <option value="2">Data</option>
+                <option value="3">Quantidade</option>
+              </select>
+              <!-- Botão para sidebar de filtros no mobile -->
+              <button class="btn-filtrar" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros" aria-controls="offcanvasFiltros">
+                Filtrar
+                <span class="arrow"><i class="fa-solid fa-angle-down"></i></span>
+              </button>
+              <!--Sidebar ------------------------------------->
+              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFiltros" aria-labelledby="offcanvasFiltrosLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasFiltrosLabel">Filtros</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <!-- Filtros ---------------->
+                  <h5>Filtrar</h5>
+                  <p class="text-secondary">Marcas</p>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="saci" />
+                    <label class="form-check-label" for="saci">Saci</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="coral" />
+                    <label class="form-check-label" for="coral">Coral</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="suvinil" />
+                    <label class="form-check-label" for="suvinil">Suvinil</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="coralar" />
+                    <label class="form-check-label" for="coralar">Coralar</label>
+                  </div>
+                  <p class="text-secondary">Cores</p>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="vermelho" />
+                    <label class="form-check-label" for="vermelho">Vermelho</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="verde" />
+                    <label class="form-check-label" for="verde">Verde</label>
+                  </div>
+                  <button type="button" class="btn-aplicar">Aplicar</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="col-md-9">
-          <div class="row g-4">
-            <?php if($tabela): ?>
-              <?php
-                $cont = 1;
-                $page = $_GET["page"];
-                $pageCont = 1;
-                $coresDisponiveis = "";
-                $coresIndisponiveis = "";
-              ?>
-              <?php while($linha = mysqli_fetch_array($tabela)): ?>
-                <?php if(floatval($linha["volume"]) > 0): ?>
-                  <?php
-                    $pageCont++;
-                    $coresDisponiveis .= ";" . $linha["cor"];
-                    $dataValidade = explode('-', $linha["dataValidade"]);
-                  ?>
-                  <?php if($page == 1): ?>
-                    <?php if($cont >= $page && $cont <= $page + 3): ?>
-                      <div class="col-md-6 <?= $cont % 2 == 0 ? '' : 'd-flex justify-content-end' ?>">
-                        <div class="product-card p-3" style="width:80%">
-                          <img src="<?= $linha['imagem']; ?>" alt="Tinta <?= $linha['cor']; ?>" style="height:230px">
-                          <h5 class="mt-3">Tinta <?= $linha['cor']; ?></h5>
-                          <p>Quantidade disponível: <?= $linha['volume']; ?>L</p>
-                          <p>Data de validade: <?= $dataValidade[2]; ?>/<?= $dataValidade[1]; ?>/<?= $dataValidade[0]; ?></p>
-                          <?php if($_SESSION['ADM'] == FALSE && $_SESSION['USUARIO'] != FALSE): ?>
-                            <button onclick="modal('<?= $linha['identificacao']; ?>')" class="btn btn-interest btn_card">Tenho Interesse</button>
-                            </div>
-                          </div>
-                          <div id="modalBackground<?= $linha['identificacao']; ?>" class="modal-background"></div>
-                          <div id="modalContainer<?= $linha['identificacao']; ?>" class="container-green">
-                            <div class="fechar-modal" onclick="fecharModal('<?= $linha['identificacao']; ?>')">
-                              <img src="imagens/fechar.png" width="50px">
-                            </div>
-                            <h4 class="text_purple pad_bottom_20">Informe a quantidade da tinta desejada:</h4>
-                            <form action="php/pedidos_config.php" method="post">
-                              <input type="hidden" name="fazer-pedido">
-                              <input type="hidden" name="identificacao" value="<?= $linha['identificacao']; ?>">
-                              <div class="form-group pad_bottom_20">
-                                <label for="volumeLitros" class="text_purple">Volume em Litros:</label>
-                                <input name="volume<?= $linha['identificacao']; ?>" type="number" step=".01" class="form-control input-small mb-2" id="volumeLitros" placeholder="Volume em litros">
-                              </div>
-                              <button class="btn btn-solicitar" id="btnSalvar<?= $linha['identificacao']; ?>">Solicitar Tinta</button>
-                            </form>
-                          </div>
-                        <?php else: ?>
-                          </div>
-                        </div>
-                      <?php endif; ?>
-                    <?php endif; ?>
-                  <?php endif; ?>
-                  <?php $cont++; ?>
-                <?php else: $coresIndisponiveis .= ";".$linha['cor']; ?>
-                <?php endif; ?>
-              <?php endwhile; ?>
-              <?php if($_SESSION["ADM"] == FALSE && $_SESSION["USUARIO"] != FALSE): ?>
-                <?php
-                  $coresDisponiveis = explode(";", $coresDisponiveis);
-                  $coresIndisponiveis = explode(";", $coresIndisponiveis);
-
-                  $coresIndisponiveis = array_diff($coresIndisponiveis, $coresDisponiveis);
-
-                  $cont = 1;
-
-                  for($i = 1; $i < count($coresIndisponiveis); $i++) {
-
-                    $cor = $coresIndisponiveis[$i];
-
-                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                    $tabela = mysqli_query($conexao, "CALL tintas_carregarPor_cor('$cor')");
-                    mysqli_close($conexao);
-
-                    $clienteId = $_SESSION["USUARIO"];
-                    $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-                    $tabelaLista = mysqli_query($conexao, "CALL listaDesejos_carregarPor_clienteId($clienteId)");
-                    mysqli_close($conexao);
-
-                    $temLista = false;
-
-                    while($lista = mysqli_fetch_array($tabelaLista)) {
-                        if($lista["cor"] == $cor) {
-                            $temLista = true;
-                        }
-                    }
-
-                    $cont2 = 1;  
-                  }
-                ?>
-                <?php while($linha = mysqli_fetch_array($tabela)): ?>
-                  <?php if($temLista && $cont2 == 1): ?>
-                    <?php if($page == 1 && $cont >= $page && $cont <= $page + 3): ?>
-                      <?php if($cont % 2 == 0): ?>
-                        <div class="col-md-6">
-                      <?php else:?>
-                        <div class="col-md-6 d-flex justify-content-end">
-                      <?php endif; ?>
-
-                      <div class="product-card p-3" style="width:80%">
-                        <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
-                        <h5 class="mt-3">Tinta <?= $cor; ?></h5>
-                        <p>Indisponível</p>
-                        <a href="usuario.php">
-                          <button class="btn btn-secondary btn_card">
-                            <img src="imagens/coracao.png" width="20px" style="margin-right:10px;">
-                            Salvo
-                          </button>
-                        </a>
-                      </div>
-                      </div>
-                    <?php elseif($page > 1 && $cont >= $page + 3 && $cont <= $page + 6): ?>
-                      <?php if($cont % 2 == 0): ?>
-                        <div class="col-md-6">
-                      <?php else: ?>
-                        <div class="col-md-6 d-flex justify-content-end">
-                      <?php endif; ?>
-
-                      <div class="product-card p-3" style="width:80%">
-                        <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
-                        <h5 class="mt-3">Tinta <?= $cor; ?></h5>
-                        <p>Indisponível</p>
-                        <a href="usuario.php">
-                          <button class="btn btn-secondary btn_card">
-                            <img src="imagens/coracao.png" width="20px" style="margin-right:10px;">
-                            Salvo
-                          </button>
-                        </a>
-                      </div>
-                      </div>
-                    <?php endif; ?>
-                    <?php $cont2++; ?>
-                  <?php else: ?>
-                    <?php if($cont == 1):?>
-                      <?php if($page == 1 && $cont >= $page && $cont <= $page + 3): ?>
-                        <?php if($cont % 2 == 0):?>
-                          <div class="col-md-6">
-                        <?php else: ?>
-                          <div class="col-md-6 d-flex justify-content-end">
-                        <?php endif; ?>
-
-                        <div class="product-card p-3" style="width:80%">
-                          <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
-                          <h5 class="mt-3">Tinta <?= $cor; ?></h5>
-                          <p>Indisponível</p>
-                          <form action="php/pedidos_config.php" method="post">
-                            <input type="hidden" name="lista-desejos">
-                            <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]?>">
-                            <button type="submit" class="btn btn-secondary btn-salvar">
-                              <img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">
-                              Salvar
-                            </button>
-                          </form>
-                        </div>
-                        </div>
-
-                      <?php elseif($page > 1 && $cont >= $page + 3 && $cont <= $page + 6): ?>
-                        <?php if($cont % 2 == 0):?>
-                          <div class="col-md-6">
-                        <?php else: ?>
-                          <div class="col-md-6 d-flex justify-content-end">
-                        <?php endif; ?>
-
-                        <div class="product-card p-3" style="width:80%">
-                          <img src="img-bd/padrao.jpg" style="height:230px; filter:grayscale(100%);">
-                          <h5 class="mt-3">Tinta <?= $cor; ?></h5>
-                          <p>Indisponível</p>
-                          <form action="php/pedidos_config.php" method="post">
-                            <input type="hidden" name="lista-desejos">
-                            <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
-                            <button type="submit" class="btn btn-secondary btn_card">
-                              <img src="imagens/coracao-vazio.png" width="20px" style="margin-right:10px;">
-                              Salvar
-                            </button>
-                          </form>
-                        </div>
-                        </div>
-
-                        <?php $cont2++; ?>
-                      <?php endif; ?>
-                    <?php endif; ?>
-                  <?php endif; ?>
-                  <?php $cont2++; ?>
-                <?php endwhile; ?>
-              <?php endif; ?>
-            <?php endif; ?>
-          </div>
-        </div>
-
-        <div class="col-md-1">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <select class="form-select w-auto" aria-label="Ordenar por">
-              <option selected>Ordenar por</option>
-              <option value="2">Volume</option>
-              <option value="3">Data de validade</option>
+          
+          <div class="selects d-flex align-items-center">
+            <!-- Ordenar da tela grande --------------------------->
+            <label for="ordem" class="form-label me-2">Ordenar por:</label>
+            <select class="ordenar form-select">
+              <option selected>Selecione</option>
+              <option value="1">Nome</option>
+              <option value="2">Data</option>
+              <option value="3">Quantidade</option>
             </select>
+            <!-- Ordenar do mobile (tamanho tablet) --------------------------------->
+            <select class="ordenar-mobile form-select">
+              <option selected>Ordenar</option>
+              <option value="1">Nome</option>
+              <option value="2">Data</option>
+              <option value="3">Quantidade</option>
+            </select>
+            <!-- Botão para sidebar de filtros no mobile (tamanho tablet) ----------->
+            <button class="filter" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros" aria-controls="offcanvasFiltros">
+                Filtrar
+                <span class="arrow"><i class="fa-solid fa-angle-down"></i></span>
+              </button>
           </div>
         </div>
 
-        <nav aria-label="Page navigation" class="mt-4">
-          <ul class="pagination justify-content-center">
-            <?php
-              $cont = 1;
-              $cont2 = 2;
-              $page = $_GET["page"];
-              $pageProx = $page + 1;
-              $pageAnte = $page - 1;
+        <!-- 18 cards -->
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <script>
+            const cards = [];
+            for (let i = 0; i < 18; i++) {
+              cards.push(`
+                <div class="col">
+                  <div class="card p-3">
+                    <img src="img-bd/68857b890dc86.jpg" alt="Tinta" class="img-fluid mb-2" />
+                    <h6 class="product-title">Tinta azul - Saci</h6>
+                    <p class="mb-1"><strong>Quantidade disponível:</strong> 3.5L</p>
+                    <p class="mb-2"><strong>Data de validade:</strong> 10/12/2024</p>
+                    <button class="btn btn-interesse">Tenho Interesse</button>
+                  </div>
+                </div>
+              `);
+            }
+            document.write(cards.join(""));
+          </script>
+        </div>
 
-              $conexao = mysqli_connect("localhost", "root", "","banco_tintas") or die ("Falha na conexão");
-              $tabela = mysqli_query($conexao, "CALL tintas_carregar()");
-              mysqli_close($conexao);
-            ?>
-            <?php if($qtde_linhas / 4 > 1): ?>
-              <?php if($pageAnte == 0): ?>
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
-                </li>
-              <?php else: ?>
-                <li class="page-item">
-                  <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $pageAnte; ?>">&raquo;</a>
-                </li>
-              <?php endif; ?>
-
-              <?php while($linha = mysqli_fetch_array($tabela)): ?>
-                <?php if($cont2 % 4 == 0): ?>
-                  <?php if($cont == $page): ?>
-                    <li id="page<?= $cont; ?>" class="page-item active">
-                      <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $cont; ?>"><?= $cont; ?></a>
-                    </li>
-                  <?php else: ?>
-                    <li id="page<?= $cont; ?>" class="page-item">
-                      <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $cont; ?>"><?= $cont; ?></a>
-                  </li>
-                  <?php endif; ?>
-                  <?php $cont++; ?>
-                <?php endif; ?>
-                <?php $cont++; ?>
-              <?php endwhile; ?>
-              <?php if($pageProx <= $qtde_linhas / 4): ?>
-                <li class="page-item">
-                  <a class="page-link" href="?acao=<?= $acao; ?>&valor=<?= $valor; ?>&page=<?= $pageProx; ?>">&raquo;</a>
-                </li>
-              <?php else: ?>
-                <li class="page-item disabled">
-                  <a class="page-link" href="#">&raquo;</a>
-                </li>
-              <?php endif; ?>
-            <?php endif; ?>
+        <!-- Paginação -->
+        <nav class="mt-4 d-flex justify-content-center">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">&#x3C;</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">&#x3E;</a></li>
           </ul>
         </nav>
+
       </div>
     </div>
   </div>
+  
+  <!-- Footer -->
   <footer class="mt-5">
     <div class="container">
       <div class="row text-center">
@@ -384,39 +273,6 @@
       </div>
     </div>
   </footer>
-  <!--script do novo modal -->
-  <script>
-    function modal(id) {
-      document.getElementById("modalBackground" + id).style.display = "block";
-      document.getElementById("modalContainer" + id).style.display = "block";
-      document.getElementById("modalContainer" + id).style.backgroundColor = "#8eb041";
-
-      document.getElementById("btnSalvar" + id).addEventListener("click", function () {
-          document.getElementById("modalBackground" + id).style.display = "none";
-          document.getElementById("modalContainer" + id).style.display = "none";
-      });
-
-      document.getElementById("modalBackground").addEventListener("click", function () {
-          document.getElementById("modalBackground" + id).style.display = "none";
-          document.getElementById("modalContainer" + id).style.display = "none";
-      });
-    }
-
-    const input = document.getElementById('Pesquisa');
-
-    input.addEventListener('keypress', function(event) {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        document.getElementById("form-pesquisa").submit();
-      }
-    });
-
-    function fecharModal(id) {
-        document.getElementById("modalBackground" + id).style.display = "none";
-        document.getElementById("modalContainer" + id).style.display = "none";
-    }
-
-  </script>
 </body>
 
 </html>
