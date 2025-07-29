@@ -14,40 +14,68 @@
     }
     
     if($_SESSION["USUARIO"] != NULL && $_SESSION["USUARIO"] != FALSE) {
-
         $clienteId = $_SESSION["USUARIO"];
-
-        $usuario = clientes_carregarPor_id($mysqli, $clienteId);
-        $usuario = $usuario -> fetch_assoc();
-        $mysqli -> next_result();
-
-        $nome = explode(" ", $usuario["nome"]);
-        $nome = $nome[0];
-
-        $foto = $usuario["foto"];
-    }
-    else {
-      $foto = NULL;
     }
 
     $acao = $_GET["acao"];
     $valor = $_GET["valor"];
+    $page = $_GET["page"];
 
     if($acao == "cor") {
-      $tabela = tintas_carregarPor_cor($mysqli, $valor);
+      $tintas = tintas_carregarPor_cor($mysqli, $valor);
     }
     else if($acao == "marca") {
-      $tabela = tintas_carregarPor_marca($mysqli, $valor);
+      $tintas = tintas_carregarPor_marca($mysqli, $valor);
     }
     else {
-      $tabela = tintas_carregar($mysqli);
+      $tintas = tintas_carregar($mysqli);
+    }
+    
+    $qtde_linhas = $tintas -> num_rows;
+    $mysqli -> next_result();
+
+    $qtd_paginas = intdiv($qtde_linhas, 9);
+    $resto = $qtde_linhas % 9;
+
+    if($qtd_paginas == 0) {
+      $qtd_paginas = 1;
+    }
+    else if($resto > 0) {
+      $qtd_paginas++;
     }
 
-    $qtde_linhas = $tabela -> num_rows;
-    $mysqli -> next_result();
+    if($page == 1) {
+      $comeco = 1;
+    }
+    else {
+      $comeco = 1 + ($qtd_paginas - 1) * 9;
+    }
+    
+    $limite = $comeco + 9;
+    $i = 1;
+    $tabela = array();
+
+    while($tinta = $tintas -> fetch_assoc()) {
+      if($comeco < $limite) {
+        if($i >= $comeco) {
+          array_push($tabela, $tinta);
+          $comeco++;
+        }
+      }
+
+      $i++;
+    }
 
     $marcas = tintas_carregar_marcas($mysqli);
     $mysqli -> next_result();
+
+    $cores = tintas_carregar_cores($mysqli);
+    $mysqli -> next_result();
+
+    $url = $_SERVER["REQUEST_URI"];
+    $partes = parse_url($url);
+    parse_str($partes['query'], $query);
+    $parametrosAtuais = "?acao=".$query["acao"]."&valor=".$query["valor"];
 ?>
 
 <!DOCTYPE html>
@@ -94,37 +122,25 @@
   <?php include 'navbar.php'; ?>
   
   <div class="container-fluid p-4">
-    <div class="row mb-2 justify-content-center"">
+    <div class="row mb-2 justify-content-center">
       <!-- Filtros -->
       <div class="col-md-2 filter-box">
         <h5>Filtrar</h5>
         <p class="text-secondary">Marcas</p>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="saci" />
-          <label class="form-check-label" for="saci">Saci</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="coral" />
-          <label class="form-check-label" for="coral">Coral</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="suvinil" />
-          <label class="form-check-label" for="suvinil">Suvinil</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="coralar" />
-          <label class="form-check-label" for="coralar">Coralar</label>
-        </div>
+        <?php while($marca = $marcas -> fetch_assoc()): ?>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="<?= $marca["marca"]."ID"; ?>" />
+            <label class="form-check-label" for="<?= $marca["marca"]."ID"; ?>"><?= $marca["marca"]; ?></label>
+          </div>
+        <?php endwhile; ?>
         <p class="text-secondary">Cores</p>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="vermelho" />
-          <label class="form-check-label" for="vermelho">Vermelho</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="verde" />
-          <label class="form-check-label" for="verde">Verde</label>
-        </div>
-        <button type="button" class="btn-aplicar">Aplicar</button>
+        <?php while($cor = $cores -> fetch_assoc()): ?>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="<?= $cor["cor"]."ID"; ?>" />
+            <label class="form-check-label" for="<?= $cor["cor"]."ID"; ?>"><?= $cor["cor"]; ?></label>
+          </div>
+        <?php endwhile; ?>
+        <button type="button" class="btn-aplicar" id="btn-aplicar">Aplicar</button>
       </div>
 
       <!-- Titulo, resultado, ordenar por, cards, paginação -->
@@ -135,7 +151,7 @@
             <h3 class="title fw-bold">Tintas disponíveis</h3>
 
             <!-- Resultado (Some no mobile)-->
-            <span class="result">Foram encontrados 18 resultados para sua pesquisa</span>
+            <span class="result">Foram encontrados <?= $qtde_linhas; ?> resultados para sua pesquisa</span>
 
             <!-- Ordenar do mobile-->
             <div class="selects-mobile d-flex align-items-center">
@@ -158,34 +174,29 @@
                 </div>
                 <div class="offcanvas-body">
                   <!-- Filtros ---------------->
+                   <?php
+                    $marcas = tintas_carregar_marcas($mysqli);
+                    $mysqli -> next_result();
+
+                    $cores = tintas_carregar_cores($mysqli);
+                    $mysqli -> next_result();
+                   ?>
                   <h5>Filtrar</h5>
                   <p class="text-secondary">Marcas</p>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="saci" />
-                    <label class="form-check-label" for="saci">Saci</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="coral" />
-                    <label class="form-check-label" for="coral">Coral</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="suvinil" />
-                    <label class="form-check-label" for="suvinil">Suvinil</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="coralar" />
-                    <label class="form-check-label" for="coralar">Coralar</label>
-                  </div>
+                  <?php while($marca = $marcas -> fetch_assoc()): ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="<?= $marca["marca"]."ID"; ?>" />
+                      <label class="form-check-label" for="<?= $marca["marca"]."ID"; ?>"><?= $marca["marca"]; ?></label>
+                    </div>
+                  <?php endwhile; ?>
                   <p class="text-secondary">Cores</p>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="vermelho" />
-                    <label class="form-check-label" for="vermelho">Vermelho</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="verde" />
-                    <label class="form-check-label" for="verde">Verde</label>
-                  </div>
-                  <button type="button" class="btn-aplicar">Aplicar</button>
+                  <?php while($cor = $cores -> fetch_assoc()): ?>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="<?= $cor["cor"]."ID"; ?>" />
+                      <label class="form-check-label" for="<?= $cor["cor"]."ID"; ?>"><?= $cor["cor"]; ?></label>
+                    </div>
+                  <?php endwhile; ?>
+                  <button type="button" class="btn-aplicar" id="btn-aplicar-mobile">Aplicar</button>
                 </div>
               </div>
             </div>
@@ -217,32 +228,35 @@
 
         <!-- 18 cards -->
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <script>
-            const cards = [];
-            for (let i = 0; i < 18; i++) {
-              cards.push(`
-                <div class="col">
-                  <div class="card p-3">
-                    <img src="img-bd/68857b890dc86.jpg" alt="Tinta" class="img-fluid mb-2" />
-                    <h6 class="product-title">Tinta azul - Saci</h6>
-                    <p class="mb-1"><strong>Quantidade disponível:</strong> 3.5L</p>
-                    <p class="mb-2"><strong>Data de validade:</strong> 10/12/2024</p>
-                    <button class="btn btn-interesse">Tenho Interesse</button>
-                  </div>
-                </div>
-              `);
-            }
-            document.write(cards.join(""));
-          </script>
+          <?php for($i = 0; $i < count($tabela); $i++): ?>
+            <?php
+              $dataValidade = explode("-", $tabela[$i]["dataValidade"]);
+            ?>
+            <div class="col">
+              <div class="card p-3 h-100">
+                <img src="<?= $tabela[$i]["imagem"]; ?>" alt="Tinta" class="img-fluid mb-2" style="max-height: 250px" />
+                <h6 class="product-title mt-auto">Tinta <?= $tabela[$i]["cor"]; ?> - <?= $tabela[$i]["marca"]; ?></h6>
+                <p class="mb-1"><strong>Quantidade disponível:</strong> <?= $tabela[$i]["volume"]; ?>L</p>
+                <p class="mb-2">
+                  <strong>Data de validade:</strong> 
+                  <?= $dataValidade[2]; ?>/<?= $dataValidade[1]; ?>/<?= $dataValidade[0]; ?>
+                </p>
+                <button class="btn btn-interesse">Tenho Interesse</button>
+              </div>
+            </div>
+          <?php endfor; ?>
         </div>
 
         <!-- Paginação -->
         <nav class="mt-4 d-flex justify-content-center">
           <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#">&#x3C;</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <?php for($i = 1; $i <= $qtd_paginas; $i++): ?>
+              <?php $active = ($i == $page ? "active" : ""); ?>
+              <li class="page-item <?= $active; ?>">
+                <a class="page-link" href="<?= $parametrosAtuais; ?>&page=<?= $i; ?>"><?= $i; ?></a>
+              </li>
+            <?php endfor; ?>
             <li class="page-item"><a class="page-link" href="#">&#x3E;</a></li>
           </ul>
         </nav>

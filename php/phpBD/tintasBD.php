@@ -23,6 +23,12 @@
         return $dados;
     }
 
+    function tintas_carregar_cores($mysqli) {
+        $dados = $mysqli -> query("CALL tintas_carregar_cores()");
+
+        return $dados;
+    }
+
     function tintas_carregarPor_identificacao($mysqli, $identificacao) {
         $dados = $mysqli -> query("CALL tintas_carregarPor_identificacao('$identificacao')");
 
