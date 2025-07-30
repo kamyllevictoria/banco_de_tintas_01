@@ -16,7 +16,6 @@
         $direcionamento = $_POST["direcionamento"];
         $senha = $_POST["senha"];
         $foto = NULL;
-        $ativo = 1;
 
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -289,6 +288,10 @@
         }
 
         header("Location: ../usuario.php");
+    }
+
+    if(isset($_POST["remover-conta"])) {
+        
     }
 
     //TO-DO: KLEBER - fazer if(isset($_POST["alterar-senha"])) {
