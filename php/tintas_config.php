@@ -161,4 +161,17 @@
             header("Location: ../opcoes.php?acao=todos&valor=todos&page=1");
         }
     }
+
+    if(isset($_POST["filtrar-opcoes"])) {
+        $cores = tintas_carregar_cores($mysqli);
+        $mysqli -> next_result();
+
+        $marcas = tintas_carregar_marcas($mysqli);
+        $mysqli -> next_result();
+
+        $tintas = tintas_carregar($mysqli);
+        $mysqli -> next_result();
+
+        
+    }
 ?>

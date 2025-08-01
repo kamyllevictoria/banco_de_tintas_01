@@ -127,20 +127,23 @@
       <div class="col-md-2 filter-box">
         <h5>Filtrar</h5>
         <p class="text-secondary">Marcas</p>
-        <?php while($marca = $marcas -> fetch_assoc()): ?>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="<?= $marca["marca"]."ID"; ?>" />
-            <label class="form-check-label" for="<?= $marca["marca"]."ID"; ?>"><?= $marca["marca"]; ?></label>
-          </div>
-        <?php endwhile; ?>
-        <p class="text-secondary">Cores</p>
-        <?php while($cor = $cores -> fetch_assoc()): ?>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="<?= $cor["cor"]."ID"; ?>" />
-            <label class="form-check-label" for="<?= $cor["cor"]."ID"; ?>"><?= $cor["cor"]; ?></label>
-          </div>
-        <?php endwhile; ?>
-        <button type="button" class="btn-aplicar" id="btn-aplicar">Aplicar</button>
+        <form action="php/tintas_config.php" method="post">
+          <input type="hidden" name="filtrar-opcoes">
+          <?php while($marca = $marcas -> fetch_assoc()): ?>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="<?= $marca["marca"]."ID"; ?>" name="<?= $marca["marca"]; ?>" value="<?= $marca["marca"]; ?>"/>
+              <label class="form-check-label" for="<?= $marca["marca"]."ID"; ?>"><?= $marca["marca"]; ?></label>
+            </div>
+          <?php endwhile; ?>
+          <p class="text-secondary">Cores</p>
+          <?php while($cor = $cores -> fetch_assoc()): ?>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="<?= $cor["cor"]."ID"; ?>" name="<?= $cor["cor"]; ?>" value="<?= $cor["cor"]; ?>"/>
+              <label class="form-check-label" for="<?= $cor["cor"]."ID"; ?>"><?= $cor["cor"]; ?></label>
+            </div>
+          <?php endwhile; ?>
+          <button type="submit" class="btn-aplicar" id="btn-aplicar">Aplicar</button>
+        </form>
       </div>
 
       <!-- Titulo, resultado, ordenar por, cards, paginação -->
