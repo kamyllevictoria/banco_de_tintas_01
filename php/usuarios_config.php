@@ -1,5 +1,4 @@
 <?php
-
     require 'phpBD/conexaoBD.php';
     require 'phpBD/usuariosBD.php';
     require 'phpBD/utilitarios.php';
@@ -294,5 +293,68 @@
         
     }
 
-    //TO-DO: KLEBER - fazer if(isset($_POST["alterar-senha"])) {
+    /*if(isset($_POST["alterar-senha"])) {
+        $codigoEmail = $_GET["codigo"]; //URL
+
+        $tabela = recuperarSenha_carregarPor_clienteId($mysqli, $clienteId);
+        $linha = $tabela -> fetch_assoc();
+        $mysqli -> next_result();
+
+        //verificar se o usuario tem codigo valido
+        if($tabela -> num_rows > 0) {
+            $dataHoraExpiracao = $linha["dataHoraExpiracao"];
+            $dataHoraAtual = date('Y-m-d H:i:s');
+            $dataHoraExpiracao = date($dataHoraExpiracao); //coneversao para de str para data
+            
+            if($dataHoraAtual <= $dataHoraExpiracao) {
+                $codigo = $linha["codigo"];
+            }
+            else {
+                recuperarSenha_expirar_valido($mysqli, $clienteId);
+                $mysqli -> next_result();
+            }
+
+            //verificar se a dataHoraExpiracao é maior que dataHora atual do sistema
+            //não sei comparar datas com php, tem que pesquisar...
+            if() {
+                //verificar se 
+            }
+            else {
+                //atualizar o valido para 0
+                //mensagem informando que o codigo expirou, link para a pagina de enviar cod pro email
+            }
+
+
+
+
+        }
+        else {
+            //mensagem informando que não é possível redefinir a senha, link para a pagina de enviar cod pro email
+        }
+        $linha = $tabela -> fetch_assoc();
+        $codigo = $linha["codigo"];
+
+
+        
+        //verificar se o codigo corresponde ao codigo enviado por email
+        //redirecionar o usuário para a tela de redefinir senha
+    }*/
+
+    if(isset($_POST["gerar-codigo-alterar-senha"])) {
+        session_start();
+
+        $clienteId = $_SESSION["USUARIO"];
+
+        $tabela = recuperarSenha_carregarPor_clienteId($mysqli, $clienteId);
+        $mysqli -> next_result();
+
+        if($tabela -> num_rows > 0) {
+            $linha = $tabela -> fetch_assoc();
+
+            recuperarSenha_expirar_valido($mysqli, $clienteId);
+            $mysqli -> next_result();
+
+            
+        }
+    }
 ?>
