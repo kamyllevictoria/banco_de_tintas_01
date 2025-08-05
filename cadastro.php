@@ -1,5 +1,8 @@
 <?php
     session_start();
+    if(!(isset($_SESSION["cadastro-login"]))) {
+        $_SESSION["cadastro-login"] = NULL;
+    }
 
     if(isset($_SESSION["cadastro-login"])) {
         $mensagem = $_SESSION["cadastro-login"];
@@ -16,153 +19,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- fonte -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/cadastro-login.css">
-    <link rel="stylesheet" href="css/navbarDeslog.css">
+    <link rel="stylesheet" href="css/cadastro.css">
 
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-        
-    <!-- Java Script -->
-    <script src="js/scripts.js" defer></script>
-
+    <!-- FontAwesome  -->
+    <link rel="stylesheet" href="icones/fontawesome/css/all.min.css">
+    
     <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
-
     <title>Banco de Tintas</title>
+    
 </head>
 
-<body class="cadastro">
-    <header>
-        <div class="container" id="nav-container">
-            <nav class="navbar navbar-expand-lg fixed-top shadow">
-                <a href="index.php" class="navbar-brand">
-                    <img id="logo" src="imagens/Logo.png" alt="Banco de Tintas"> Banco de Tintas
-                </a>
+<body>
+    <div class="container">
+        <div class="content first-content">
+            <div class="first-column">
+                <h2 class="title title-primary">Bem vindo(a) de volta!</h2>
+                <p class="description description-primary">Para se manter conectado conosco</p>
+                <p class="description description-primary">por favor entre com seus dados pessoais</p>
+                <a href="login.php"><button id="signin"class="btn btn-primary">Entrar</button></a>
                 
-            </nav>
-        </div>
-    </header>
-
-    <div class="container-fluid">
-        <div class="row">
-
-            <!-- Coluna com formulario -->
-            <div class="col-12 col-lg-4 col-sm- 12 d-flex justify-content-center fundo_login">
-                <main class="form-container p-xl-5 p-lg-4 p-md-5 mt-md-5 mb-5 mb-md-0">
-                    <div id="container-formulario">
-                        <form action="php/usuarios_config.php" method="post">
-                            <input type="hidden" name="cadastrar-usuario">
-                            <h1 class="h3 fw-bold text-light py-4">Cadastro</h1>
-
-                            <!-- Nome -->
-                            <div id="nomePessoa" class="mb-xxl-3 mb-2">
-                                <label for="formInput" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="Nome">
-                            </div>
-                            <!-- Nome Empresa-->
-                            <div id="nomeEmpresa" class="mb-xxl-3 mb-2" style="display: none;">
-                                <label for="formInput" class="form-label">Nome da empresa</label>
-                                <input type="text" class="form-control" id="nome" name="empresa">
-                            </div>
-
-                            <!-- e-mail -->
-                            <div class="mb-xxl-3 mb-2">
-                                <label for="formInput" class="form-label">E-mail</label>
-                                <input type="email" class="form-control" id="Email" placeholder="seu-email@gmail.com" required name="email">
-                            </div>
-
-                            <!-- Pessoa fisica ou juridica -->
-                            <div class="radio-container">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="p_fisica" name="tipoPessoa" value="fisica" onclick="cpfOuCnpj()" checked>
-                                    <label class="form-check-label" for="p_fisica">
-                                        Pessoa física
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="p_juridica" name="tipoPessoa" value="juridica" onclick="cpfOuCnpj()">
-                                    <label class="form-check-label" for="p_juridica">
-                                        Pessoa juridica
-                                    </label>
-                                </div>  
-                            </div>
-
-                            <!-- CPF -->
-                            <div id="campoCPF" class="mb-xxl-3 mb-2">
-                                <label for="formInput" class="form-label">CPF</label>
-                                <input type="number" class="form-control" id="CPF" placeholder="Apenas números. 11 dígitos." name="cpf">
-                            </div>
-                            <!-- CNPJ -->
-                            <div id="campoCNPJ" class="mb-xxl-3 mb-2" style="display: none;">
-                                <label for="formInput" class="form-label">CNPJ</label>
-                                <input type="number" class="form-control" id="CNPJ" placeholder="Apenas números. 14 dígitos" name="cnpj">
-                            </div>
-                            
-                            <!-- Telefone -->
-                            <div class="mb-xxl-3 mb-2">
-                                <label for="formInput" class="form-label">Telefone</label>
-                                <input type="number" class="form-control" id="Telefone" placeholder="Apenas números. 8 ou 11 dígitos." required name="telefone">
-                            </div>
-
-                            <!-- Senha -->
-                            <div class="mb-xxl-3 mb-2">
-                                <label for="formInput" class="form-label">Senha</label>
-                                <input type="password" class="form-control" id="Senha" placeholder="No mínimo 6, no máximo 8 caracteres." required name="senha">
-                            </div>
-                            <!-- Como conheceu? -->
-
-                            <div class="mb-xxl-3 mb-2">
-                                <label for="formInput" class="form-label">Como você conheceu o Banco de Tintas?</label>
-                                <select name="direcionamento" id="Direcionamento">
-                                    <option value="1">Fatec</option>
-                                    <option value="2">Instagram</option>
-                                    <option value="3">Linkedin</option>
-                                    <option value="4">Pesquisa Google</option>
-                                </select>
-                            </div>
-
-                            <label class="cadastrar">Já possui cadastro?</label>
-                            <a class="text-light" href="./login.php">Entrar</a>
-
-                            <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
-                            
-                        </form>
-                    </div>
-
-                    <?php if($mensagem): ?>
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Dados inválidos!</strong>
-                                    <?= $mensagem; ?>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                </main>
             </div>
-        </div>
-    </div>
+            <div class="second-column">
+                <h2 class="title title-second">Criar uma conta</h2>
+                <div class="social-media">
+                    <ul class="list-social-media">
+                        <a class="link-social-media" href="#">
+                            <li class="item-social-media"><i class="fa-brands fa-facebook-f"></i></li>
+                        </a>
+                        <a class="link-social-media" href="#">
+                            <li class="item-social-media"><i class="fa-brands fa-google"></i></li>
+                        </a>
+                        <a class="link-social-media" href="#">
+                            <li class="item-social-media"><i class="fa-brands fa-linkedin-in"></i></li>
+                        </a>
+                    </ul>
+                </div>
+                <p class="description description-second">ou use o seu e-mail para cadastro</p>
+                <div class="scroll-box">
+                    <form action="config/usuarios_config.php" method="post">
+                        <input type="hidden" name="cadastrar-usuario">
+                    
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-user icon-modify"></i>
+                            <input class="input-text" type="text" id="nome" placeholder="Nome" required name="Nome">
+                        </label>
+        
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-envelope icon-modify"></i>
+                            <input class="input-text" type="email" id="Email" placeholder="seu-email@gmail.com" required name="email">
+                        </label>
+                        <!-- Pessoa fisica ou juridica -->
+                        <div>
+                            <label class="label-text" for="p_fisica">
+                                <input type="radio" id="p_fisica" name="tipoPessoa" value="fisica" onclick="cpfOuCnpj()" checked>
+                                Pessoa física
+                            </label>
+                        </div>
+                        <div>
+                            <label class="label-text" for="p_juridica">
+                                <input type="radio" id="p_juridica" name="tipoPessoa" value="juridica" onclick="cpfOuCnpj()">
+                                Pessoa juridica
+                            </label>
+                        </div>
+                        <div id="nomeEmpresa" style="display: none;">
+                            <label class="label-input" for="" >
+                                <i class="fa-solid fa-building icon-modify"></i>
+                                <input class="input-text" type="text" id="nomeEmpresa" placeholder="Nome da empresa" name="empresa">
+                            </label>
+                        </div>
+
+                        <!-- CPF -->
+                        <div id="campoCPF">
+                            <label class="label-input" for="">
+                                <i class="fa-solid fa-id-card icon-modify"></i>
+                                <input class="input-text" type="text" id="CPF" placeholder="CPF" name="cpf">
+                            </label>
+                        </div>
+                        <!-- CNPJ -->
+                        <div id="campoCNPJ" style="display: none;">
+                            <label class="label-input" for="">
+                                <i class="fa-solid fa-id-card-clip icon-modify"></i>
+                                <input class="input-text" type="text" id="CNPJ" placeholder="CNPJ" name="cnpj">
+                            </label>
+                        </div>
+                        <!-- Telefone -->
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-phone icon-modify"></i>
+                            <input class="input-text" type="tel" id="Telefone" placeholder="Telefone" pattern="\(\d{2}\)\s9\d{4}-\d{4}" required name="telefone">
+                        </label>
+                        <!-- Senha -->
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-lock icon-modify"></i>
+                            <input class="input-text" type="password" id="Senha" placeholder="Senha" required name="senha">
+                        </label>
+                        <!-- Como conheceu? -->
+                        <label class="label-text" for="formInput">Como você conheceu o Banco de Tintas?</label>
+                        <select name="direcionamento" id="Direcionamento">
+                            <option value="1">Fatec</option>
+                            <option value="2">Instagram</option>
+                            <option value="3">Linkedin</option>
+                            <option value="4">Google</option>
+                        </select>
+                        <button class="btn btn-second" type="submit">Cadastrar</button>
+                    </form>
+                </div>
+                <div class="form-mobile">
+                    <form action="config/usuarios_config.php" method="post">
+                        <input type="hidden" name="cadastrar-usuario">
+                    
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-user icon-modify"></i>
+                            <input class="input-text" type="text" id="nome" placeholder="Nome" required name="Nome">
+                        </label>
+        
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-envelope icon-modify"></i>
+                            <input class="input-text" type="email" id="Email" placeholder="seu-email@gmail.com" required name="email">
+                        </label>
+                        <!-- Pessoa fisica ou juridica -->
+                        <div>
+                            <label class="label-text" for="p_fisica_mobile">
+                                <input type="radio" id="p_fisica_mobile" name="tipoPessoaMobile" value="fisicaMobile" onclick="cpfOuCnpjMobile()" checked>
+                                Pessoa física
+                            </label>
+                        </div>
+                        <div>
+                            <label class="label-text" for="p_juridica_mobile">
+                                <input type="radio" id="p_juridica_mobile" name="tipoPessoaMobile" value="juridicaMobile" onclick="cpfOuCnpjMobile()">
+                                Pessoa juridica
+                            </label>
+                        </div>
+                        <div id="nomeEmpresa_mobile" style="display: none;">
+                            <label class="label-input">
+                                <i class="fa-solid fa-building icon-modify"></i>
+                                <input class="input-text" type="text" id="nomeEmpresa_mobile" placeholder="Nome da empresa" name="empresa">
+                            </label>
+                        </div>
+
+                        <div id="campoCPF_mobile">
+                            <label class="label-input">
+                                <i class="fa-solid fa-id-card icon-modify"></i>
+                                <input class="input-text" type="text" id="CPF_mobile" placeholder="CPF" name="cpf">
+                            </label>
+                        </div>
+
+                        <div id="campoCNPJ_mobile" style="display: none;">
+                            <label class="label-input">
+                                <i class="fa-solid fa-id-card-clip icon-modify"></i>
+                                <input class="input-text" type="text" id="CNPJ_mobile" placeholder="CNPJ" name="cnpj">
+                            </label>
+                        </div>
+                        <!-- Telefone -->
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-phone icon-modify"></i>
+                            <input class="input-text" type="tel" id="Telefone" placeholder="Telefone" pattern="\(\d{2}\)\s9\d{4}-\d{4}" required name="telefone">
+                        </label>
+                        <!-- Senha -->
+                        <label class="label-input" for="">
+                            <i class="fa-solid fa-lock icon-modify"></i>
+                            <input class="input-text" type="password" id="Senha" placeholder="Senha" required name="senha">
+                        </label>
+                        <!-- Como conheceu? -->
+                        <label class="label-text" for="formInput">Como você conheceu o Banco de Tintas?</label>
+                        <select name="direcionamento" id="Direcionamento">
+                            <option value="1">Fatec</option>
+                            <option value="2">Instagram</option>
+                            <option value="3">Linkedin</option>
+                            <option value="4">Google</option>
+                        </select>
+                        <button class="btn btn-primary" type="submit">Cadastrar</button>
+                        <p class="existing-account">
+                            Já tem uma conta? <a class="signin-link" href="login.php">Entre</a>
+                        </p>
+                    </form>
+                </div>
+                
+            </div> <!--fim second-column-->
+            <?php if($mensagem): ?>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Dados inválidos!</strong>
+                            <?= $mensagem; ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>     
+        </div> <!--fim first content-->
+        
+    </div> <!--final container-->
+    <script src="js/scripts.js"></script>
 </body>
+
 </html>

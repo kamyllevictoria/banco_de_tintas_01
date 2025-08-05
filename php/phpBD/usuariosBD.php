@@ -41,5 +41,20 @@
     function clientes_atualizar_ativo($mysqli, $id, $ativo) {
         $mysqli -> query("CALL clientes_atualizar_ativo($id, $ativo)");
     }
+
+    function clientes_atualizar_senha($mysqli, $id, $novaSenhaHash) {
+        $mysqli -> query("CALL clientes_atualizar_senha($id, '$novaSenhaHash')");
+    }
+
+    function recuperarSenha_adicionar($mysqli, $clienteId, $codigo, $dataHoraExpiracao, $valido) {
+        $mysqli -> query("CALL recuperarSenha_adicionar($clienteId, '$codigo', '$dataHoraExpiracao', $valido)");
+    }
+
+    function recuperarSenha_consultarDataHoraExpiracao($mysqli, $clienteId) {
+        $mysqli -> query("CALL recuperarSenha_consultarDataHoraExpiracao($clienteId)");
+    }
     
+    function recuperarSenha_expirar_valido($mysqli, $clienteId) {
+        $mysqli -> query("CALL recuperarSenha_expirar_valido($clienteId)");
+    }
 ?>

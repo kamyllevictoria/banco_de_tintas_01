@@ -2,6 +2,7 @@
     require 'phpBD/conexaoBD.php';
     require 'phpBD/usuariosBD.php';
     require 'phpBD/utilitarios.php';
+    require 'phpEmail/email.php';
 
     if(isset($_POST["cadastrar-usuario"])) {
         session_start();
@@ -343,9 +344,17 @@
     if(isset($_POST["gerar-codigo-alterar-senha"])) {
         session_start();
 
-        $clienteId = $_SESSION["USUARIO"];
+        $destinatario = $_POST["email"];
+        $valido = 1;
 
-        $tabela = recuperarSenha_carregarPor_clienteId($mysqli, $clienteId);
+        $tabela = clientes_carregarPor_email($mysqli, $destinatario);
+        $linha = $tabela -> fetch_assoc();
+        $mysqli -> next_result();
+
+        $nome = $linha["nome"];
+        $clienteId = $linha["id"];
+
+        /*$tabela = recuperarSenha_carregarPor_clienteId($mysqli, $clienteId);
         $mysqli -> next_result();
 
         if($tabela -> num_rows > 0) {
@@ -353,8 +362,26 @@
 
             recuperarSenha_expirar_valido($mysqli, $clienteId);
             $mysqli -> next_result();
+        }*/
 
-            
+        $dataHoraAtual = date("Y-m-d H:i:s");
+        $dataHoraExpiracao = date("Y-m-d H:i:s", strtotime("+1 hour", strtotime($dataHoraAtual)));
+
+        $randomico = rand(1000, 9999);
+        $codigo = password_hash($randomico, PASSWORD_DEFAULT);
+
+        recuperarSenha_adicionar($mysqli, $clienteId, $codigo, $dataHoraExpiracao, $valido);
+        $mysqli -> next_result();
+
+        $url = "http://localhost:8080/BancoDeTintas/banco_de_tintas_01/RecuperarSenha/nova_senha.html?codigo=".$codigo;
+
+        if(enviar_email_senha($destinatario, $nome, $url)) {
+            $_SESSION["mensagem"] = "Código enviado! Confira seu e-email. Se necessário, confira também sua caixa de spam.";
         }
+        else {
+            $_SESSION["mensagem"] = "Falha no envio do e-mail! Tente novamente.";
+        }
+
+        header("Location: ../RecuperarSenha/recuperar_senha.php");
     }
 ?>
