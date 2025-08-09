@@ -294,7 +294,7 @@
         
     }
 
-    /*if(isset($_POST["alterar-senha"])) {
+    /*if(isset($_POST["recuperar-senha"])) {
         $codigoEmail = $_GET["codigo"]; //URL
 
         $tabela = recuperarSenha_carregarPor_clienteId($mysqli, $clienteId);
