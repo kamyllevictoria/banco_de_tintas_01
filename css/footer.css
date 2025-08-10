@@ -1,0 +1,43 @@
+footer {
+    background-color: #cfcece;
+    padding: 40px 0;
+}
+
+.text_a_link {
+    text-decoration: none !important;
+    color: black;
+    font-weight: 450;
+}
+
+.text_a_link:hover {
+    text-decoration: underline !important;
+    color: #84469B;
+}
+
+.text-principal-footer {
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+}
+
+.text-footer {
+    list-style: none;
+    text-align: left;
+    line-height: 15px;
+}
+
+.text_justify {
+    text-align: justify;
+}
+
+@media (max-width: 600px) {
+    footer {
+        display: none;
+    }
+}
+
+@media (max-width: 997px) {
+    .text-footer {
+        font-size: 12px;
+    }
+}
