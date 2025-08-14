@@ -70,7 +70,7 @@
                         <input class="input-text" type="password" id="floatingPassword" placeholder="Senha" name="senha" required>
                     </label>
                     
-                    <a class="password" href="RecuperarSenha/recuperar_senha.html">Esqueci minha senha</a>
+                    <a class="password" href="RecuperarSenha/recuperar_senha.php">Esqueci minha senha</a>
                     <button class="btn btn-second" type="submit">Entrar</button>
                     <p class="no-account">
                         Não tem uma conta? <a class="signup-link" href="cadastro.php">Cadastre-se</a>

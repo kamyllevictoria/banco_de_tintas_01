@@ -8,7 +8,7 @@ body {
     Arial, "Noto Sans", sans-serif;
 }
 
-.container {
+#containerID {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +58,7 @@ body {
 .description {
   font-size: 14px;
   font-weight: 300;
-  line-height: 30px;
+  line-height: 20px;
 }
 .description-primary {
   color: #ffff;
@@ -107,7 +107,7 @@ body {
 .btn-primary {
   background-color: #8EB041;
   border: 1px solid #8EB041;
-  padding: 10px;
+  padding: 8px;
   transition: background-color 0.5s;
 }
 .btn-primary:hover {
@@ -132,7 +132,7 @@ form {
 /* mobile --------------------------------------------------- */
 
 @media screen and (max-width: 1040px) {
-  .container{
+  #containerID{
     background-color: #8EB041;
   }
   .content {

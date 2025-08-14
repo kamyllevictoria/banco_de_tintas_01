@@ -346,42 +346,41 @@
 
         $destinatario = $_POST["email"];
         $valido = 1;
+        $mensagem = [];
 
         $tabela = clientes_carregarPor_email($mysqli, $destinatario);
-        $linha = $tabela -> fetch_assoc();
-        $mysqli -> next_result();
-
-        $nome = $linha["nome"];
-        $clienteId = $linha["id"];
-
-        /*$tabela = recuperarSenha_carregarPor_clienteId($mysqli, $clienteId);
-        $mysqli -> next_result();
 
         if($tabela -> num_rows > 0) {
             $linha = $tabela -> fetch_assoc();
-
-            recuperarSenha_expirar_valido($mysqli, $clienteId);
             $mysqli -> next_result();
-        }*/
 
-        $dataHoraAtual = date("Y-m-d H:i:s");
-        $dataHoraExpiracao = date("Y-m-d H:i:s", strtotime("+1 hour", strtotime($dataHoraAtual)));
+            $nome = $linha["nome"];
+            $clienteId = $linha["id"];
 
-        $randomico = rand(1000, 9999);
-        $codigo = password_hash($randomico, PASSWORD_DEFAULT);
+            $dataHoraAtual = date("Y-m-d H:i:s");
+            $dataHoraExpiracao = date("Y-m-d H:i:s", strtotime("+1 hour", strtotime($dataHoraAtual)));
 
-        recuperarSenha_adicionar($mysqli, $clienteId, $codigo, $dataHoraExpiracao, $valido);
-        $mysqli -> next_result();
+            $randomico = rand(1000, 9999);
+            $codigo = password_hash($randomico, PASSWORD_DEFAULT);
 
-        $url = "http://localhost:8080/BancoDeTintas/banco_de_tintas_01/RecuperarSenha/nova_senha.html?codigo=".$codigo;
+            recuperarSenha_adicionar($mysqli, $clienteId, $codigo, $dataHoraExpiracao, $valido);
+            $mysqli -> next_result();
 
-        if(enviar_email_senha($destinatario, $nome, $url)) {
-            $_SESSION["mensagem"] = "Código enviado! Confira seu e-email. Se necessário, confira também sua caixa de spam.";
+            $url = "http://localhost:8080/BancoDeTintas/banco_de_tintas_01/RecuperarSenha/nova_senha.html?codigo=".$codigo;
+
+            if(enviar_email_senha($destinatario, $nome, $url)) {
+                array_push($mensagem, true, "Código enviado! Confira seu e-email. Se necessário, confira também sua caixa de spam.");
+            }
+            else {
+                array_push($mensagem, false, "Falha no envio do e-mail! Tente novamente.");
+            }
         }
         else {
-            $_SESSION["mensagem"] = "Falha no envio do e-mail! Tente novamente.";
+            array_push($mensagem, false, "E-mail não cadastrado! Confira se informou o e-mail correto.");
         }
+        
+        $_SESSION["mensagem"] = $mensagem;
 
-        header("Location: ../RecuperarSenha/recuperar_senha.php");
+        header("location: ../RecuperarSenha/recuperar_senha.php");
     }
 ?>
