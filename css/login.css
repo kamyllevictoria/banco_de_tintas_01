@@ -8,7 +8,7 @@ body {
     Arial, "Noto Sans", sans-serif;
 }
 
-.container {
+#containerLogin {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +49,7 @@ body {
 .description {
   font-size: 14px;
   font-weight: 300;
-  line-height: 30px;
+  line-height: 15px;
 }
 .description-primary {
   color: #ffff;
@@ -108,9 +108,10 @@ body {
   list-style-type: none;
   justify-content: center;
   text-align: center;
+  padding: 0;
 }
 .social-media {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 .link-social-media:hover .item-social-media {
   background-color: #84469b;
@@ -174,7 +175,7 @@ form {
 }
 .form-sign-in {
   width: 400px;
-  padding: 10px;
+  padding: 5px;
 }
 .password {
   color: #84469b;
