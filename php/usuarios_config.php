@@ -341,6 +341,31 @@
         //redirecionar o usuário para a tela de redefinir senha
     }*/
 
+    if(isset($_POST["alterar-senha"])) {
+        session_start();
+
+        $senhaAtual = $_POST["senhaAtual"];
+        $clienteId = $_SESSION["USUARIO"];
+
+        $tabela = clientes_carregarPor_id($mysqli, $clienteId);
+        $cliente = $tabela -> fetch_assoc();
+        $mysqli -> next_result();
+
+        if(password_verify($senhaAtual, $cliente["senhaHash"])) {
+            $novaSenhaHash = password_hash($_POST["novaSenha"], PASSWORD_BCRYPT);
+
+            clientes_atualizar_senha($mysqli, $id, $novaSenhaHash);
+            $mysqli -> next_result();
+
+            $_SESSION["mensagem"] = "Senha atualizada com sucesso!";
+        }
+        else {
+            $_SESSION["mensagem"] = "A senha informada não corresponde a senha atual!";
+        }
+
+        header("Location: ../usuario.php");
+    }
+
     if(isset($_POST["gerar-codigo-alterar-senha"])) {
         session_start();
 

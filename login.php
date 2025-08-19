@@ -95,7 +95,6 @@
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Dados inválidos!</strong>
                                 <?= $mensagem; ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
