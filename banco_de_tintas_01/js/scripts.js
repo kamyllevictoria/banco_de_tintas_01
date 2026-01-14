@@ -108,12 +108,45 @@ document.querySelectorAll('.accordion-button').forEach(button => {
     button.addEventListener('click', function() {
         const target = document.querySelector(button.getAttribute('data-bs-target'));
         
-        // Se a seção já está aberta, feche-a
         if (target.classList.contains('show')) {
             target.classList.remove('show');
         } else {
-            // Caso contrário, deixe o Bootstrap lidar com o fechamento de outras seções
             target.classList.add('show');
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btnSalvar = document.getElementById("btnSalvar");
+    const confirmarSalvar = document.getElementById("confirmarSalvar");
+    const modalElement = document.getElementById("confirmModal");
+
+    if (!btnSalvar || !confirmarSalvar || !modalElement) {
+        console.error("❌ Elementos do modal não encontrados no DOM.");
+        return;
+    }
+
+    console.log("✅ Script carregado, modal pronto.");
+
+    const modal = new bootstrap.Modal(modalElement);
+
+    // Quando clicar no botão "Salvar", abre o modal
+    btnSalvar.addEventListener("click", function (e) {
+        e.preventDefault(); // impede envio do form
+        console.log("🟣 Clique no botão Salvar detectado.");
+        modal.show();
+    });
+
+    // Quando clicar em "Sim, salvar", envia o formulário
+    confirmarSalvar.addEventListener("click", function () {
+        console.log("🟢 Confirmado, enviando formulário...");
+        modal.hide();
+
+        const form = btnSalvar.closest("form");
+        if (form) {
+        form.submit();
+        } else {
+        console.error("⚠️ Formulário não encontrado.");
         }
     });
 });

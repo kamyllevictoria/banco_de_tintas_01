@@ -1,14 +1,15 @@
 body {
-  background-color: #637046;
+  background-color: #f5f5f5;
 }
 
 .pagina {
-  background-color: #f5f5f5;
+  background-color: white;
   padding: 2rem;
   border-radius: 8px;
   max-width: 60%;
   margin-top: 10rem;
   margin-bottom: 3rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 .dados_pessoais {
   max-width: 600px;
@@ -20,12 +21,18 @@ body {
   max-width: 800px;
   margin: 0 auto;
 }
-#wishlist-tab.nav-link.active, #orders-tab.nav-link.active, #info-tab.nav-link.active {
+#wishlist-tab.nav-link.active,
+#orders-tab.nav-link.active,
+#info-tab.nav-link.active,
+#account-tab.nav-link.active {
   background-color: #84469b;
   color: white;
   border: none;
 }
-#wishlist-tab.nav-link, #orders-tab.nav-link, #info-tab.nav-link{
+#wishlist-tab.nav-link,
+#orders-tab.nav-link,
+#info-tab.nav-link,
+#account-tab.nav-link {
   background-color: white;
   color: #423746;
 }
@@ -56,7 +63,15 @@ body {
   align-items: center;
   justify-content: center;
 }
-
+.btn-remove {
+  border-color: #84469b;
+  color: #84469b;
+}
+.btn-remove:hover {
+  background-color: #84469b;
+  color: white;
+  border-color: white;
+}
 .usuario {
   width: 140px;
   height: 150px;
@@ -77,7 +92,29 @@ body {
 .btn-purple:hover {
   background-color: #7a5bb0;
 }
+.warning{
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: justify;
+}
+.last-warning{
+  margin-bottom: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: justify;
+}
 
+.btn-deactivate {
+  border-color: #84469b;
+  color: #84469b;
+  margin-left: 10%;
+}
+
+.btn-deactivate:hover {
+  background-color: #84469b;
+  color: white;
+  border-color: white;
+}
 @media (max-width: 766px) {
   .pagina {
     max-width: 90%;
