@@ -158,6 +158,75 @@ form {
   font-size: 16px;
   color: #7f8c8d;
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: center;
+}
+
+.modal h2 {
+  color: #84469b;
+  margin-bottom: 10px;
+}
+
+.modal p {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.btn-cancelar {
+  background-color: #bdc3c7;
+  color: #2c3e50;
+  border: none;
+  padding: 10px;
+  width: 150px;
+  border-radius: 15px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.btn-cancelar:hover {
+  background-color: #95a5a6;
+}
+.modal {
+  position: relative; /* necessário para o X */
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  color: #7f8c8d;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #84469b;
+}
 
 /* -=-=-=-=-=-=-=-=-==-=-==-=-=-=-=-=-=-=-= */
 
@@ -196,7 +265,7 @@ form {
 }
 
 @media screen and (max-width: 1040px) {
-  .container{
+  .container {
     background-color: #84469b;
   }
   .content {

@@ -117,3 +117,13 @@ document.querySelectorAll('.accordion-button').forEach(button => {
         }
     });
 });
+
+// Abrir e fechar modal de usuario desativado
+
+function abrirModal() {
+    document.getElementById('modalTeste').style.display = 'flex';
+}
+
+function fecharModal() {
+    document.getElementById('modalTeste').style.display = 'none';
+}
