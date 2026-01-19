@@ -29,7 +29,7 @@
                     <h4 class="menu_text">MENU</h4>
                     <ul class="nav flex-column">
                         <li class="nav-item pad_top_20">
-                            <a class="nav-link text-dark link_bg_adm" href="pedidos.php">Pedidos a serem aprovados</a>
+                            <a class="nav-link text-dark link_bg_adm" href="pedidos.php">Pedidos</a>
                         </li>
                         <li class="nav-item pad_top_20">
                             <a class="nav-link text-dark link_bg_adm" href="cadastrar_tinta.php">Cadastrar tinta</a>
@@ -38,13 +38,17 @@
                         <li class="nav-item pad_top_20">
                             <a class="nav-link text-dark link_bg_adm" href="catalogo.php">Catálogo</a>
                         </li>
+                        <li class="nav-item pad_top_20">
+                            <a class="nav-link text-dark link_bg_adm" href="lixeira.php">Lixeira</a>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="col-lg-10 col-12 main-content p-4">
                     <div class="container-fluid p-0">
                         <div class="d-flex flex-wrap align-items-center p-3 mb-3 custom-card-header">
-                            <span class="me-3 text-nowrap select-text">Selecione um pedido e escolha o que você quer fazer</span>
+                            <span class="me-3 text-nowrap select-text">Selecione um pedido e escolha o que você quer
+                                fazer</span>
                             <div class="d-flex flex-wrap flex-grow-1 justify-content-end">
                                 <button class="btn btn-purple m-1">Aprovar</button>
                                 <button class="btn btn-purple m-1">Aprovar parcialmente</button>
@@ -70,7 +74,8 @@
                                 </thead>
                                 <tbody>
                                     <tr class="pedido-row">
-                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox"></td>
+                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox">
+                                        </td>
                                         <td data-label="Status" class="status-cell">Aprovado</td>
                                         <td data-label="Nº">45689</td>
                                         <td data-label="Quantidade">5 L</td>
@@ -80,7 +85,8 @@
                                         <td data-label="Solicitante">Sarah</td>
                                     </tr>
                                     <tr class="pedido-row">
-                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox"></td>
+                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox">
+                                        </td>
                                         <td data-label="Status" class="status-cell">Reprovado</td>
                                         <td data-label="Nº">45688</td>
                                         <td data-label="Quantidade">2 L</td>
@@ -90,7 +96,8 @@
                                         <td data-label="Solicitante">Jubileu</td>
                                     </tr>
                                     <tr class="pedido-row">
-                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox"></td>
+                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox">
+                                        </td>
                                         <td data-label="Status" class="status-cell">Finalizado</td>
                                         <td data-label="Nº">45687</td>
                                         <td data-label="Quantidade">1,5 L</td>
@@ -100,7 +107,8 @@
                                         <td data-label="Solicitante">Maria Luiza</td>
                                     </tr>
                                     <tr class="pedido-row">
-                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox"></td>
+                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox">
+                                        </td>
                                         <td data-label="Status" class="status-cell">Cancelado</td>
                                         <td data-label="Nº">45686</td>
                                         <td data-label="Quantidade">3,8 L</td>
@@ -110,7 +118,8 @@
                                         <td data-label="Solicitante">Zézinho</td>
                                     </tr>
                                     <tr class="pedido-row">
-                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox"></td>
+                                        <td data-label="Selecionar"><input class="form-check-input" type="checkbox">
+                                        </td>
                                         <td data-label="Status" class="status-cell">Aprovado parcialmente</td>
                                         <td data-label="Nº">45686</td>
                                         <td data-label="Quantidade">10 L</td>
@@ -128,53 +137,54 @@
         </div>
     </section>
     <script>
-        document.querySelectorAll('.statusDropdown').forEach((dropdown) => {
-            dropdown.addEventListener('change', function () {
-                const status = this.value;
-                const statusTextDiv = this.closest('.card-body').querySelector('.statusText');
+    document.querySelectorAll('.statusDropdown').forEach((dropdown) => {
+        dropdown.addEventListener('change', function() {
+            const status = this.value;
+            const statusTextDiv = this.closest('.card-body').querySelector('.statusText');
 
-                if (status) {
-                    statusTextDiv.textContent = `Status: ${status.charAt(0).toUpperCase() + status.slice(1)}`;
-                } else {
-                    statusTextDiv.textContent = '';
-                }
-            });
+            if (status) {
+                statusTextDiv.textContent =
+                    `Status: ${status.charAt(0).toUpperCase() + status.slice(1)}`;
+            } else {
+                statusTextDiv.textContent = '';
+            }
         });
+    });
     </script>
     <script>
-        function opcoes(id) {
-            let statusDropdown = document.getElementById("statusOpcoe" + id);
-            let status = statusDropdown.value;
+    function opcoes(id) {
+        let statusDropdown = document.getElementById("statusOpcoe" + id);
+        let status = statusDropdown.value;
 
-            let formularioRetirada = document.getElementById("formularioRetirada" + id);
-            let formularioObservacoes = document.getElementById("formularioObservacoes" + id);
-            let btnSalvarDados = document.getElementById("salvarDados" + id);
+        let formularioRetirada = document.getElementById("formularioRetirada" + id);
+        let formularioObservacoes = document.getElementById("formularioObservacoes" + id);
+        let btnSalvarDados = document.getElementById("salvarDados" + id);
 
-            let data = document.getElementById("Data_retirada" + id);
-            let hora = document.getElementById("Hora_retirada" + id);
-            let observacoes = document.getElementById("Observacoes" + id);
+        let data = document.getElementById("Data_retirada" + id);
+        let hora = document.getElementById("Hora_retirada" + id);
+        let observacoes = document.getElementById("Observacoes" + id);
 
-            if (status === "1") {
-                formularioRetirada.style.display = 'block';
-                formularioObservacoes.style.display = 'none';
-                btnSalvarDados.style.display = 'block';
+        if (status === "1") {
+            formularioRetirada.style.display = 'block';
+            formularioObservacoes.style.display = 'none';
+            btnSalvarDados.style.display = 'block';
 
-            } else if (status === "2") {
-                formularioRetirada.style.display = 'block';
-                formularioObservacoes.style.display = 'block';
-                btnSalvarDados.style.display = 'block';
+        } else if (status === "2") {
+            formularioRetirada.style.display = 'block';
+            formularioObservacoes.style.display = 'block';
+            btnSalvarDados.style.display = 'block';
 
-            } else if (status == "3") {
-                formularioRetirada.style.display = 'none';
-                formularioObservacoes.style.display = 'block';
-                btnSalvarDados.style.display = 'block';
-            }
-            else {
-                formularioRetirada.style.display = 'none';
-                formularioObservacoes.style.display = 'none';
-                btnSalvarDados.style.display = 'none';
-            }
+        } else if (status == "3") {
+            formularioRetirada.style.display = 'none';
+            formularioObservacoes.style.display = 'block';
+            btnSalvarDados.style.display = 'block';
+        } else {
+            formularioRetirada.style.display = 'none';
+            formularioObservacoes.style.display = 'none';
+            btnSalvarDados.style.display = 'none';
         }
+    }
     </script>
 </body>
+
 </html>

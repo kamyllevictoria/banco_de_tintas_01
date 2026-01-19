@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem vindo | Central Banco de Tintas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
-        <link rel="stylesheet" href="./css/navbarLogado.css">
+
+    <link rel="stylesheet" href="./css/navbarLogado.css">
     <link rel="stylesheet" href="./css/lixeira.css">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
     <script src="js/scripts.js" defer></script>
-    
+
     <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 </head>
+
 <body>
-    <?php include 'navbar.php'; ?>
     <section class="page">
+        <?php include 'navbar.php'; ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2 pb-3 col-12 sidebar">
                     <h4 class="menu_text">MENU</h4>
                     <ul class="nav flex-column">
                         <li class="nav-item pad_top_20">
-                            <a class="nav-link text-dark link_bg_adm" href="pedidos.php">Pedidos a serem aprovados</a>
+                            <a class="nav-link text-dark link_bg_adm" href="pedidos.php">Pedidos</a>
                         </li>
                         <li class="nav-item pad_top_20">
                             <a class="nav-link text-dark link_bg_adm" href="cadastrar_tinta.php">Cadastrar tinta</a>
                         </li>
+
                         <li class="nav-item pad_top_20">
                             <a class="nav-link text-dark link_bg_adm" href="catalogo.php">Catálogo</a>
                         </li>
                         <li class="nav-item pad_top_20">
-                            <a class="nav-link text-dark link_bg_adm active" href="lixeira.php">Lixeira</a>
+                            <a class="nav-link text-dark link_bg_adm" href="lixeira.php">Lixeira</a>
                         </li>
                     </ul>
                 </div>
+
                 <div class="col-lg-10 col-12 main-content">
                     <button class="btn restore-btn">
                         Restaurar selecionadas
@@ -55,7 +59,8 @@
                         <div class="card paint-card">
                             <div class="card-header card-bg" onclick="toggleCard('card1')">
                                 <div class="d-flex align-items-center">
-                                    <input type="checkbox" class="form-check-input checkbox-custom" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="form-check-input checkbox-custom"
+                                        onclick="event.stopPropagation()">
                                     <h6 class="card-title">#1 Tinta Laranja</h6>
                                 </div>
                                 <i class="fas fa-chevron-down toggle-icon" id="icon1"></i>
@@ -91,7 +96,8 @@
                         <div class="card paint-card">
                             <div class="card-header" onclick="toggleCard('card2')">
                                 <div class="d-flex align-items-center">
-                                    <input type="checkbox" class="form-check-input checkbox-custom" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="form-check-input checkbox-custom"
+                                        onclick="event.stopPropagation()">
                                     <h6 class="card-title">#2 Tinta Laranja</h6>
                                 </div>
                                 <i class="fas fa-chevron-down toggle-icon rotated" id="icon2"></i>
@@ -131,7 +137,8 @@
                         <div class="card paint-card">
                             <div class="card-header" onclick="toggleCard('card3')">
                                 <div class="d-flex align-items-center">
-                                    <input type="checkbox" class="form-check-input checkbox-custom" onclick="event.stopPropagation()">
+                                    <input type="checkbox" class="form-check-input checkbox-custom"
+                                        onclick="event.stopPropagation()">
                                     <h6 class="card-title">#3 Tinta azul</h6>
                                 </div>
                                 <i class="fas fa-chevron-down toggle-icon" id="icon3"></i>
@@ -169,18 +176,19 @@
     </section>
 
     <script>
-        function toggleCard(cardId) {
-            const cardBody = document.getElementById(cardId);
-            const icon = document.getElementById('icon' + cardId.slice(-1));
-            
-            if (cardBody.classList.contains('hidden')) {
-                cardBody.classList.remove('hidden');
-                icon.classList.add('rotated');
-            } else {
-                cardBody.classList.add('hidden');
-                icon.classList.remove('rotated');
-            }
+    function toggleCard(cardId) {
+        const cardBody = document.getElementById(cardId);
+        const icon = document.getElementById('icon' + cardId.slice(-1));
+
+        if (cardBody.classList.contains('hidden')) {
+            cardBody.classList.remove('hidden');
+            icon.classList.add('rotated');
+        } else {
+            cardBody.classList.add('hidden');
+            icon.classList.remove('rotated');
         }
+    }
     </script>
 </body>
+
 </html>

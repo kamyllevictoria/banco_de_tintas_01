@@ -1,27 +1,23 @@
+/* sidebar -----------------------------*/
 .sidebar {
-  background-color: #cbb4d3;
+  background-color: #84469b;
   padding-top: 50px;
   height: auto;
 }
-
+.menu_text {
+  font-weight: bold;
+  color: #e9ecef;
+}
+.pad_top_20 {
+  padding-top: 20px;
+}
 .main-content {
-  background-color: #84469b;
+  background-color: #f1f2f6;
   min-height: 100vh;
   color: white;
   display: flex;
   flex-direction: column;
 }
-
-.btn-green {
-  background-color: #8EB041 !important;
-  color: black !important;
-  border: none;
-}
-
-.menu_text {
-  font-weight: bold;
-}
-
 .link_bg_adm {
   background-color: white;
   border-radius: 9px;
@@ -34,6 +30,16 @@
   color: white;
 }
 
+/* -------------------------------------- */
+
+.btn-green {
+  background-color: #8eb041 !important;
+  color: black !important;
+  border: none;
+}
+
+
+
 .text_light_green {
   color: #aef01d;
   padding-bottom: 20px;
@@ -41,7 +47,7 @@
 }
 
 .bg_lilac {
-  background-color: #cbb4d3;
+  background-color: #d9d9d9;
   height: auto;
   padding: 20px;
   border-radius: 9px;

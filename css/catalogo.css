@@ -1,16 +1,50 @@
+/* sidebar -----------------------------*/
+.sidebar {
+  background-color: #84469b;
+  padding-top: 50px;
+  height: auto;
+}
+.menu_text {
+  font-weight: bold;
+  color: #e9ecef;
+}
+.pad_top_20 {
+  padding-top: 20px;
+}
+.main-content {
+  background-color: #f1f2f6;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.link_bg_adm {
+  background-color: white;
+  border-radius: 9px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.link_bg_adm:hover {
+  background-color: #8eb041;
+  color: white;
+}
+
+/* -------------------------------------- */
+
 .text_purple {
-  color: #84469B !important;
+  color: #84469b !important;
   font-weight: bold;
 }
 
 .btn-green {
-  background-color: #8EB041 !important;
+  background-color: #8eb041 !important;
   color: black !important;
   border: none;
 }
 
 .text_green {
-  color: #8EB041;
+  color: #8eb041;
   font-weight: bold;
 }
 
@@ -19,15 +53,8 @@
   max-height: 70%;
 }
 
-.sidebar {
-  background-color: #cbb4d3;
-  padding-top: 20px;
-  height: auto;
-  min-height: 100vh;
-}
-
 .main-content {
-  background-color: #84469b;
+  background-color: #fafafa;
   min-height: 100vh;
   padding: 20px;
   color: white;
@@ -39,39 +66,8 @@
   background-color: #f8f9fa;
 }
 
-.menu_text {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    padding: 0 15px;
-}
-
-.nav {
-  padding: 0 15px;
-}
-
 .nav-item {
   margin-bottom: 0;
-}
-
-.pad_top_20 {
-  padding-top: 20px;
-}
-
-.link_bg_adm {
-  background-color: white;
-  border-radius: 9px;
-  margin-bottom: 5px;
-  color: black;
-  text-decoration: none;
-  padding: 10px 15px;
-  display: block;
-  transition: all 0.3s ease;
-}
-
-.link_bg_adm:hover {
-  background-color: #8eb041 !important;
-  color: white !important;
 }
 
 .btn-purple {
@@ -126,7 +122,7 @@
 }
 
 .container-fluid {
-    padding-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 .input-small {
@@ -188,8 +184,6 @@
   font-size: 18px;
 }
 
-
-
 @media (max-width: 1700px) {
   .col-md-4 {
     width: 50%;
@@ -201,7 +195,7 @@
   .sidebar {
     padding-top: 20px;
   }
-  
+
   .main-content {
     padding: 15px;
   }
