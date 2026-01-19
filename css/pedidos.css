@@ -26,8 +26,9 @@
 }
 
 .link_bg_adm:hover {
-  background-color: #8eb041;
-  color: white;
+  background-color: #84469b;
+  color: white !important;
+  border: 1px solid white;
 }
 
 /* -------------------------------------- */
@@ -139,13 +140,13 @@ textarea::placeholder {
 
 /* Container do conteúdo principal */
 .main-content {
-  background-color: #f1f2f6;
+  background-color: #f1f1f1;
   padding: 20px;
   font-family: sans-serif;
 }
 
 .custom-card-header {
-  background-color: #e9ecef;
+  background-color: #f1f1f1;
   border-radius: 5px;
   padding: 1rem;
 }
@@ -153,7 +154,7 @@ textarea::placeholder {
 .select-text {
   font-weight: bold;
   font-size: 18px;
-  color: #495057;
+  color: #3f3f3f;
 }
 
 .btn-purple {
@@ -164,14 +165,17 @@ textarea::placeholder {
   white-space: nowrap;
   border-radius: 5px;
   transition: background-color 0.2s;
+  font-weight: bold;
 }
 
 .btn-purple:hover {
-  background-color: #bfa1ca;
-  color: black;
+  background-color: #f1f1f1;
+  color: #84469b;
+  border: 1px solid #84469b;
 }
 
 /* Tabela de pedidos */
+
 .pedidos-table {
   border-collapse: separate;
   border-spacing: 0 10px;
@@ -180,7 +184,8 @@ textarea::placeholder {
 
 .table-header th {
   font-weight: bold;
-  color: #84469b;
+  background-color: #f1f1f1;
+  color: #9d9a9a;
   padding: 1rem;
   vertical-align: middle;
   border-bottom: none;
@@ -224,6 +229,9 @@ textarea::placeholder {
 
 .form-check-input {
   margin-right: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #d9d9d9;
 }
 
 @media (max-width: 1032px) {

@@ -83,25 +83,25 @@ if ($_SESSION["ADM"] == FALSE && $_SESSION["ADM"] == NULL) {
                 <div class="col-lg-10 col-12 main-content">
                     <div class="container">
                         <?php if ($mensagem): ?>
-                            <div class="row mt-2">
-                                <div class="col-12">
-                                    <?php if ($sucesso): ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <strong>Sucesso!</strong>
-                                            <?= $mensagem; ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                aria-label="Close"></button>
-                                        </div>
-                                    <?php else: ?>
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>Dados inválidos!</strong>
-                                            <?= $mensagem; ?>
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                aria-label="Close"></button>
-                                        </div>
-                                    <?php endif; ?>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <?php if ($sucesso): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Sucesso!</strong>
+                                    <?= $mensagem; ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
                                 </div>
+                                <?php else: ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Dados inválidos!</strong>
+                                    <?= $mensagem; ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                <?php endif; ?>
                             </div>
+                        </div>
                         <?php endif; ?>
 
                         <div class="row">
@@ -182,7 +182,7 @@ if ($_SESSION["ADM"] == FALSE && $_SESSION["ADM"] == NULL) {
                                                 </div>
 
                                                 <div class="text-center mt-4">
-                                                    <button type="submit" class="btn btn-green col-8">Cadastrar</button>
+                                                    <button type="submit" class="btn btn-save col-8">Cadastrar</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -196,25 +196,25 @@ if ($_SESSION["ADM"] == FALSE && $_SESSION["ADM"] == NULL) {
         </div>
     </section>
     <script>
-        let imagem = document.getElementById("img-tintas");
-        let botaoImagem = document.getElementById("uploadImagem");
+    let imagem = document.getElementById("img-tintas");
+    let botaoImagem = document.getElementById("uploadImagem");
 
-        botaoImagem.addEventListener('change', () => {
+    botaoImagem.addEventListener('change', () => {
 
-            if (botaoImagem.files.lenght <= 0) {
-                return;
-            }
+        if (botaoImagem.files.lenght <= 0) {
+            return;
+        }
 
-            let leitor = new FileReader();
+        let leitor = new FileReader();
 
-            leitor.onload = () => {
-                imagem.src = leitor.result;
-            }
+        leitor.onload = () => {
+            imagem.src = leitor.result;
+        }
 
-            console.log(imagem.src);
+        console.log(imagem.src);
 
-            leitor.readAsDataURL(botaoImagem.files[0]);
-        });
+        leitor.readAsDataURL(botaoImagem.files[0]);
+    });
     </script>
 </body>
 

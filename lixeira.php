@@ -94,7 +94,7 @@
 
                         <!-- Card 2 -->
                         <div class="card paint-card">
-                            <div class="card-header" onclick="toggleCard('card2')">
+                            <div class="card-header card-bg" onclick="toggleCard('card2')">
                                 <div class="d-flex align-items-center">
                                     <input type="checkbox" class="form-check-input checkbox-custom"
                                         onclick="event.stopPropagation()">
@@ -135,7 +135,7 @@
 
                         <!-- Card 3 -->
                         <div class="card paint-card">
-                            <div class="card-header" onclick="toggleCard('card3')">
+                            <div class="card-header card-bg" onclick="toggleCard('card3')">
                                 <div class="d-flex align-items-center">
                                     <input type="checkbox" class="form-check-input checkbox-custom"
                                         onclick="event.stopPropagation()">

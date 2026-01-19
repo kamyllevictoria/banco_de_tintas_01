@@ -48,14 +48,10 @@
   font-weight: bold;
 }
 
-.row .col-lg-10.main-content {
-  background-color: #e2e2e2;
-}
-
 .main-content {
   min-height: 100vh;
   padding: 20px;
-  color: white;
+  background-color: #fafafa;
   display: flex;
   flex-direction: column;
 }
@@ -79,7 +75,6 @@
 }
 
 .paint-card {
-  background-color: #c0bebe;
   border: none;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -121,13 +116,15 @@
 
 .card-body {
   padding: 20px;
-  background-color: rgb(240, 240, 240);
+  background-color: #eeeeee;
 }
 
 .card-body.hidden {
   display: none !important;
 }
-
+.card-bg {
+  background-color: #D9D9D9;
+}
 .product-info {
   display: flex;
   gap: 20px;
