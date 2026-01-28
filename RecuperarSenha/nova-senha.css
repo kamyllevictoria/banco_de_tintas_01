@@ -8,7 +8,7 @@ body {
     Arial, "Noto Sans", sans-serif;
 }
 
-.container {
+#containerID {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +25,7 @@ body {
   align-items: center;
   position: relative;
 }
+
 .content::before {
   content: "";
   position: absolute;

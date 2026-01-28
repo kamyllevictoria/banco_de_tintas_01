@@ -120,7 +120,7 @@
                         <!-- Telefone -->
                         <label class="label-input" for="">
                             <i class="fa-solid fa-phone icon-modify"></i>
-                            <input class="input-text" type="tel" id="Telefone" placeholder="Telefone" pattern="\(\d{2}\)\s9\d{4}-\d{4}" required name="telefone">
+                            <input class="input-text" type="tel" id="Telefone" placeholder="Telefone" required name="telefone">
                         </label>
                         <!-- Senha -->
                         <label class="label-input" for="">
@@ -154,13 +154,13 @@
                         <!-- Pessoa fisica ou juridica -->
                         <div>
                             <label class="label-text" for="p_fisica_mobile">
-                                <input type="radio" id="p_fisica_mobile" name="tipoPessoaMobile" value="fisicaMobile" onclick="cpfOuCnpjMobile()" checked>
+                                <input type="radio" id="p_fisica_mobile" name="tipoPessoa" value="fisica" onclick="cpfOuCnpjMobile()" checked>
                                 Pessoa física
                             </label>
                         </div>
                         <div>
                             <label class="label-text" for="p_juridica_mobile">
-                                <input type="radio" id="p_juridica_mobile" name="tipoPessoaMobile" value="juridicaMobile" onclick="cpfOuCnpjMobile()">
+                                <input type="radio" id="p_juridica_mobile" name="tipoPessoa" value="juridica" onclick="cpfOuCnpjMobile()">
                                 Pessoa juridica
                             </label>
                         </div>
@@ -187,12 +187,12 @@
                         <!-- Telefone -->
                         <label class="label-input" for="">
                             <i class="fa-solid fa-phone icon-modify"></i>
-                            <input class="input-text" type="tel" id="Telefone" placeholder="Telefone" pattern="\(\d{2}\)\s9\d{4}-\d{4}" required name="telefone">
+                            <input class="input-text" type="tel" id="Telefone_mobile" placeholder="Telefone" required name="telefone">
                         </label>
                         <!-- Senha -->
                         <label class="label-input" for="">
                             <i class="fa-solid fa-lock icon-modify"></i>
-                            <input class="input-text" type="password" id="Senha" placeholder="Senha" required name="senha">
+                            <input class="input-text" type="password" id="Senha_mobile" placeholder="Senha" required name="senha">
                         </label>
                         <!-- Como conheceu? -->
                         <label class="label-text" for="formInput">Como você conheceu o Banco de Tintas?</label>

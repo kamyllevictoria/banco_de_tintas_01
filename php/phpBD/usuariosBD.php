@@ -57,4 +57,10 @@
     function recuperarSenha_expirar_valido($mysqli, $clienteId) {
         $mysqli -> query("CALL recuperarSenha_expirar_valido($clienteId)");
     }
+
+    function recuperarSenha_carregarPor_clienteId($mysqli, $clienteId) {
+        $dados = $mysqli -> query("CALL recuperarSenha_carregarPor_clienteId($clienteId)");
+
+        return $dados;
+    }
 ?>

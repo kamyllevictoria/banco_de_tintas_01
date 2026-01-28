@@ -6,17 +6,13 @@
 
     if(isset($_POST["cadastrar-usuario"])) {
         session_start();
-
-        $Nome = $_POST["Nome"];
-        $empresa = $_POST["empresa"];
+        
         $email = $_POST["email"];
-        $cpf = $_POST["cpf"];
-        $cnpj = $_POST["cnpj"];
         $telefone = $_POST["telefone"];
         $direcionamento = $_POST["direcionamento"];
         $senha = $_POST["senha"];
         $foto = NULL;
-
+        $ativo = 1;
         $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
         switch($direcionamento) {
@@ -37,7 +33,16 @@
             break;
         }
 
-        if(strlen($telefone) != 8 && strlen($telefone) != 11) {
+        if($_POST["tipoPessoa"] == "fisica") {
+            $Nome = $_POST["Nome"];
+            $cpf = $_POST["cpf"];
+        }
+        else {
+            $empresa = $_POST["empresa"];
+            $cnpj = $_POST["cnpj"];
+        }
+
+        if(strlen($telefone) != 14 && strlen($telefone) != 15) {
             $_SESSION["cadastro-login"] = "Digite um telefone válido de 8 ou 11 dígitos!";
             header("Location: ../cadastro.php");
         }
@@ -73,7 +78,7 @@
                             }
                             else {
     
-                                if (strlen($cnpj) != 14){
+                                if (strlen($cnpj) != 18){
                                     $_SESSION["cadastro-login"] = "Quantidade inválida de dígitos para o CNPJ. Informe um CNPJ válido!";
                                     header("Location: ../cadastro.php");
                                 }
@@ -105,7 +110,7 @@
                         }
                         else {
     
-                            if (strlen($cpf) != 11){
+                            if (strlen($cpf) != 14){
                                 $_SESSION["cadastro-login"] = "Quantidade inválida de dígitos para o CPF. Informe um CPF válido!";
                                 header("Location: ../cadastro.php");
                             }
@@ -294,52 +299,56 @@
         
     }
 
-    /*if(isset($_POST["recuperar-senha"])) {
-        $codigoEmail = $_GET["codigo"]; //URL
+    if(isset($_POST["recuperar-senha"])) {
+        session_start();
+
+        $codigoEmail = $_POST["codigo"];
+        $clienteId = $_POST["clienteId"];
 
         $tabela = recuperarSenha_carregarPor_clienteId($mysqli, $clienteId);
         $linha = $tabela -> fetch_assoc();
         $mysqli -> next_result();
 
-        //verificar se o usuario tem codigo valido
         if($tabela -> num_rows > 0) {
             $dataHoraExpiracao = $linha["dataHoraExpiracao"];
+
+            date_default_timezone_set('America/Sao_Paulo');
             $dataHoraAtual = date('Y-m-d H:i:s');
-            $dataHoraExpiracao = date($dataHoraExpiracao); //coneversao para de str para data
+            $dataHoraExpiracao = date($dataHoraExpiracao);
             
+            $mensagem = [];
+
             if($dataHoraAtual <= $dataHoraExpiracao) {
-                $codigo = $linha["codigo"];
+                $novaSenha = $_POST["novaSenha"];
+                $repitaSenha = $_POST["repitaSenha"];
+
+                if($novaSenha == $repitaSenha) {
+                    recuperarSenha_expirar_valido($mysqli, $clienteId);
+                    $mysqli -> next_result();
+
+                }
+                else {
+                    array_push($mensagem, false, "Repita a mesma senha digitada.");
+
+                    $_SESSION["mensagem"] = $mensagem;
+
+                    header("location: ../RecuperarSenha/nova_senha.php?codigo=".$codigo."&clienteId=".$clienteId);
+                }
+
+                echo $codigo;
             }
             else {
                 recuperarSenha_expirar_valido($mysqli, $clienteId);
                 $mysqli -> next_result();
+
+                array_push($mensagem, false, "Código expirou! Digite seu e-mail para reenviá-lo.");
+
+                $_SESSION["mensagem"] = $mensagem;
+
+                header("location: ../RecuperarSenha/recuperar_senha.php");
             }
-
-            //verificar se a dataHoraExpiracao é maior que dataHora atual do sistema
-            //não sei comparar datas com php, tem que pesquisar...
-            if() {
-                //verificar se 
-            }
-            else {
-                //atualizar o valido para 0
-                //mensagem informando que o codigo expirou, link para a pagina de enviar cod pro email
-            }
-
-
-
-
         }
-        else {
-            //mensagem informando que não é possível redefinir a senha, link para a pagina de enviar cod pro email
-        }
-        $linha = $tabela -> fetch_assoc();
-        $codigo = $linha["codigo"];
-
-
-        
-        //verificar se o codigo corresponde ao codigo enviado por email
-        //redirecionar o usuário para a tela de redefinir senha
-    }*/
+    }
 
     if(isset($_POST["alterar-senha"])) {
         session_start();
@@ -382,8 +391,8 @@
             $nome = $linha["nome"];
             $clienteId = $linha["id"];
 
-            $dataHoraAtual = date("Y-m-d H:i:s");
-            $dataHoraExpiracao = date("Y-m-d H:i:s", strtotime("+1 hour", strtotime($dataHoraAtual)));
+            date_default_timezone_set('America/Sao_Paulo');
+            $dataHoraExpiracao = date("Y-m-d H:i:s", strtotime("+1 hour"));
 
             $randomico = rand(1000, 9999);
             $codigo = password_hash($randomico, PASSWORD_DEFAULT);
@@ -391,7 +400,7 @@
             recuperarSenha_adicionar($mysqli, $clienteId, $codigo, $dataHoraExpiracao, $valido);
             $mysqli -> next_result();
 
-            $url = "http://localhost:8080/BancoDeTintas/banco_de_tintas_01/RecuperarSenha/nova_senha.html?codigo=".$codigo;
+            $url = "http://localhost:8080/BancoDeTintas/banco_de_tintas_01/RecuperarSenha/nova_senha.php?codigo=".$codigo."&clienteId=".$clienteId;
 
             if(enviar_email_senha($destinatario, $nome, $url)) {
                 array_push($mensagem, true, "Código enviado! Confira seu e-email. Se necessário, confira também sua caixa de spam.");
