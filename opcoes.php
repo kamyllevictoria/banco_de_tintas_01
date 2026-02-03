@@ -23,16 +23,18 @@
 
     if($acao == "cor") {
       $tintas = tintas_carregarPor_cor($mysqli, $valor);
+      $mysqli -> next_result();
     }
     else if($acao == "marca") {
       $tintas = tintas_carregarPor_marca($mysqli, $valor);
+      $mysqli -> next_result();
     }
     else {
       $tintas = tintas_carregar($mysqli);
+      $mysqli -> next_result();
     }
     
     $qtde_linhas = $tintas -> num_rows;
-    $mysqli -> next_result();
 
     $qtd_paginas = intdiv($qtde_linhas, 9);
     $resto = $qtde_linhas % 9;

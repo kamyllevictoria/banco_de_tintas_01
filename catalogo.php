@@ -174,9 +174,13 @@
                                                         <img src="./icones/editar.png" class="icone_position" width="20px" height="20px" alt="icone editar">
                                                         Alterar
                                                     </button>
-                                                    <form action="php/tintas_config.php" method="post">
+                                                    <form action="php/tintas_config.php" method="post" enctype="multipart/form-data">
                                                         <input type="hidden" name="alterar-tinta">
                                                         <input type="hidden" name="identificacao" value="<?= $linha["identificacao"]; ?>">
+
+                                                        <div class="d-flex justify-content-center">
+                                                            <input type="file" id="fileInput" name="imagem">
+                                                        </div>
                                                         
                                                         <div id="modalBackground<?= $linha["identificacao"]; ?>" class="modal-background"></div>
                                                         <div id="modalContainer<?= $linha["identificacao"]; ?>" class="container-green">

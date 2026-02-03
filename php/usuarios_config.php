@@ -239,7 +239,7 @@
             $_SESSION["cadastro-login"] = "Este e-mail já está em uso. Informe um e-mail diferente!";
         }
         else {
-            clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senhaHash, $nome, $direcionamento);
+            clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $linha["senhaHash"], $nome, $tabela["direcionamento"]);
             $mysqli -> next_result();
 
             $_SESSION["cadastro-login"] = "Dados atualizados.";

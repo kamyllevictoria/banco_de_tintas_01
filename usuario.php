@@ -150,10 +150,12 @@
                         <?php endif; ?>
                     </div>
                     <div class="d-flex justify-content-center my-3">
-                        <form action="php/usuarios_config.php" method="post">
-                            <input type="hidden" name="remover-foto">
-                            <button type="submit" class="btn btn-danger">Remover foto atual</button>
-                        </form>
+                        <?php if($foto): ?>
+                            <form action="php/usuarios_config.php" method="post">
+                                <input type="hidden" name="remover-foto">
+                                <button type="submit" class="btn btn-danger">Remover foto atual</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
 
                     <form action="php/usuarios_config.php" method="post" enctype="multipart/form-data">
@@ -202,6 +204,8 @@
                                     $dataHora = $linha["dataHora"];
                                     $tintasIdentificacao = $linha["tintasIdentificacao"];
                                     $clienteId = $linha["clienteId"];
+
+                                    $mysqli -> next_result();
 
                                     $pedidoStatusTabela = pedidoStatus_carregarPor_pedidosIds($mysqli, $dataHora, $tintasIdentificacao, $clienteId);
                                     $pedidoStatus = $pedidoStatusTabela -> fetch_assoc();
