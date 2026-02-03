@@ -209,6 +209,7 @@
     if(isset($_POST["alterar-usuario"])) {
         session_start();
         
+        $id = $_SESSION["USUARIO"];
         $nome = $_POST["nome"];
         $email = $_POST["email"];
         $telefone = $_POST["telefone"];
@@ -221,43 +222,23 @@
            $foto = "";
         }
 
-        $id = $_SESSION["USUARIO"];
-
-        $tabela = clientes_carregarPor_email($mysqli, $email);
+        $tabela = clientes_carregarPor_id($mysqli, $id);
         $linha = $tabela -> fetch_assoc();
-        $qtd_linhas = $tabela -> num_rows;
         $mysqli -> next_result();
+
+        if($linha["email"] != $email) {
+            $tabela = clientes_carregarPor_email($mysqli, $email);
+            $qtd_linhas = $tabela -> num_rows;
+            $mysqli -> next_result();
+        }
+        else {
+            $qtd_linhas = 0;
+        }
 
         if($qtd_linhas > 0) {
             $_SESSION["cadastro-login"] = "Este e-mail já está em uso. Informe um e-mail diferente!";
         }
         else {
-            $tabela = clientes_carregarPor_id($mysqli, $id);
-            $linha = $tabela -> fetch_assoc();
-            $mysqli -> next_result();
-
-            $senhaHash = $linha["senhaHash"];
-            $direcionamento = $linha["direcionamento"];
-
-            if($nome == NULL) {
-                $nome = $linha["nome"];
-            }
-
-            if($email == NULL) {
-                $email = $linha["email"];
-            }
-
-            if($telefone == NULL) {
-                $telefone = $linha["telefone"];
-            }
-
-            if($foto == "") {
-                $foto = $linha["foto"];
-            }
-            else {
-                removerImagem($linha["foto"]);
-            }
-
             clientes_atualizar($mysqli, $id, $email, $foto, $telefone, $senhaHash, $nome, $direcionamento);
             $mysqli -> next_result();
 
@@ -326,6 +307,11 @@
                     recuperarSenha_expirar_valido($mysqli, $clienteId);
                     $mysqli -> next_result();
 
+                    $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+                    clientes_atualizar_senha($mysqli, $clienteId, $senhaHash);
+                    $mysqli -> next_result();
+
+                    header("location: ../login.php");
                 }
                 else {
                     array_push($mensagem, false, "Repita a mesma senha digitada.");
