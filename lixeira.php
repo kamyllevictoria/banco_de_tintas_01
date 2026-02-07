@@ -20,7 +20,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
-    <script src="js/scripts.js" defer></script>
 
     <link rel="shortcut icon" href="imagens/Logo.png" type="image/x-icon">
 </head>
@@ -50,145 +49,153 @@
                 </div>
 
                 <div class="col-lg-10 col-12 main-content">
-                    <button class="btn restore-btn">
+                    <button class="btn restore-btn" data-bs-toggle="modal" data-bs-target="#modalRestaurarSelecionadas">
                         Restaurar selecionadas
                     </button>
+                    <div class="accordion" id="accordionTintas">
 
-                    <div class="paint-cards">
-                        <!-- Card 1 -->
-                        <div class="card paint-card">
-                            <div class="card-header card-bg" onclick="toggleCard('card1')">
-                                <div class="d-flex align-items-center">
-                                    <input type="checkbox" class="form-check-input checkbox-custom"
-                                        onclick="event.stopPropagation()">
-                                    <h6 class="card-title">#1 Tinta Laranja</h6>
-                                </div>
-                                <i class="fas fa-chevron-down toggle-icon" id="icon1"></i>
+                        <!-- ============ CARD 1 ============ -->
+                        <div class="d-flex align-items-start mb-3">
+
+                            <!-- CHECKBOX FORA -->
+                            <div class="pt-3 me-2">
+                                <input type="checkbox" class="form-check-input checkbox-externo">
                             </div>
-                            <div class="card-body hidden" id="card1">
-                                <div class="product-info">
-                                    <div class="product-image">
-                                        <img src="/placeholder.svg?height=120&width=120" alt="Tinta Laranja">
-                                    </div>
-                                    <div class="product-details">
-                                        <div class="detail-row">
-                                            <span class="detail-label">Quantidade disponível:</span>
-                                            <span class="detail-value">3.5L</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Data de validade:</span>
-                                            <span class="detail-value">27/06/2025</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Data de recebimento:</span>
-                                            <span class="detail-value">12/04/2025</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Marca:</span>
-                                            <span class="detail-value">Saci</span>
+
+                            <!-- ACCORDION -->
+                            <div class="accordion-item paint-card flex-grow-1">
+
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#card1">
+
+                                        <span class="card-title me-3">#1 Tinta Laranja</span>
+
+                                    </button>
+                                </h2>
+
+                                <div id="card1" class="accordion-collapse collapse" data-bs-parent="#accordionTintas">
+                                    <div class="accordion-body card-body">
+                                        <div class="product-info">
+                                            <div class="product-image">
+                                                <img src="./imagens/img14.jpg">
+                                            </div>
+
+                                            <div class="product-details">
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Quantidade disponível:</span>
+                                                    <span class="detail-value">3.5L</span>
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Data de validade:</span>
+                                                    <span class="detail-value">27/06/2025</span>
+                                                </div>
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Data de recebimento:</span>
+                                                    <span class="detail-value">27/03/2025</span>
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Marca:</span>
+                                                    <span class="detail-value">Saci</span>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+                            </div>
+                        </div>
+                        <!-- ============ CARD 2 ============ -->
+                        <div class="d-flex align-items-start mb-3">
+
+                            <div class="pt-3 me-2">
+                                <input type="checkbox" class="form-check-input checkbox-externo">
+                            </div>
+
+                            <!-- ACCORDION -->
+                            <div class="accordion-item paint-card flex-grow-1">
+
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#card2">
+
+                                        <span class="card-title me-3">#2 Tinta Preta</span>
+
+                                    </button>
+                                </h2>
+
+                                <div id="card2" class="accordion-collapse collapse" data-bs-parent="#accordionTintas">
+                                    <div class="accordion-body card-body">
+                                        <div class="product-info">
+                                            <div class="product-image">
+                                                <img src="./imagens/img12.jpg">
+                                            </div>
+
+                                            <div class="product-details">
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Quantidade disponível:</span>
+                                                    <span class="detail-value">3.5L</span>
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Data de validade:</span>
+                                                    <span class="detail-value">27/06/2025</span>
+                                                </div>
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Data de recebimento:</span>
+                                                    <span class="detail-value">27/03/2025</span>
+                                                </div>
+
+                                                <div class="detail-row">
+                                                    <span class="detail-label">Marca:</span>
+                                                    <span class="detail-value">Saci</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
-                        <!-- Card 2 -->
-                        <div class="card paint-card">
-                            <div class="card-header card-bg" onclick="toggleCard('card2')">
-                                <div class="d-flex align-items-center">
-                                    <input type="checkbox" class="form-check-input checkbox-custom"
-                                        onclick="event.stopPropagation()">
-                                    <h6 class="card-title">#2 Tinta Laranja</h6>
-                                </div>
-                                <i class="fas fa-chevron-down toggle-icon rotated" id="icon2"></i>
-                            </div>
-                            <div class="card-body" id="card2">
-                                <div class="product-info">
-                                    <div class="product-image">
-                                        <img src="/placeholder.svg?height=120&width=120" alt="Tinta Laranja">
-                                    </div>
-                                    <div class="product-details">
-                                        <div class="detail-row">
-                                            <span class="detail-label">Quantidade disponível:</span>
-                                            <span class="detail-value">3.5L</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Data de validade:</span>
-                                            <span class="detail-value">27/06/2025</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Data de recebimento:</span>
-                                            <span class="detail-value">12/04/2025</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Data de validade:</span>
-                                            <span class="detail-value">27/06/2025</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Marca:</span>
-                                            <span class="detail-value">Saci</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="card paint-card">
-                            <div class="card-header card-bg" onclick="toggleCard('card3')">
-                                <div class="d-flex align-items-center">
-                                    <input type="checkbox" class="form-check-input checkbox-custom"
-                                        onclick="event.stopPropagation()">
-                                    <h6 class="card-title">#3 Tinta azul</h6>
-                                </div>
-                                <i class="fas fa-chevron-down toggle-icon" id="icon3"></i>
-                            </div>
-                            <div class="card-body hidden" id="card3">
-                                <div class="product-info">
-                                    <div class="product-image">
-                                        <img src="/placeholder.svg?height=120&width=120" alt="Tinta Azul">
-                                    </div>
-                                    <div class="product-details">
-                                        <div class="detail-row">
-                                            <span class="detail-label">Quantidade disponível:</span>
-                                            <span class="detail-value">2.8L</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Data de validade:</span>
-                                            <span class="detail-value">15/08/2025</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Data de recebimento:</span>
-                                            <span class="detail-value">20/03/2025</span>
-                                        </div>
-                                        <div class="detail-row">
-                                            <span class="detail-label">Marca:</span>
-                                            <span class="detail-value">Saci</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script>
-    function toggleCard(cardId) {
-        const cardBody = document.getElementById(cardId);
-        const icon = document.getElementById('icon' + cardId.slice(-1));
+    <!-- MODAL DE RESTAURAR SELECIONADAS-->
+    <div class="modal fade" id="modalRestaurarSelecionadas" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-        if (cardBody.classList.contains('hidden')) {
-            cardBody.classList.remove('hidden');
-            icon.classList.add('rotated');
-        } else {
-            cardBody.classList.add('hidden');
-            icon.classList.remove('rotated');
-        }
-    }
-    </script>
+                <div class="modal-header">
+                    <h5 class="modal-title text-green">Confirmar restauração</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    Tem certeza que deseja restaurar as tintas selecionadas?
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn btn-green">
+                        Sim, restaurar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="js/scripts.js" defer></script>
 </body>
 
 </html>

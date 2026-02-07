@@ -11,10 +11,11 @@
 .pad_top_20 {
   padding-top: 20px;
 }
+
 .main-content {
-  background-color: #f1f2f6;
   min-height: 100vh;
-  color: white;
+  padding: 30px;
+  background-color: #fafafa;
   display: flex;
   flex-direction: column;
 }
@@ -30,49 +31,35 @@
   color: white !important;
   border: 1px solid white;
 }
+.nav-item {
+  margin-bottom: 0;
+}
 
 /* -------------------------------------- */
 
-.text_purple {
-  color: #84469b !important;
+.text-green {
+  color: #637046;
   font-weight: bold;
-}
-
-.btn-green {
-  background-color: #8eb041 !important;
-  color: black !important;
-  border: none;
-}
-
-.text_green {
-  color: #8eb041;
-  font-weight: bold;
-}
-
-.main-content {
-  min-height: 100vh;
-  padding: 20px;
-  background-color: #fafafa;
-  display: flex;
-  flex-direction: column;
 }
 
 .restore-btn {
   background-color: #8eb041;
-  border: none;
+  border-color: #8eb041;
   color: black;
   padding: 8px 20px;
   border-radius: 4px;
   font-size: 14px;
+  font-weight: 500;
   margin-bottom: 20px;
-  font-weight: bold;
+  border: 1px solid #8eb041;
   transition: all 0.3s ease;
   width: 200px;
 }
 
 .restore-btn:hover {
-  background-color: #7da037;
-  transform: translateY(-1px);
+  background-color: #fafafa;
+  color: #8eb041;
+  border: 1px solid #8eb041;
 }
 
 .paint-card {
@@ -81,14 +68,15 @@
   margin-bottom: 15px;
   overflow: hidden;
   transition: all 0.3s ease;
-}
-
-.paint-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.paint-card:hover {
+  transform: scale(1.01);
+}
+
 .card-header {
-  background-color: #c5c5c5;
+  background-color: #eeeeee;
   border: none;
   padding: 15px 20px;
   display: flex;
@@ -99,37 +87,22 @@
 }
 
 .card-title {
-  color: #84469b;
+  color: #637046;
   font-weight: bold;
   margin: 0;
   font-size: 16px;
 }
 
-.toggle-icon {
-  color: #84469b;
-  font-size: 18px;
-  transition: transform 0.3s ease;
-}
-
-.toggle-icon.rotated {
-  transform: rotate(180deg);
-}
-
 .card-body {
-  padding: 20px;
-  background-color: #eeeeee;
+  padding: 24px;
+  background-color: white;
 }
 
-.card-body.hidden {
-  display: none !important;
-}
-.card-bg {
-  background-color: #d9d9d9;
-}
 .product-info {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 30px;
+  align-items: start;
 }
 
 .product-image {
@@ -141,28 +114,30 @@
   height: 120px;
   object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(31, 28, 28, 0.1);
 }
 
 .product-details {
-  flex: 1;
+  width: 100%;
+  padding-right: 20px;
 }
 
 .detail-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  padding: 4px 0;
+  display: grid;
+  grid-template-columns: 200px auto;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
 .detail-label {
-  font-weight: 600;
-  color: black;
+  text-align: left;
+  font-weight: 500;
 }
 
 .detail-value {
-  color: #8eb041;
-  font-weight: 500;
+  text-align: left;
+  padding-left: 10px;
+  color: #637046;
 }
 
 .checkbox-custom {
@@ -176,25 +151,56 @@
   overflow: hidden;
 }
 
-.collapse:not(.show) {
-  height: 0;
+.accordion-button {
+  display: flex !important;
+  align-items: center !important;
+  padding: 18px 22px !important;
+  min-height: 64px;
+  background-color: #e9e9e9;
 }
 
-.collapse.show {
-  height: auto;
+.accordion-button > div:first-child {
+  flex: 1;
 }
 
-.collapsing {
-  transition: height 0.4s ease;
+.accordion-item {
+  border: none !important;
+  margin-bottom: 18px !important;
+  border-radius: 12px !important;
 }
 
-.nav-item {
-  margin-bottom: 0;
+.accordion-button:not(.collapsed) {
+  background-color: #e9e9e9 !important;
+  color: #84469b !important;
+  box-shadow: none !important;
 }
 
-.text_light_green {
-  color: #aef01d;
-  font-weight: bold;
+.accordion-button:focus {
+  box-shadow: none !important;
+  border-color: #dee2e6 !important;
+}
+/* Modals ---------------------------*/
+.btn-green {
+  background-color: #637046;
+  color: white;
+  border: none;
+}
+
+.btn-green:hover {
+  background-color: white;
+  color: #637046;
+  border: 1px solid #637046;
+}
+.btn-cancel {
+  background-color: #5c636a;
+  color: white;
+  border: none;
+}
+
+.btn-cancel:hover {
+  background-color: white;
+  color: #5c636a;
+  border: 1px solid #5c636a;
 }
 
 @media (max-width: 768px) {
