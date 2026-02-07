@@ -26,8 +26,9 @@
 }
 
 .link_bg_adm:hover {
-  background-color: #8eb041;
-  color: white;
+  background-color: #84469b;
+  color: white !important;
+  border: 1px solid white;
 }
 
 /* -------------------------------------- */

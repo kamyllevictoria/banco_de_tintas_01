@@ -30,20 +30,3 @@ function cpfOuCnpj() {
         nomeEmpresa.style.display = "block";
     }
 }
-
-function atualizarBotao(opcao) {
-    document.getElementById('dropdownMenuButton').innerText = opcao;
-}
-document.querySelectorAll('.accordion-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const target = document.querySelector(button.getAttribute('data-bs-target'));
-        
-        // Se a seção já está aberta, feche-a
-        if (target.classList.contains('show')) {
-            target.classList.remove('show');
-        } else {
-            // Caso contrário, deixe o Bootstrap lidar com o fechamento de outras seções
-            target.classList.add('show');
-        }
-    });
-});
