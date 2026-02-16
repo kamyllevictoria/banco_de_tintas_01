@@ -30,3 +30,21 @@ function cpfOuCnpj() {
         nomeEmpresa.style.display = "block";
     }
 }
+// Pré visualização da imagem selecinada - Tela Cadastrar tinta
+let imagem = document.getElementById("img-tintas");
+let botaoImagem = document.getElementById("uploadImagem");
+
+botaoImagem.addEventListener('change', () => {
+
+    if (botaoImagem.files.length <= 0) {
+        return;
+    }
+
+    let leitor = new FileReader();
+
+    leitor.onload = () => {
+        imagem.src = leitor.result;
+    }
+
+    leitor.readAsDataURL(botaoImagem.files[0]);
+});
