@@ -49,17 +49,11 @@
   border: 1px solid #8eb041 !important;
 }
 
-.text_light_green {
-  color: #aef01d;
-  padding-bottom: 20px;
-  padding-top: 50px;
-}
-
 .bg_lilac {
   background-color: white;
   height: auto;
   padding: 20px;
-  margin: 20px; /* adiciona espaço externo */
+  margin: 20px;
   margin-top: 30px;
   border-radius: 9px;
   box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.4);

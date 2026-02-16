@@ -136,55 +136,7 @@
             </div>
         </div>
     </section>
-    <script>
-    document.querySelectorAll('.statusDropdown').forEach((dropdown) => {
-        dropdown.addEventListener('change', function() {
-            const status = this.value;
-            const statusTextDiv = this.closest('.card-body').querySelector('.statusText');
 
-            if (status) {
-                statusTextDiv.textContent =
-                    `Status: ${status.charAt(0).toUpperCase() + status.slice(1)}`;
-            } else {
-                statusTextDiv.textContent = '';
-            }
-        });
-    });
-    </script>
-    <script>
-    function opcoes(id) {
-        let statusDropdown = document.getElementById("statusOpcoe" + id);
-        let status = statusDropdown.value;
-
-        let formularioRetirada = document.getElementById("formularioRetirada" + id);
-        let formularioObservacoes = document.getElementById("formularioObservacoes" + id);
-        let btnSalvarDados = document.getElementById("salvarDados" + id);
-
-        let data = document.getElementById("Data_retirada" + id);
-        let hora = document.getElementById("Hora_retirada" + id);
-        let observacoes = document.getElementById("Observacoes" + id);
-
-        if (status === "1") {
-            formularioRetirada.style.display = 'block';
-            formularioObservacoes.style.display = 'none';
-            btnSalvarDados.style.display = 'block';
-
-        } else if (status === "2") {
-            formularioRetirada.style.display = 'block';
-            formularioObservacoes.style.display = 'block';
-            btnSalvarDados.style.display = 'block';
-
-        } else if (status == "3") {
-            formularioRetirada.style.display = 'none';
-            formularioObservacoes.style.display = 'block';
-            btnSalvarDados.style.display = 'block';
-        } else {
-            formularioRetirada.style.display = 'none';
-            formularioObservacoes.style.display = 'none';
-            btnSalvarDados.style.display = 'none';
-        }
-    }
-    </script>
 </body>
 
 </html>
