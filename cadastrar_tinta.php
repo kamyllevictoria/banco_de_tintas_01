@@ -58,21 +58,32 @@ if ($_SESSION["ADM"] == FALSE && $_SESSION["ADM"] == NULL) {
     <section class="pagina">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 pb-3 col-12 sidebar">
-                    <h4 class="menu_text">MENU</h4>
+                <div class="col-lg-2 col-12 sidebar">
                     <ul class="nav flex-column">
                         <li class="nav-item pad_top_20">
-                            <a class="nav-link text-dark link_bg_adm" href="pedidos.php">Pedidos</a>
+                            <a class="nav-link text-dark link_bg_adm" href="pedidos.php">
+                                <i class=" menu-icon fa-solid fa-list-check"></i>
+                                Pedidos
+                            </a>
                         </li>
                         <li class="nav-item pad_top_20">
-                            <a class="nav-link text-dark link_bg_adm" href="cadastrar_tinta.php">Cadastrar tinta</a>
+                            <a class="selected nav-link" href="cadastrar_tinta.php" title="Você já está nesta página">
+                                <i class="menu-icon fa-regular fa-pen-to-square"></i>
+                                Cadastrar tinta
+                            </a>
                         </li>
 
                         <li class="nav-item pad_top_20">
-                            <a class="nav-link text-dark link_bg_adm" href="catalogo.php">Catálogo</a>
+                            <a class="nav-link text-dark link_bg_adm" href="catalogo.php">
+                                <i class="menu-icon fa-solid fa-list"></i>
+                                Catálogo
+                            </a>
                         </li>
                         <li class="nav-item pad_top_20">
-                            <a class="nav-link text-dark link_bg_adm" href="lixeira.php">Lixeira</a>
+                            <a class="nav-link text-dark link_bg_adm" href="lixeira.php">
+                                <i class="menu-icon fa-regular fa-trash-can"></i>
+                                Lixeira
+                            </a>
                         </li>
                     </ul>
                 </div>
